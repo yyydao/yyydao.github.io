@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Mac on Nodecafe</title>
+    <link>https://nodecafe.me/tags/mac/</link>
+    <description>Recent content in Mac on Nodecafe</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Fri, 23 Mar 2018 10:44:05 +0800</lastBuildDate>
+    
+	<atom:link href="https://nodecafe.me/tags/mac/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>mac全栈开发环境</title>
+      <link>https://nodecafe.me/posts/mac-full-stack-env/</link>
+      <pubDate>Fri, 23 Mar 2018 10:44:05 +0800</pubDate>
+      
+      <guid>https://nodecafe.me/posts/mac-full-stack-env/</guid>
+      <description>&lt;p&gt;最近Mac由于磁盘空间被用完导致开不了机，天才吧排队又久，TimeMachine 恢复系统后，居然进不去系统。
+无奈之下只能选择重装系统。这就意味着之前整好的开发环境要全部重新再折腾一次。&lt;/p&gt;
+
+&lt;p&gt;此文作为本次重装的一次记录，一是为了方便自己，也希望能方便他人。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
