@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on Nodecafe</title>
-    <link>https://nodecafe.me/tags/</link>
+    <link>https://yyydao.github.io/tags/</link>
     <description>Recent content in Tags on Nodecafe</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <lastBuildDate>Fri, 23 Mar 2018 10:44:05 +0800</lastBuildDate>
     
-	<atom:link href="https://nodecafe.me/tags/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://yyydao.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Mac</title>
-      <link>https://nodecafe.me/tags/mac/</link>
+      <link>https://yyydao.github.io/tags/mac/</link>
       <pubDate>Fri, 23 Mar 2018 10:44:05 +0800</pubDate>
       
-      <guid>https://nodecafe.me/tags/mac/</guid>
+      <guid>https://yyydao.github.io/tags/mac/</guid>
       <description></description>
     </item>
     
