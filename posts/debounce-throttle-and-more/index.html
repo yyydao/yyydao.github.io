@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nodecafe  | Debounce Throttle and More</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.38.2" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    <link href='https://yyydao.github.io/dist/main.css' rel='stylesheet' type="text/css" />
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="Debounce Throttle and More" />
+<meta property="og:description" content="Debounce和Throttle是两种常用的JS技巧，同时也是非常实用的技术。 所以有大量的文章专门介绍，包括不少洗稿了CSS-Trick那篇文章，尤其是那些用电梯做比喻的文章，不得不说，电梯的比喻烂透了。
+
+简单来说，debounce在计算机词典中译作防反跳，其他常见翻译是防抖动，由词根 de- 和 bounce 组成，具体详解见下文。throttle可译作节流，那些写成截流的，估计是用了拼音输入法并且没理解throttle含义，截流的英文通常译作closure，截流原指堵截水流，使改变方向或提高水位，所以叫截流根本是牛头不对马嘴；而节流本意是节制水流，比喻节约开支。其实想想成语开源节流或者节流阀门，就明白了。
+
+这两个从字面来看，似乎能得到些感性上的大致理解。下面，细说一下这两个技巧。
+
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://yyydao.github.io/posts/debounce-throttle-and-more/" />
+
+
+
+<meta property="article:published_time" content="2018-03-26T23:38:52&#43;08:00"/>
+
+<meta property="article:modified_time" content="2018-03-26T23:38:52&#43;08:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="Debounce Throttle and More">
+<meta itemprop="description" content="Debounce和Throttle是两种常用的JS技巧，同时也是非常实用的技术。 所以有大量的文章专门介绍，包括不少洗稿了CSS-Trick那篇文章，尤其是那些用电梯做比喻的文章，不得不说，电梯的比喻烂透了。
+
+简单来说，debounce在计算机词典中译作防反跳，其他常见翻译是防抖动，由词根 de- 和 bounce 组成，具体详解见下文。throttle可译作节流，那些写成截流的，估计是用了拼音输入法并且没理解throttle含义，截流的英文通常译作closure，截流原指堵截水流，使改变方向或提高水位，所以叫截流根本是牛头不对马嘴；而节流本意是节制水流，比喻节约开支。其实想想成语开源节流或者节流阀门，就明白了。
+
+这两个从字面来看，似乎能得到些感性上的大致理解。下面，细说一下这两个技巧。
+
+">
+
+
+<meta itemprop="datePublished" content="2018-03-26T23:38:52&#43;08:00" />
+<meta itemprop="dateModified" content="2018-03-26T23:38:52&#43;08:00" />
+<meta itemprop="wordCount" content="348">
+
+
+
+<meta itemprop="keywords" content="javascript,fundamental," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Debounce Throttle and More"/>
+<meta name="twitter:description" content="Debounce和Throttle是两种常用的JS技巧，同时也是非常实用的技术。 所以有大量的文章专门介绍，包括不少洗稿了CSS-Trick那篇文章，尤其是那些用电梯做比喻的文章，不得不说，电梯的比喻烂透了。
+
+简单来说，debounce在计算机词典中译作防反跳，其他常见翻译是防抖动，由词根 de- 和 bounce 组成，具体详解见下文。throttle可译作节流，那些写成截流的，估计是用了拼音输入法并且没理解throttle含义，截流的英文通常译作closure，截流原指堵截水流，使改变方向或提高水位，所以叫截流根本是牛头不对马嘴；而节流本意是节制水流，比喻节约开支。其实想想成语开源节流或者节流阀门，就明白了。
+
+这两个从字面来看，似乎能得到些感性上的大致理解。下面，细说一下这两个技巧。
+
+"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://yyydao.github.io" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nodecafe
+    </a>
+    <div class="flex-l items-center">
+      
+        <ul class="pl0 mr3">
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/about/" title="关于 page">
+              关于
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/posts/" title="Articles page">
+              Articles
+            </a>
+          </li>
+          
+        </ul>
+      
+      
+
+
+
+
+
+
+
+  <a href="https://github.com/yyydao" class="link-transition github link dib z-999 pt3 pt0-l mr2" title="Github link">
+    <svg  height="32px"  style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+  <path d="M256,32C132.3,32,32,134.8,32,261.7c0,101.5,64.2,187.5,153.2,217.9c11.2,2.1,15.3-5,15.3-11.1   c0-5.5-0.2-19.9-0.3-39.1c-62.3,13.9-75.5-30.8-75.5-30.8c-10.2-26.5-24.9-33.6-24.9-33.6c-20.3-14.3,1.5-14,1.5-14   c22.5,1.6,34.3,23.7,34.3,23.7c20,35.1,52.4,25,65.2,19.1c2-14.8,7.8-25,14.2-30.7c-49.7-5.8-102-25.5-102-113.5   c0-25.1,8.7-45.6,23-61.6c-2.3-5.8-10-29.2,2.2-60.8c0,0,18.8-6.2,61.6,23.5c17.9-5.1,37-7.6,56.1-7.7c19,0.1,38.2,2.6,56.1,7.7   c42.8-29.7,61.5-23.5,61.5-23.5c12.2,31.6,4.5,55,2.2,60.8c14.3,16.1,23,36.6,23,61.6c0,88.2-52.4,107.6-102.3,113.3   c8,7.1,15.2,21.1,15.2,42.5c0,30.7-0.3,55.5-0.3,63c0,6.1,4,13.3,15.4,11C415.9,449.1,480,363.1,480,261.7   C480,134.8,379.7,32,256,32z"/>
+</svg>
+
+  </a>
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+    <main class="pb7" role="main">
+      
+  <div class="flex-l mt2 mw8 center">
+    <article class="center cf pv5 ph3 ph4-ns mw7">
+      <header>
+        <p class="f6 b helvetica tracked">
+          POSTS
+        </p>
+        <h1 class="f1">
+          Debounce Throttle and More
+        </h1>
+      </header>
+      <div class="nested-copy-line-height lh-copy f4 nested-links nested-img mid-gray">
+        <p>Debounce和Throttle是两种常用的JS技巧，同时也是非常实用的技术。 所以有大量的文章专门介绍，包括不少洗稿了CSS-Trick那篇文章，尤其是那些用电梯做比喻的文章，不得不说，电梯的比喻烂透了。</p>
+
+<p>简单来说，debounce在计算机词典中译作防反跳，其他常见翻译是防抖动，由词根 <code>de-</code> 和 <code>bounce</code> 组成，具体详解见下文。throttle可译作节流，那些写成截流的，估计是用了拼音输入法并且没理解throttle含义，截流的英文通常译作closure，截流原指堵截水流，使改变方向或提高水位，所以叫截流根本是牛头不对马嘴；而节流本意是节制水流，比喻节约开支。其实想想成语开源节流或者节流阀门，就明白了。</p>
+
+<p>这两个从字面来看，似乎能得到些感性上的大致理解。下面，细说一下这两个技巧。</p>
+
+<p></p>
+
+<h2 id="debounce">Debounce</h2>
+
+<h3 id="debounce-1">Debounce</h3>
+
+
+<figure>
+    
+        <img src="/posts/images/bounce.jpg" />
+    
+    
+    <figcaption>
+        <h4>电路中的bounce现象</h4>
+        
+    </figcaption>
+    
+</figure>
+
+
+<p>如果学过数字电路/模拟电路的话，可能会知道，Bounce现象最开始是出现在一些电路设计中。机械开关或继电器闭合时，开关单元通常会发生反弹，这种抖动会导致传输的信号不清晰，会导致多次的状态转换。
+就类似一个皮球从高出落下，要经历过几次反弹后才最终稳定下来一样，这也是bounce原来的语意。</p>
+
+<p>比如键盘按下一个字母J，但是会得到了好几个J，或者鼠标单击变双击，这些都是常见的抖动现象。</p>
+
+<p>为了解决bounce问题，电路设计中会引入debounce，即防反跳器，以消除这类有害的抖动。</p>
+
+<p>在程序设计中，必然也会有debounce这样的设计。</p>
+
+<p>总之，Debounce的概念是：一个函数被调用过一次后，在阈值时间内未被再次调用，那么当这段时间过去后，就执行最后那一次调用函数。</p>
+
+<h2 id="throttle">Throttle</h2>
+
+<h4 id="何为-throttle">何为 Throttle</h4>
+
+<p>从字面理解，就是类似一条水管上的阀门，当流量太大的时候，就需要扭紧阀门降低流量。函数节流后，代码就不会在没有间断过的情况下，不断调用执行，而是以一种被限流状的态执行。</p>
+
+<p>转到前端的场景，比如在scroll事件中触发的函数，Throttle可以让函数调用阈值降到1S一次。那么在1S内，函数就不会被调用2次，10s内，无论有多少次scroll事件中触发，函数只调用10次。</p>
+
+<p>总之，throttle方法规定了在给定时间内，函数的最大可执行次数。</p>
+
+<h3 id="debounce-vs-throttle">Debounce vs Throttle</h3>
+
+<p>我们把100ms作为间隔的时间值，下面举例子说明两者区别：</p>
+
+<h4 id="debounce-2">Debounce</h4>
+
+<p>100ms已过，期间该函数没有被调用过，那么可执行该函数了。</p>
+
+<p>一个函数在很短的时间间隔内被<strong>连续</strong>调用了1000次，这个过程用了2s，如果你对该函数做了一个100ms的debounce处理，那么可能在2.3s时，由于时这段爆发式调用已经结束并且间隔了100ms都没有新的调用进来，那么执行一次该函数。</p>
+
+<h4 id="throttle-1">Throttle</h4>
+
+<p>每100ms，最多只执行一次该函数。</p>
+
+<p>10s内，你一共连续调用了1000次该函数，那么节流处理后，10s也就是10000ms时间内，该函数总共最多执行了</p>
+
+<p><sup>10000</sup>&frasl;<sub>100</sub> = 100次。</p>
+
+<h2 id="实现debounce方法">实现Debounce方法</h2>
+
+<p>debounce方法接受两个参数：1、需要防抖动处理的函数。2、延迟时间。</p>
+
+<pre><code class="language-javascript">/**
+*
+*@param func {Function} 实际执行的函数
+*@param delay {Number} 延迟阈值，毫秒单位
+*@return {Function}
+*/
+function debounce(func,delay){
+  // set a timer for setTimeout
+  let timer
+  //return the function that will be triggered after delay milliseconds
+  return function(){
+    // pass context and argument to func
+    let context = this
+    let args = arguments
+
+    // each time this function is invoked,then clear timeout and don't fired func
+    clearTimeout(timer)
+
+    //The function will be called after it stops being called for
+    // N milliseconds.
+    timer = setTimeout(function(){
+      func.apply(context,args)
+    },delay)
+  }
+}
+</code></pre>
+
+<p>以上实现的Demo可戳<a href="https://codepen.io/yyydao/pen/rdPpPN">这里</a></p>
+
+<p>可以实现一个ECMA2015+版本。会简洁不少。</p>
+
+<p><code>debounce</code>返回了一个箭头函数，箭头函数内部的<code>this</code>不会出现动态绑定的情况，省去了<code>let context = this</code>为了保存<code>this</code>不变而做的 hack。箭头函数利用<code>...args</code>作为「rest参数」，将<code>arguments</code>数组收集起来传入函数内，省去了 <code>let args = arguments</code>这一步操作，最后<code>setTimeout</code>函数内的<code>func(...args)</code>方法，替代原来的<code>func.apply(..)</code>,可以认为是<code>apply(..) </code>的缩写。</p>
+
+<pre><code class="language-javascript">/**
+ *
+ * @param func {Function} 要进行处理的函数
+ * @param delay {Number} 延迟阈值，毫秒单位
+ * @returns {Function}
+ */
+function debounce(func, delay) {
+    // set a timer for setTimeout
+    let timer
+
+    //return a function that will be triggered after delay milliseconds
+    return (...args) =&gt; {
+
+        // each time this function is invoked,then clear timeout and don't fired func
+        clearTimeout(timer)
+
+        //The function will be called after it stops being called for
+        // N milliseconds.
+
+        timer = setTimeout(() =&gt; {
+            timer = null
+            func(...args)
+        }, delay)
+    }
+}
+
+</code></pre>
+
+<p>Demo见 <a href="https://codepen.io/yyydao/pen/GxBPQb">这里</a></p>
+
+<h3 id="实现throttle方法">实现Throttle方法</h3>
+
+<p>类似debounce，在throttle中，接收两个参数，实际执行的函数 <code>func</code> 和阀门参数<code>threshold</code>来做限流。</p>
+
+<pre><code class="language-javascript">/**
+ *
+ * @param func
+ * @param threshold
+ * @return function
+ */
+function throttle(func, threshold) {
+  let timer 
+  let last
+  threshold || (threshold = 16)
+  return function(){
+    let context = this
+    let args = arguments
+    let now = +new Date()
+    if(last &amp;&amp; now&lt; last+threshold){
+      clearTimeout(timer)
+      timer = setTimeout(function(){
+        last = now
+        func.apply(context,args)
+      },threshold)
+    }else{
+      last = now
+      func.apply(context,args)
+    }
+  }
+}
+</code></pre>
+
+<p><a href="https://codepen.io/yyydao/pen/YadKVJ">demo</a></p>
+
+<p>ES6实现版本：</p>
+
+<pre><code class="language-javascript">/**
+ *
+ * @param func
+ * @param threshold
+ * @return function
+ */
+function throttle(func, threshold = 16) {
+    let last
+
+    let timer
+
+    return (...args) =&gt;{
+
+        let now = +new Date()
+
+        if (last &amp;&amp; now &lt; last + threshold) {
+            clearTimeout(timer)
+
+            timer = setTimeout(function () {
+                last = now
+                func(...args)
+            },threshold)
+        } else {
+            last = now
+            func(...args)
+        }
+    }
+
+}
+</code></pre>
+
+<p><a href="https://codepen.io/yyydao/pen/yKGBVJ">demo</a></p>
+      </div>
+    </article>
+    <aside class="ph3 mt2 mt6-ns">
+      
+
+
+
+
+
+
+
+  <div class="bg-light-gray pa3">
+    <ul>
+      <li class="list b mb3">
+        1 More Posts
+      </li>
+      
+        <li class="list f5 w-100 hover-bg-white nl1">
+          
+          <a href="/posts/debounce-throttle-and-more/" class="link ph2 pv2 db black o-50">
+            Debounce Throttle and More
+          </a>
+        </li>
+      
+        <li class="list f5 w-100 hover-bg-white nl1">
+          
+          <a href="/posts/mac-full-stack-env/" class="link ph2 pv2 db black">
+            mac全栈开发环境
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+    </aside>
+  </div>
+
+    </main>
+    <footer class="bg-near-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://yyydao.github.io" >
+    &copy; 2018 Nodecafe
+  </a>
+  
+
+
+
+
+
+
+
+  <a href="https://github.com/yyydao" class="link-transition github link dib z-999 pt3 pt0-l mr2" title="Github link">
+    <svg  height="32px"  style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+  <path d="M256,32C132.3,32,32,134.8,32,261.7c0,101.5,64.2,187.5,153.2,217.9c11.2,2.1,15.3-5,15.3-11.1   c0-5.5-0.2-19.9-0.3-39.1c-62.3,13.9-75.5-30.8-75.5-30.8c-10.2-26.5-24.9-33.6-24.9-33.6c-20.3-14.3,1.5-14,1.5-14   c22.5,1.6,34.3,23.7,34.3,23.7c20,35.1,52.4,25,65.2,19.1c2-14.8,7.8-25,14.2-30.7c-49.7-5.8-102-25.5-102-113.5   c0-25.1,8.7-45.6,23-61.6c-2.3-5.8-10-29.2,2.2-60.8c0,0,18.8-6.2,61.6,23.5c17.9-5.1,37-7.6,56.1-7.7c19,0.1,38.2,2.6,56.1,7.7   c42.8-29.7,61.5-23.5,61.5-23.5c12.2,31.6,4.5,55,2.2,60.8c14.3,16.1,23,36.6,23,61.6c0,88.2-52.4,107.6-102.3,113.3   c8,7.1,15.2,21.1,15.2,42.5c0,30.7-0.3,55.5-0.3,63c0,6.1,4,13.3,15.4,11C415.9,449.1,480,363.1,480,261.7   C480,134.8,379.7,32,256,32z"/>
+</svg>
+
+  </a>
+
+
+  </div>
+</footer>
+
+    <script src="https://yyydao.github.io/dist/app.bundle.js" async></script>
+
+  </body>
+</html>
