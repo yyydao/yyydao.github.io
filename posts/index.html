@@ -188,37 +188,6 @@
 
         </div>
       
-        <div class="relative w-100  mb4 bg-white">
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/posts/whatwg-event-loop/" class="link black dim">
-        
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      Event Loop 定义 为了协调事件，用户交互，脚本，渲染，网络等，用户代理必须使用本文所述的事件循环。有两种事件循环：用于浏览上下文(browsing contexts)和Worker。
-每个用户代理必须至少有一个浏览上下文事件循环，并且至多有一个unit of related similar-origin browsing contexts（没查到中文这叫啥，字面我自行翻译成相似来源相关浏览上下文单元，该概念可以看这里）。
- 对于有多个相关浏览上下文单元事件循环的情况，当该组中的浏览上下文被导航，从一个相关的相似来源浏览上下文单元切换到另一个单元时，复杂性会出现。 本规范目前没有描述如何处理这些复杂问题。
- 浏览上下文事件循环始终至少有一个浏览上下文。如果这样的事件循环的浏览上下文全部消失，那么事件循环也会消失。浏览上下文总是有一个事件循环来协调其活动。
-Worker事件循环更简单：每个Worker都有一个事件循环，通过Worker处理模型 ( worker processing model )管理事件循环的生命周期。
-事件循环具有一个或多个任务队列 ( task queue )。任务队列是一个有序的任务列表，它是负责如下工作的算法：
- 事件
-在特定的EventTarget对象上分派Event对象，通常由专门的任务完成。
-   并非所有事件都使用任务队列分派，其他许多事件都会在其他任务中分派。
-  Parsing  HTML解析器token一个或多个字节，然后处理任何结果令牌，这个过程一般视为一个任务。
- Callbacks  调用回调通常由指定任务完成。
- Using a resource  当算法获取资源时，如果以非阻塞方式进行提取，那么一旦某个或全部资源可用，对资源的处理由任务执行。
- 对DOM操作作出反应  某些元素具有响应DOM操作而触发的任务，例如，当该元素插入到文档中时。
-浏览上下文类型的事件循环中的每一个任务都与一个Document对象关联；如果任务的队列在一个元素的上下文中，那么它是元素的节点文档；如果任务队列在浏览上下文中，那么它是任务排队时的浏览上下文活动文档；如果任务是因为script脚本产生的队列，那么该文档对象是由该（script&rsquo;s settings object）产生的（A responsible document）
- A responsible document: For example, the URL of the responsible document is used to set the URL of the Document after it has been reset using document.
-    </div>
-  </div>
-</div>
-
-        </div>
-      
     </section>
   
 
