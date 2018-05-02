@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nodecafe  | Let&#39;s Encrypt 部署</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.40.2" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    <link href='https://yyydao.github.io/dist/main.css' rel='stylesheet' type="text/css" />
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="Let&#39;s Encrypt 部署" />
+<meta property="og:description" content="Let&rsquo;s Encrypt 最近支持wildcard，顺便自己之前vps的东西也铲掉重来，所以这里是一篇再次部署Let&rsquo;s encrypt证书的文章。
+
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://yyydao.github.io/posts/lets-encrypt/" />
+
+
+
+<meta property="article:published_time" content="2018-03-25T12:16:12&#43;08:00"/>
+
+<meta property="article:modified_time" content="2018-03-25T12:16:12&#43;08:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="Let&#39;s Encrypt 部署">
+<meta itemprop="description" content="Let&rsquo;s Encrypt 最近支持wildcard，顺便自己之前vps的东西也铲掉重来，所以这里是一篇再次部署Let&rsquo;s encrypt证书的文章。
+
+">
+
+
+<meta itemprop="datePublished" content="2018-03-25T12:16:12&#43;08:00" />
+<meta itemprop="dateModified" content="2018-03-25T12:16:12&#43;08:00" />
+<meta itemprop="wordCount" content="187">
+
+
+
+<meta itemprop="keywords" content="nginx,https," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Let&#39;s Encrypt 部署"/>
+<meta name="twitter:description" content="Let&rsquo;s Encrypt 最近支持wildcard，顺便自己之前vps的东西也铲掉重来，所以这里是一篇再次部署Let&rsquo;s encrypt证书的文章。
+
+"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://yyydao.github.io" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nodecafe
+    </a>
+    <div class="flex-l items-center">
+      
+        <ul class="pl0 mr3">
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/about/" title="关于 page">
+              关于
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/posts/" title="Articles page">
+              Articles
+            </a>
+          </li>
+          
+        </ul>
+      
+      
+
+
+
+
+
+
+
+  <a href="https://github.com/yyydao" class="link-transition github link dib z-999 pt3 pt0-l mr2" title="Github link">
+    <svg  height="32px"  style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+  <path d="M256,32C132.3,32,32,134.8,32,261.7c0,101.5,64.2,187.5,153.2,217.9c11.2,2.1,15.3-5,15.3-11.1   c0-5.5-0.2-19.9-0.3-39.1c-62.3,13.9-75.5-30.8-75.5-30.8c-10.2-26.5-24.9-33.6-24.9-33.6c-20.3-14.3,1.5-14,1.5-14   c22.5,1.6,34.3,23.7,34.3,23.7c20,35.1,52.4,25,65.2,19.1c2-14.8,7.8-25,14.2-30.7c-49.7-5.8-102-25.5-102-113.5   c0-25.1,8.7-45.6,23-61.6c-2.3-5.8-10-29.2,2.2-60.8c0,0,18.8-6.2,61.6,23.5c17.9-5.1,37-7.6,56.1-7.7c19,0.1,38.2,2.6,56.1,7.7   c42.8-29.7,61.5-23.5,61.5-23.5c12.2,31.6,4.5,55,2.2,60.8c14.3,16.1,23,36.6,23,61.6c0,88.2-52.4,107.6-102.3,113.3   c8,7.1,15.2,21.1,15.2,42.5c0,30.7-0.3,55.5-0.3,63c0,6.1,4,13.3,15.4,11C415.9,449.1,480,363.1,480,261.7   C480,134.8,379.7,32,256,32z"/>
+</svg>
+
+  </a>
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+    <main class="pb7" role="main">
+      
+  <div class="flex-l mt2 mw8 center">
+    <article class="center cf pv5 ph3 ph4-ns mw7">
+      <header>
+        <p class="f6 b helvetica tracked">
+          POSTS
+        </p>
+        <h1 class="f1">
+          Let&#39;s Encrypt 部署
+        </h1>
+      </header>
+      <div class="nested-copy-line-height lh-copy f4 nested-links nested-img mid-gray">
+        <p>Let&rsquo;s Encrypt 最近支持wildcard，顺便自己之前vps的东西也铲掉重来，所以这里是一篇再次部署Let&rsquo;s encrypt证书的文章。</p>
+
+<p></p>
+
+<h2 id="获取acme工具">获取Acme工具</h2>
+
+<p>执行命令：</p>
+
+<pre><code class="language-bash">curl https://get.acme.sh | sh
+</code></pre>
+
+<p>进入 <code>.acme.sh</code> 目录。我用的是DigitalOcean的VPS，为了能用 <code>wildcard</code>，所以需要配置一下DNS相关的API来做域名的验证，
+不能用standalone的模式，也就是自己启动服务器进行验证。详情可以看 <a href="https://github.com/Neilpang/acme.sh/tree/master/dnsapi">ACME的dnsapi文档</a></p>
+
+<p>按照文档exports了key后，执行如下命令：</p>
+
+<pre><code class="language-bash">~/.acme.sh# ./acme.sh --issue --dns dns_dgon -d *.nodecafe.me -d nodecafe.me
+</code></pre>
+
+<p><code>*.nodecafe.me</code>是我自己的域名， <code>-d</code>参数表示部署不同域名 。</p>
+
+<p>全程几乎5分钟搞定吧。</p>
+
+<h2 id="生成基于-dh-的密钥">生成基于 DH 的密钥</h2>
+
+<p>具体原理自行谷歌，记住DH配合其他签名算法（RSA、DSA、EDSA）可防止中间人攻击就行了。</p>
+
+<p>在你觉得方便管理的目录生成 <code>dhparam.pem</code> 文件，一般 <code>dhparam.pem</code>都会和其他证书在同一目录。</p>
+
+<pre><code class="language-bash"># 2048位算是在速度和安全性上的一种均衡选择
+
+openssl dhparam -out dhparam.pem 2048
+</code></pre>
+
+<h2 id="nginx配置">Nginx配置</h2>
+
+<p>安装过程不在阐述。
+需要注意的地方是，我的VPS发行版是Ubuntu 16.04,似乎DO的Ubuntu是已经开启了<code>ufw</code>。需要让ufw允许http和https：</p>
+
+<pre><code class="language-bash">sudo ufw allow http
+sudo ufw allow https
+</code></pre>
+
+<p>允许后，一般就默认能让80和443可4被访问了。</p>
+
+<p>下面开始配置Nginx。</p>
+
+<pre><code class="language-nginx">    server {
+        listen 443 ssl;
+        server_name nodecafe.me;
+        ssl_certificate &quot;YOURPATH/fullchain.cer&quot;;
+        ssl_certificate_key &quot;YOURPATH/*.nodecafe.me.key&quot;;
+        ssl_dhparam &quot;YOURPATH/dhparam.pem&quot;;
+    }
+</code></pre>
+
+<p>执行 <code>sudo service nginx configtest</code>，验证一下配置是否正确。
+出现</p>
+
+<pre><code class="language-bash"> * Testing nginx configuration
+   ...done.
+</code></pre>
+
+<p>说明配置可用，执行<code>sudo service nginx force-reload</code>，用新配置重启Nginx。</p>
+
+<p>之后需要反代你的域名到你到github page上，顺便处理http访问的情况，将http重定向到https。全部配置如下：</p>
+
+<pre><code class="language-sh">server {
+        listen 80 default_server;
+        listen [::]:80 default_server;
+
+        server_name nodecafe.me
+        rewrite ^(.*) https://nodecafe.me/$1 permanent;
+        return 301 https://$host$request_uri;
+        location / {
+            try_files $uri $uri/ =404;
+
+            add_header Access-Control-Allow-Origin *;
+            add_header Access-Control-Allow-Credentials true;
+            add_header Access-Control-Allow-Methods GET,POST;
+
+            proxy_pass https://yyydao.github.io/;
+            proxy_redirect off;
+            proxy_set_header Host yyydao.github.io;
+            proxy_set_header X-Host yyydao.github.io;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        }
+}
+server {
+    listen 443 ssl;
+    server_name nodecafe.me;
+    ssl on;
+    ssl_certificate &quot;YOURPATH/fullchain.cer&quot;;
+    ssl_certificate_key &quot;YOURPATH/*.nodecafe.me.key&quot;;
+    ssl_dhparam &quot;YOURPATH/dhparam.pem&quot;;
+        location / {
+            add_header Access-Control-Allow-Origin *;
+            add_header Access-Control-Allow-Credentials true;
+            add_header Access-Control-Allow-Methods GET,POST;
+
+            proxy_pass https://151.101.73.147;
+            proxy_set_header Host yyydao.github.io;
+            proxy_set_header X-Host yyydao.github.io;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header        X-Forwarded-Protocol    $scheme;
+        }
+
+}
+</code></pre>
+      </div>
+    </article>
+    <aside class="ph3 mt2 mt6-ns">
+      
+
+
+
+
+
+
+
+  <div class="bg-light-gray pa3">
+    <ul>
+      <li class="list b mb3">
+        3 More Posts
+      </li>
+      
+        <li class="list f5 w-100 hover-bg-white nl1">
+          
+          <a href="/posts/debounce-throttle-and-more/" class="link ph2 pv2 db black">
+            Debounce Throttle and More
+          </a>
+        </li>
+      
+        <li class="list f5 w-100 hover-bg-white nl1">
+          
+          <a href="/posts/lets-encrypt/" class="link ph2 pv2 db black o-50">
+            Let&#39;s Encrypt 部署
+          </a>
+        </li>
+      
+        <li class="list f5 w-100 hover-bg-white nl1">
+          
+          <a href="/posts/mac-full-stack-env/" class="link ph2 pv2 db black">
+            mac全栈开发环境
+          </a>
+        </li>
+      
+        <li class="list f5 w-100 hover-bg-white nl1">
+          
+          <a href="/posts/whatwg-event-loop/" class="link ph2 pv2 db black">
+            
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+    </aside>
+  </div>
+
+    </main>
+    <footer class="bg-near-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://yyydao.github.io" >
+    &copy; 2018 Nodecafe
+  </a>
+  
+
+
+
+
+
+
+
+  <a href="https://github.com/yyydao" class="link-transition github link dib z-999 pt3 pt0-l mr2" title="Github link">
+    <svg  height="32px"  style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+  <path d="M256,32C132.3,32,32,134.8,32,261.7c0,101.5,64.2,187.5,153.2,217.9c11.2,2.1,15.3-5,15.3-11.1   c0-5.5-0.2-19.9-0.3-39.1c-62.3,13.9-75.5-30.8-75.5-30.8c-10.2-26.5-24.9-33.6-24.9-33.6c-20.3-14.3,1.5-14,1.5-14   c22.5,1.6,34.3,23.7,34.3,23.7c20,35.1,52.4,25,65.2,19.1c2-14.8,7.8-25,14.2-30.7c-49.7-5.8-102-25.5-102-113.5   c0-25.1,8.7-45.6,23-61.6c-2.3-5.8-10-29.2,2.2-60.8c0,0,18.8-6.2,61.6,23.5c17.9-5.1,37-7.6,56.1-7.7c19,0.1,38.2,2.6,56.1,7.7   c42.8-29.7,61.5-23.5,61.5-23.5c12.2,31.6,4.5,55,2.2,60.8c14.3,16.1,23,36.6,23,61.6c0,88.2-52.4,107.6-102.3,113.3   c8,7.1,15.2,21.1,15.2,42.5c0,30.7-0.3,55.5-0.3,63c0,6.1,4,13.3,15.4,11C415.9,449.1,480,363.1,480,261.7   C480,134.8,379.7,32,256,32z"/>
+</svg>
+
+  </a>
+
+
+  </div>
+</footer>
+
+    <script src="https://yyydao.github.io/dist/app.bundle.js" async></script>
+
+  </body>
+</html>
