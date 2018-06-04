@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nodecafe  | 算法-链表</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.41" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    <link href='https://yyydao.github.io/dist/main.css' rel='stylesheet' type="text/css" />
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="算法-链表" />
+<meta property="og:description" content="最近在复习算法知识，打算用JS来实现算法，估计会有一个系列的文章产出。
+进入正题。
+一般来说，链表这类数据结构插入和删除，而单纯的数组则擅长随机访问。不过对于JS这种神奇的语言，数组本身就是一类特别的对象，JS数组非常灵活，比如长度不固定可以随时扩展，并且其数据在内存中也不连续，对于多数语言来说，数组要从起点或者中间插入元素，或者从中间移除元素，这类操作的开销都很高，JS自己的array相关方法其实都可以方便做到这些操作。本身其实Object 和 Array 都够用了，。不过从 引擎实现的角度考虑，其实其他语言中数组存在的这些问题，在JS底层的背后也是存在的（比如V8就是C&#43;&#43;写的）。
+链表特点：
+ 存储有序的元素集合。 每个元素存储元素本身和指向下一个节点的应用  创建链表 let LinkedList = (function(){ class Node{ constructor (element){ // 构造节点类，表示要插入的元素和指向下一个节点的指针 this.element = element this.next = null } } //利用WeapMap的不会干扰垃圾回收的特点， //当weak map中的健在weak map外不存在应用的时候， //该健与对应的值就被回收 // 长度 const length = new WeapMap() // 头 const head = new WeaMap() class LinkedList { constructor(){ // 初始化一个空链表，长度0，第一个元素为null this.length = length.set(this,0) this.head = head.set(this,null) } //常见辅助方法 size() { return length.get(this) } isEmpty() { return this." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://yyydao.github.io/posts/algorithm-linkedlist/" />
+
+
+
+<meta property="article:published_time" content="2018-05-29T23:59:58&#43;08:00"/>
+
+<meta property="article:modified_time" content="2018-05-29T23:59:58&#43;08:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="算法-链表">
+<meta itemprop="description" content="最近在复习算法知识，打算用JS来实现算法，估计会有一个系列的文章产出。
+进入正题。
+一般来说，链表这类数据结构插入和删除，而单纯的数组则擅长随机访问。不过对于JS这种神奇的语言，数组本身就是一类特别的对象，JS数组非常灵活，比如长度不固定可以随时扩展，并且其数据在内存中也不连续，对于多数语言来说，数组要从起点或者中间插入元素，或者从中间移除元素，这类操作的开销都很高，JS自己的array相关方法其实都可以方便做到这些操作。本身其实Object 和 Array 都够用了，。不过从 引擎实现的角度考虑，其实其他语言中数组存在的这些问题，在JS底层的背后也是存在的（比如V8就是C&#43;&#43;写的）。
+链表特点：
+ 存储有序的元素集合。 每个元素存储元素本身和指向下一个节点的应用  创建链表 let LinkedList = (function(){ class Node{ constructor (element){ // 构造节点类，表示要插入的元素和指向下一个节点的指针 this.element = element this.next = null } } //利用WeapMap的不会干扰垃圾回收的特点， //当weak map中的健在weak map外不存在应用的时候， //该健与对应的值就被回收 // 长度 const length = new WeapMap() // 头 const head = new WeaMap() class LinkedList { constructor(){ // 初始化一个空链表，长度0，第一个元素为null this.length = length.set(this,0) this.head = head.set(this,null) } //常见辅助方法 size() { return length.get(this) } isEmpty() { return this.">
+
+
+<meta itemprop="datePublished" content="2018-05-29T23:59:58&#43;08:00" />
+<meta itemprop="dateModified" content="2018-05-29T23:59:58&#43;08:00" />
+<meta itemprop="wordCount" content="272">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="算法-链表"/>
+<meta name="twitter:description" content="最近在复习算法知识，打算用JS来实现算法，估计会有一个系列的文章产出。
+进入正题。
+一般来说，链表这类数据结构插入和删除，而单纯的数组则擅长随机访问。不过对于JS这种神奇的语言，数组本身就是一类特别的对象，JS数组非常灵活，比如长度不固定可以随时扩展，并且其数据在内存中也不连续，对于多数语言来说，数组要从起点或者中间插入元素，或者从中间移除元素，这类操作的开销都很高，JS自己的array相关方法其实都可以方便做到这些操作。本身其实Object 和 Array 都够用了，。不过从 引擎实现的角度考虑，其实其他语言中数组存在的这些问题，在JS底层的背后也是存在的（比如V8就是C&#43;&#43;写的）。
+链表特点：
+ 存储有序的元素集合。 每个元素存储元素本身和指向下一个节点的应用  创建链表 let LinkedList = (function(){ class Node{ constructor (element){ // 构造节点类，表示要插入的元素和指向下一个节点的指针 this.element = element this.next = null } } //利用WeapMap的不会干扰垃圾回收的特点， //当weak map中的健在weak map外不存在应用的时候， //该健与对应的值就被回收 // 长度 const length = new WeapMap() // 头 const head = new WeaMap() class LinkedList { constructor(){ // 初始化一个空链表，长度0，第一个元素为null this.length = length.set(this,0) this.head = head.set(this,null) } //常见辅助方法 size() { return length.get(this) } isEmpty() { return this."/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://yyydao.github.io" class="f3 fw2 hover-white no-underline white-90 dib">
+      Nodecafe
+    </a>
+    <div class="flex-l items-center">
+      
+        <ul class="pl0 mr3">
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/about/" title="关于 page">
+              关于
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/posts/" title="Articles page">
+              Articles
+            </a>
+          </li>
+          
+        </ul>
+      
+      
+
+
+
+
+
+
+
+  <a href="https://github.com/yyydao" class="link-transition github link dib z-999 pt3 pt0-l mr2" title="Github link">
+    <svg  height="32px"  style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+  <path d="M256,32C132.3,32,32,134.8,32,261.7c0,101.5,64.2,187.5,153.2,217.9c11.2,2.1,15.3-5,15.3-11.1   c0-5.5-0.2-19.9-0.3-39.1c-62.3,13.9-75.5-30.8-75.5-30.8c-10.2-26.5-24.9-33.6-24.9-33.6c-20.3-14.3,1.5-14,1.5-14   c22.5,1.6,34.3,23.7,34.3,23.7c20,35.1,52.4,25,65.2,19.1c2-14.8,7.8-25,14.2-30.7c-49.7-5.8-102-25.5-102-113.5   c0-25.1,8.7-45.6,23-61.6c-2.3-5.8-10-29.2,2.2-60.8c0,0,18.8-6.2,61.6,23.5c17.9-5.1,37-7.6,56.1-7.7c19,0.1,38.2,2.6,56.1,7.7   c42.8-29.7,61.5-23.5,61.5-23.5c12.2,31.6,4.5,55,2.2,60.8c14.3,16.1,23,36.6,23,61.6c0,88.2-52.4,107.6-102.3,113.3   c8,7.1,15.2,21.1,15.2,42.5c0,30.7-0.3,55.5-0.3,63c0,6.1,4,13.3,15.4,11C415.9,449.1,480,363.1,480,261.7   C480,134.8,379.7,32,256,32z"/>
+</svg>
+
+  </a>
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+    <main class="pb7" role="main">
+      
+  <div class="flex-l mt2 mw8 center">
+    <article class="center cf pv5 ph3 ph4-ns mw7">
+      <header>
+        <p class="f6 b helvetica tracked">
+          POSTS
+        </p>
+        <h1 class="f1">
+          算法-链表
+        </h1>
+      </header>
+      <div class="nested-copy-line-height lh-copy f4 nested-links nested-img mid-gray">
+        
+
+<p>最近在复习算法知识，打算用JS来实现算法，估计会有一个系列的文章产出。</p>
+
+<p>进入正题。</p>
+
+<p>一般来说，链表这类数据结构插入和删除，而单纯的数组则擅长随机访问。不过对于JS这种神奇的语言，数组本身就是一类特别的对象，JS数组非常灵活，比如长度不固定可以随时扩展，并且其数据在内存中也不连续，对于多数语言来说，数组要从起点或者中间插入元素，或者从中间移除元素，这类操作的开销都很高，JS自己的array相关方法其实都可以方便做到这些操作。本身其实<code>Object</code> 和 <code>Array</code> 都够用了，。不过从 引擎实现的角度考虑，其实其他语言中数组存在的这些问题，在JS底层的背后也是存在的（比如V8就是C++写的）。</p>
+
+<p>链表特点：</p>
+
+<ul>
+<li>存储有序的元素集合。</li>
+<li>每个元素存储元素本身和指向下一个节点的应用</li>
+</ul>
+
+<h2 id="创建链表">创建链表</h2>
+
+<pre><code class="language-javascript">let LinkedList = (function(){
+    class Node{
+        constructor (element){
+            // 构造节点类，表示要插入的元素和指向下一个节点的指针
+            this.element = element
+            this.next = null
+        }
+    }
+
+    //利用WeapMap的不会干扰垃圾回收的特点，
+    //当weak map中的健在weak map外不存在应用的时候，
+    //该健与对应的值就被回收
+
+    // 长度
+    const length = new WeapMap()
+    // 头
+    const head = new WeaMap()
+
+    class LinkedList {
+        constructor(){
+            // 初始化一个空链表，长度0，第一个元素为null
+            this.length = length.set(this,0)
+            this.head = head.set(this,null)
+        }
+        //常见辅助方法
+
+        size() {
+            return length.get(this)
+        }
+        isEmpty() {
+            return this.size() === 0
+        }
+
+        getHead() {
+            return head.get(this)
+        }
+
+        //追加
+        append(element){
+            let node = new Node(element)
+            let current
+            
+            if(this.getHead() === null){
+                //链表为空，则直接加入元素
+                head.set(this,node)
+            } else {
+                // 从第一个元素开始循环，直到current指向最后一项
+                current = this.getHead()
+                while(current.next){
+                    current = current.next
+                }
+                // 找到最后一项元素后，讲next指向这个新加入的元素node，建立链接
+                current.next = node
+            }
+            //更新长度
+            let l = this.size()
+            l++
+            length.set(this,l)
+        }
+
+        //插入
+        insert (position,element){
+            //判断是否越界
+            if(position&gt;=0 &amp;&amp; position &lt;= this.size()){
+                let node = new Node(element)
+                //current变量是对列表中第一个元素的引用
+                let current = this.getHead()
+                let previous 
+                let index = 0
+
+                // 列表的起点添加一个元素，也就是第一个位置
+                if(position === 0){
+                    node.next = current
+                    head.set(this.node)
+                }else{
+                    while(index++ &lt; position){
+                        previous = current
+                        current  = current.next
+                    }
+                    nodex.next = current
+                    previous.next = node
+                }
+                let l = this.size()
+                l++
+                length.set(this,l)
+                return true
+            } else {
+                return false
+            }
+        }
+
+        //移除
+        removeAt(position){
+            //判断是否越界
+            if(position&gt;-1 &amp;&amp; position &lt;= this.size()){
+                //current变量是对列表中第一个元素的引用
+                let current = this.getHead()
+                let previous 
+                let index = 0
+
+                // 列表的起点移除一个元素，也就是第一个位置
+                if(position === 0){
+                    head.set(this.current.next)
+                }else{
+                    while(index++ &lt; position){
+                        previous = current
+                        current  = current.next
+                    }
+                    previous.next = current.next
+                }
+                let l = this.size()
+                l--
+                length.set(this,l)
+                return true
+            } else {
+                return false
+            }
+        }
+
+        //查找
+        indexOf(element){
+            let current = this.getHead()
+            let index = -1
+            while(current) {
+                if(element === current.element){
+                    return index
+                }
+                index++
+                current = current.next
+            }
+            return -1
+        }
+        
+    }
+    return LinkedList
+})()
+</code></pre>
+
+      </div>
+    </article>
+    <aside class="ph3 mt2 mt6-ns">
+      
+
+
+
+
+
+
+
+  <div class="bg-light-gray pa3">
+    <ul>
+      <li class="list b mb3">
+        5 More Posts
+      </li>
+      
+        <li class="list f5 w-100 hover-bg-white nl1">
+          
+          <a href="/posts/algorithm-linkedlist/" class="link ph2 pv2 db black o-50">
+            算法-链表
+          </a>
+        </li>
+      
+        <li class="list f5 w-100 hover-bg-white nl1">
+          
+          <a href="/posts/debounce-throttle-and-more/" class="link ph2 pv2 db black">
+            Debounce Throttle and More
+          </a>
+        </li>
+      
+        <li class="list f5 w-100 hover-bg-white nl1">
+          
+          <a href="/posts/lets-encrypt/" class="link ph2 pv2 db black">
+            Let&#39;s Encrypt 部署
+          </a>
+        </li>
+      
+        <li class="list f5 w-100 hover-bg-white nl1">
+          
+          <a href="/posts/mac-full-stack-env/" class="link ph2 pv2 db black">
+            mac全栈开发环境
+          </a>
+        </li>
+      
+        <li class="list f5 w-100 hover-bg-white nl1">
+          
+          <a href="/posts/vue-source-code/" class="link ph2 pv2 db black">
+            
+          </a>
+        </li>
+      
+        <li class="list f5 w-100 hover-bg-white nl1">
+          
+          <a href="/posts/ydkjs-note-1/" class="link ph2 pv2 db black">
+            
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+    </aside>
+  </div>
+
+    </main>
+    <footer class="bg-near-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://yyydao.github.io" >
+    &copy; 2018 Nodecafe
+  </a>
+  
+
+
+
+
+
+
+
+  <a href="https://github.com/yyydao" class="link-transition github link dib z-999 pt3 pt0-l mr2" title="Github link">
+    <svg  height="32px"  style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+  <path d="M256,32C132.3,32,32,134.8,32,261.7c0,101.5,64.2,187.5,153.2,217.9c11.2,2.1,15.3-5,15.3-11.1   c0-5.5-0.2-19.9-0.3-39.1c-62.3,13.9-75.5-30.8-75.5-30.8c-10.2-26.5-24.9-33.6-24.9-33.6c-20.3-14.3,1.5-14,1.5-14   c22.5,1.6,34.3,23.7,34.3,23.7c20,35.1,52.4,25,65.2,19.1c2-14.8,7.8-25,14.2-30.7c-49.7-5.8-102-25.5-102-113.5   c0-25.1,8.7-45.6,23-61.6c-2.3-5.8-10-29.2,2.2-60.8c0,0,18.8-6.2,61.6,23.5c17.9-5.1,37-7.6,56.1-7.7c19,0.1,38.2,2.6,56.1,7.7   c42.8-29.7,61.5-23.5,61.5-23.5c12.2,31.6,4.5,55,2.2,60.8c14.3,16.1,23,36.6,23,61.6c0,88.2-52.4,107.6-102.3,113.3   c8,7.1,15.2,21.1,15.2,42.5c0,30.7-0.3,55.5-0.3,63c0,6.1,4,13.3,15.4,11C415.9,449.1,480,363.1,480,261.7   C480,134.8,379.7,32,256,32z"/>
+</svg>
+
+  </a>
+
+
+  </div>
+</footer>
+
+    <script src="https://yyydao.github.io/dist/app.bundle.js" async></script>
+
+  </body>
+</html>

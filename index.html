@@ -9,7 +9,7 @@
     <meta name="MobileOptimized" content="320">
 
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.40.2" />
+    <meta name="generator" content="Hugo 0.41" />
     
     
       <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
@@ -32,7 +32,7 @@
 
 
 
-<meta property="og:updated_time" content="2018-03-26T23:38:52&#43;08:00"/>
+<meta property="og:updated_time" content="2018-05-29T23:59:58&#43;08:00"/>
 
 
 
@@ -154,6 +154,34 @@
       
       <div class="blah w-100">
         <h1 class="f3 fw1 athelas mt0 lh-title">
+          <a href="/posts/algorithm-linkedlist/" class="color-inherit dim link">
+            算法-链表
+            </a>
+        </h1>
+        <div class="f6 f5-l lh-copy nested-copy-line-height nested-links">
+          最近在复习算法知识，打算用JS来实现算法，估计会有一个系列的文章产出。
+进入正题。
+一般来说，链表这类数据结构插入和删除，而单纯的数组则擅长随机访问。不过对于JS这种神奇的语言，数组本身就是一类特别的对象，JS数组非常灵活，比如长度不固定可以随时扩展，并且其数据在内存中也不连续，对于多数语言来说，数组要从起点或者中间插入元素，或者从中间移除元素，这类操作的开销都很高，JS自己的array相关方法其实都可以方便做到这些操作。本身其实Object 和 Array 都够用了，。不过从 引擎实现的角度考虑，其实其他语言中数组存在的这些问题，在JS底层的背后也是存在的（比如V8就是C++写的）。
+链表特点：
+ 存储有序的元素集合。 每个元素存储元素本身和指向下一个节点的应用  创建链表 let LinkedList = (function(){ class Node{ constructor (element){ // 构造节点类，表示要插入的元素和指向下一个节点的指针 this.element = element this.next = null } } //利用WeapMap的不会干扰垃圾回收的特点， //当weak map中的健在weak map外不存在应用的时候， //该健与对应的值就被回收 // 长度 const length = new WeapMap() // 头 const head = new WeaMap() class LinkedList { constructor(){ // 初始化一个空链表，长度0，第一个元素为null this.length = length.set(this,0) this.head = head.set(this,null) } //常见辅助方法 size() { return length.get(this) } isEmpty() { return this.
+        </div>
+          <a href="/posts/algorithm-linkedlist/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+        
+      </div>
+    </div>
+  </div>
+</article>
+
+          </div>
+        
+          <div class="relative w-100 mb4">
+            
+<article class="bb b--black-10">
+  <div class="db pv4 ph3 ph0-l no-underline dark-gray">
+    <div class="flex flex-column flex-row-ns">
+      
+      <div class="blah w-100">
+        <h1 class="f3 fw1 athelas mt0 lh-title">
           <a href="/posts/debounce-throttle-and-more/" class="color-inherit dim link">
             Debounce Throttle and More
             </a>
@@ -231,8 +259,55 @@
 
           </div>
         
+          <div class="relative w-100 mb4">
+            
+<article class="bb b--black-10">
+  <div class="db pv4 ph3 ph0-l no-underline dark-gray">
+    <div class="flex flex-column flex-row-ns">
+      
+      <div class="blah w-100">
+        <h1 class="f3 fw1 athelas mt0 lh-title">
+          <a href="/posts/vue-source-code/" class="color-inherit dim link">
+            
+            </a>
+        </h1>
+        <div class="f6 f5-l lh-copy nested-copy-line-height nested-links">
+          Package.json 无副作用的模块
+参见 这里
+&quot;sideEffects&quot;: false,  提交时的githook和规范
+&quot;gitHooks&quot;: { &quot;pre-commit&quot;: &quot;lint-staged&quot;, &quot;commit-msg&quot;: &quot;node scripts/verify-commit-msg.js&quot; }, &quot;lint-staged&quot;: { &quot;*.js&quot;: [ &quot;eslint --fix&quot;, &quot;git add&quot; ] },  依赖package：
+acorn 小而精的 JavaScript parser, 完全用JavaScript编写.
+buble &amp; rollup-plugin-buble ES2015 compiler, Bublé is an ES2015+ compiler. It takes your ES2015/16 JavaScript code and turns it into code that can run in today&rsquo;s environments, including old versions of Node.js and Internet Explorer.
+chalk 命令行着色渲染
+        </div>
+          <a href="/posts/vue-source-code/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+        
+      </div>
+    </div>
+  </div>
+</article>
+
+          </div>
+        
       </section>
 
+      
+      <section class="w-100">
+        <h1 class="f3">More</h1>
+        
+        
+          <h2 class="f5 fw4 mb4 dib mr3">
+            <a href="/posts/ydkjs-note-1/" class="link black dim">
+              
+            </a>
+          </h2>
+        
+
+        
+        
+          <a href="/posts/" class="link db f6 pa2 br3 bg-mid-gray white dim w4 tc">All Articles</a>
+        
+        </section>
       
 
       </div>

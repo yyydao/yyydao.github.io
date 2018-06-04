@@ -12,6 +12,19 @@
     
     
     <item>
+      <title>算法-链表</title>
+      <link>https://yyydao.github.io/posts/algorithm-linkedlist/</link>
+      <pubDate>Tue, 29 May 2018 23:59:58 +0800</pubDate>
+      
+      <guid>https://yyydao.github.io/posts/algorithm-linkedlist/</guid>
+      <description>最近在复习算法知识，打算用JS来实现算法，估计会有一个系列的文章产出。
+进入正题。
+一般来说，链表这类数据结构插入和删除，而单纯的数组则擅长随机访问。不过对于JS这种神奇的语言，数组本身就是一类特别的对象，JS数组非常灵活，比如长度不固定可以随时扩展，并且其数据在内存中也不连续，对于多数语言来说，数组要从起点或者中间插入元素，或者从中间移除元素，这类操作的开销都很高，JS自己的array相关方法其实都可以方便做到这些操作。本身其实Object 和 Array 都够用了，。不过从 引擎实现的角度考虑，其实其他语言中数组存在的这些问题，在JS底层的背后也是存在的（比如V8就是C++写的）。
+链表特点：
+ 存储有序的元素集合。 每个元素存储元素本身和指向下一个节点的应用  创建链表 let LinkedList = (function(){ class Node{ constructor (element){ // 构造节点类，表示要插入的元素和指向下一个节点的指针 this.element = element this.next = null } } //利用WeapMap的不会干扰垃圾回收的特点， //当weak map中的健在weak map外不存在应用的时候， //该健与对应的值就被回收 // 长度 const length = new WeapMap() // 头 const head = new WeaMap() class LinkedList { constructor(){ // 初始化一个空链表，长度0，第一个元素为null this.length = length.set(this,0) this.head = head.set(this,null) } //常见辅助方法 size() { return length.get(this) } isEmpty() { return this.</description>
+    </item>
+    
+    <item>
       <title>Debounce Throttle and More</title>
       <link>https://yyydao.github.io/posts/debounce-throttle-and-more/</link>
       <pubDate>Mon, 26 Mar 2018 23:38:52 +0800</pubDate>
@@ -49,6 +62,44 @@
 &lt;p&gt;此文作为本次重装的一次记录，一是为了方便自己，也希望能方便他人。&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://yyydao.github.io/posts/vue-source-code/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://yyydao.github.io/posts/vue-source-code/</guid>
+      <description>Package.json 无副作用的模块
+参见 这里
+&amp;quot;sideEffects&amp;quot;: false,  提交时的githook和规范
+&amp;quot;gitHooks&amp;quot;: { &amp;quot;pre-commit&amp;quot;: &amp;quot;lint-staged&amp;quot;, &amp;quot;commit-msg&amp;quot;: &amp;quot;node scripts/verify-commit-msg.js&amp;quot; }, &amp;quot;lint-staged&amp;quot;: { &amp;quot;*.js&amp;quot;: [ &amp;quot;eslint --fix&amp;quot;, &amp;quot;git add&amp;quot; ] },  依赖package：
+acorn 小而精的 JavaScript parser, 完全用JavaScript编写.
+buble &amp;amp; rollup-plugin-buble ES2015 compiler, Bublé is an ES2015+ compiler. It takes your ES2015/16 JavaScript code and turns it into code that can run in today&amp;rsquo;s environments, including old versions of Node.js and Internet Explorer.
+chalk 命令行着色渲染</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://yyydao.github.io/posts/ydkjs-note-1/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://yyydao.github.io/posts/ydkjs-note-1/</guid>
+      <description>你不知道的js笔记 作用域 程序的变量住哪里？程序如何找到这些变量？
+编译原理  分词/词法分析（tokenizing/Lexing）
+ 解析/语法分析（Parsing）
+ 代码生成
+  引擎 编译器 作用域  引擎： 负责整个Javascript从编译到执行的整个过程
+ 编译器： 负责语法分析代码生成等
+ 作用域：负责收集和维护所有声明标识符（变量）组成的一系列查询，并实施一套严格的规则确定当前代码对变量的访问权限。
+  LHS &amp;amp; RHS 赋值操作相关。
+变量出现在赋值操作左侧时，LHS；变量出现在右侧（非左侧）时进行RHS
+LHS：赋值操作的左侧/赋值操作的目标是谁
+RHS：赋值操作的右侧/赋值操作的源头是谁
+function foo(a) { var b = a; return a + b; } var c = foo( 2 );  LHS: b=c= a=2
+RHS: =a； foo(2) return a+... return ...+b
+作用域嵌套 在当前作用域查不到，则向上一级查找，直到找到该变量或者抵达最外层作用域（全局作用域）为止。
+异常 function foo(a) { console.log( a + b ); b = a; } foo( 2 );  比如，对 b进行RHS查询，RHS查询在所有作用域中都找不到该变量，则抛出 ReferenceError 错误。</description>
     </item>
     
   </channel>
