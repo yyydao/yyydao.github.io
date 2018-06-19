@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Vue on Nodecafe</title>
-    <link>http://localhost:1313/tags/vue/</link>
+    <link>https://nodecafe.me/tags/vue/</link>
     <description>Recent content in Vue on Nodecafe</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <lastBuildDate>Fri, 01 Jun 2018 10:44:05 +0800</lastBuildDate>
     
-	<atom:link href="http://localhost:1313/tags/vue/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://nodecafe.me/tags/vue/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Vue  构造函数</title>
-      <link>http://localhost:1313/post/vue-construct-code/</link>
+      <link>https://nodecafe.me/post/vue-construct-code/</link>
       <pubDate>Fri, 01 Jun 2018 10:44:05 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/vue-construct-code/</guid>
+      <guid>https://nodecafe.me/post/vue-construct-code/</guid>
       <description>Vue 构造函数 如何寻找Vue构造函数 当我们使用 Vue 的时候，常常这样开始： var app = new Vue({ el: &#39;#app&#39;, data: { message: &#39;Hello Vue!&#39; } }) 那么当我们 new Vue() 的时候，到底发生了什么？？ 跟我心</description>
     </item>
     
