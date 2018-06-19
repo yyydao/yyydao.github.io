@@ -1,5 +1,2 @@
 User-agent: *
-# robotstxt.org - if ENV production variable is false robots will be disallowed.
-
-  Disallow: /
-
+Sitemap: http://localhost:1313/sitemap.xml

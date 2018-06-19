@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title> - Nodecafe</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="YYY" />
+  <meta name="description" content="你不知道的js笔记 作用域 程序的变量住哪里？程序如何找到这些变量？ 编译原理 分词/词法分析（tokenizing/Lexing） 解析/语法分析（" />
+
+  <meta name="keywords" content="Hugo, theme, Nodecafe" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.41" />
+
+
+<link rel="canonical" href="https://yyydao.github.io/posts/ydkjs-note-1/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="/dist/even.min.css?v=3.1.1" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+
+
+<meta property="og:title" content="" />
+<meta property="og:description" content="你不知道的js笔记 作用域 程序的变量住哪里？程序如何找到这些变量？ 编译原理 分词/词法分析（tokenizing/Lexing） 解析/语法分析（" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://yyydao.github.io/posts/ydkjs-note-1/" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="">
+<meta itemprop="description" content="你不知道的js笔记 作用域 程序的变量住哪里？程序如何找到这些变量？ 编译原理 分词/词法分析（tokenizing/Lexing） 解析/语法分析（">
+
+
+
+<meta itemprop="wordCount" content="860">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content=""/>
+<meta name="twitter:description" content="你不知道的js笔记 作用域 程序的变量住哪里？程序如何找到这些变量？ 编译原理 分词/词法分析（tokenizing/Lexing） 解析/语法分析（"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Nodecafe</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Nodecafe</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+  <div class="post-content">
+      
+
+<h1 id="你不知道的js笔记">你不知道的js笔记</h1>
+
+<h3 id="作用域">作用域</h3>
+
+<p>程序的变量住哪里？程序如何找到这些变量？</p>
+
+<h4 id="编译原理">编译原理</h4>
+
+<ul>
+<li><p>分词/词法分析（tokenizing/Lexing）</p></li>
+
+<li><p>解析/语法分析（Parsing）</p></li>
+
+<li><p>代码生成</p></li>
+</ul>
+
+<h4 id="引擎-编译器-作用域">引擎 编译器 作用域</h4>
+
+<ul>
+<li><p>引擎： 负责整个Javascript从编译到执行的整个过程</p></li>
+
+<li><p>编译器： 负责语法分析代码生成等</p></li>
+
+<li><p>作用域：负责收集和维护所有声明标识符（变量）组成的一系列查询，并实施一套严格的规则确定当前代码对变量的访问权限。</p></li>
+</ul>
+
+<h4 id="lhs-rhs">LHS &amp; RHS</h4>
+
+<p>赋值操作相关。</p>
+
+<p>变量出现在赋值操作左侧时，LHS；变量出现在右侧（非左侧）时进行RHS</p>
+
+<p>LHS：赋值操作的左侧/赋值操作的目标是谁</p>
+
+<p>RHS：赋值操作的右侧/赋值操作的源头是谁</p>
+
+<pre><code class="language-javascript">function foo(a) {
+    var b = a;
+    return a + b;
+}
+
+var c = foo( 2 );
+</code></pre>
+
+<p>LHS: <code>b=</code><code>c=</code> <code>a=2</code></p>
+
+<p>RHS:  <code>=a；</code>  <code>foo(2) return a+...</code> <code>return ...+b</code></p>
+
+<h4 id="作用域嵌套">作用域嵌套</h4>
+
+<p>在当前作用域查不到，则向上一级查找，直到找到该变量或者抵达最外层作用域（全局作用域）为止。</p>
+
+<h4 id="异常">异常</h4>
+
+<pre><code class="language-javascript">function foo(a) {
+    console.log( a + b );
+    b = a;
+}
+
+foo( 2 );
+</code></pre>
+
+<p>比如，对 <code>b</code>进行RHS查询，RHS查询在所有作用域中都找不到该变量，则抛出 <code>ReferenceError</code> 错误。</p>
+
+<p>非严格模式下执行 LHS,会在全局作用域自动创建一个变量；严格模式下，则也会抛出 <code>ReferenceError</code> 错误。</p>
+
+<p>RHS成功找到一个变量后，如果对该变量执行非法操作，比如试图对一个非函数类型的值进行调用，引用<code>null</code>或<code>undefined</code>类型的值中的属性，则会报 <code>TypeError</code> 错误。</p>
+
+<p><code>ReferenceError</code>与作用域判别失败相关</p>
+
+<p><code>TypeError</code>则是在作用域判别成功后，进行非法操作引起错误。</p>
+
+<h2 id="词法作用域">词法作用域</h2>
+
+<p>词法：多数引擎编译的第一个阶段就是词法化。</p>
+
+<p>词法作用域：由你写代码时，变量和块作用域写在哪里决定。</p>
+
+<h4 id="查找">查找</h4>
+
+<p>从当前作用域逐级向上查找，直到找到第一个匹配的标识符为止。</p>
+
+<p>无论函数在<strong>哪里</strong>被调用，<strong>如何</strong>被调用，它的词法作用域都只和其被声明的位置决定。</p>
+
+<h4 id="欺骗词法">欺骗词法</h4>
+
+<p><code>eval</code>和<code>with</code></p>
+
+<p><code>eval</code>可以让字符串变成可执行的函数。</p>
+
+<pre><code class="language-javascript">function foo(str,a){
+	eval(str)
+	console.log(a,b)
+}
+var b = 2
+
+foo('var b=3',1) // 1,3
+</code></pre>
+
+<p><code>setTimeout</code>和 <code>setInterval</code> 以及 <code>new Function()</code>都能接受字符串参数动态生成代码。</p>
+
+<p>动态生成代码都场景很少见，一是不安全，二是编译阶段难以优化，带来都性能损失抵不过得到都好处，建议不用。</p>
+
+<p><code>with</code></p>
+
+<p>我没用过with。。。。</p>
+
+  </div>
+</article>
+        </div>
+        
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://localhost:1313" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="http://localhost:1313" class="iconfont icon-google" title="google"></a>
+      <a href="http://localhost:1313" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="http://localhost:1313" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="http://localhost:1313" class="iconfont icon-douban" title="douban"></a>
+      <a href="http://localhost:1313" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="http://localhost:1313" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
+  <a href="https://yyydao.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2018
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">YYY</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script src="/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+
+
+<script type="text/javascript" src="/dist/even.min.js?v=3.1.1"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

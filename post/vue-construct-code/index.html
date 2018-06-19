@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Vue  构造函数 - Nodecafe</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="YYY" />
+  <meta name="description" content="Vue 构造函数 如何寻找Vue构造函数 当我们使用 Vue 的时候，常常这样开始： var app = new Vue({ el: &#39;#app&#39;, data: { message: &#39;Hello Vue!&#39; } }) 那么当我们 new Vue() 的时候，到底发生了什么？？ 跟我心" />
+
+  <meta name="keywords" content="Hugo, theme, Nodecafe" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.41" />
+
+
+<link rel="canonical" href="http://localhost:1313/post/vue-construct-code/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="/dist/even.min.css?v=3.1.1" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+
+
+<meta property="og:title" content="Vue  构造函数" />
+<meta property="og:description" content="Vue 构造函数 如何寻找Vue构造函数 当我们使用 Vue 的时候，常常这样开始： var app = new Vue({ el: &#39;#app&#39;, data: { message: &#39;Hello Vue!&#39; } }) 那么当我们 new Vue() 的时候，到底发生了什么？？ 跟我心" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/post/vue-construct-code/" />
+
+
+
+<meta property="article:published_time" content="2018-06-01T10:44:05&#43;08:00"/>
+
+<meta property="article:modified_time" content="2018-06-01T10:44:05&#43;08:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="Vue  构造函数">
+<meta itemprop="description" content="Vue 构造函数 如何寻找Vue构造函数 当我们使用 Vue 的时候，常常这样开始： var app = new Vue({ el: &#39;#app&#39;, data: { message: &#39;Hello Vue!&#39; } }) 那么当我们 new Vue() 的时候，到底发生了什么？？ 跟我心">
+
+
+<meta itemprop="datePublished" content="2018-06-01T10:44:05&#43;08:00" />
+<meta itemprop="dateModified" content="2018-06-01T10:44:05&#43;08:00" />
+<meta itemprop="wordCount" content="1650">
+
+
+
+<meta itemprop="keywords" content="javascript,Vue," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Vue  构造函数"/>
+<meta name="twitter:description" content="Vue 构造函数 如何寻找Vue构造函数 当我们使用 Vue 的时候，常常这样开始： var app = new Vue({ el: &#39;#app&#39;, data: { message: &#39;Hello Vue!&#39; } }) 那么当我们 new Vue() 的时候，到底发生了什么？？ 跟我心"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Nodecafe</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">about</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Nodecafe</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">about</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Vue  构造函数</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-06-01 </span>
+        
+        
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#vue-构造函数">Vue  构造函数</a>
+<ul>
+<li><a href="#如何寻找vue构造函数">如何寻找Vue构造函数</a></li>
+<li><a href="#分析vue原型实例">分析Vue原型实例</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<h1 id="vue-构造函数">Vue  构造函数</h1>
+
+<h2 id="如何寻找vue构造函数">如何寻找Vue构造函数</h2>
+
+<p>当我们使用 Vue 的时候，常常这样开始：</p>
+
+<pre><code class="language-js">var app = new Vue({
+  el: '#app',
+  data: {
+	message: 'Hello Vue!'
+  }
+})
+</code></pre>
+
+<p>那么当我们 <code>new Vue()</code> 的时候，到底发生了什么？？</p>
+
+<p>跟我心中念着 「洋葱」这首歌：一层一层地拨开我的心</p>
+
+<p>首先我们从<code>package.json</code>的 <code>npm run dev</code> 着手</p>
+
+<pre><code>&quot;dev&quot;: &quot;rollup -w -c scripts/config.js --environment TARGET:web-full-dev&quot;,
+</code></pre>
+
+<p>有写过webpack配置的话，应该理解rollup就没难度了。这里大概就不重点解释了。先不管细节，反正我们知道了要去
+<code>scripts</code> 文件夹下找到 <code>config.js</code></p>
+
+<p>打开后，寻找有 <code>web-full-dev</code>那行, 这就是上面命令 <code>--environment TARGET:web-full-dev&quot;</code> 的含义。</p>
+
+<pre><code class="language-js">const aliases = require('./alias')
+
+const builds = {
+  ...
+  // Runtime+compiler development build (Browser)
+  'web-full-dev': {
+    entry: resolve('web/entry-runtime-with-compiler.js'),
+    dest: resolve('dist/vue.js'),
+    format: 'umd',
+    env: 'development',
+    alias: { he: './entity-decoder' },
+    banner
+  },
+  ...
+  }
+  // 生成配置的方法
+function genConfig(name){
+    ...
+}
+
+if (process.env.TARGET) {
+  module.exports = genConfig(process.env.TARGET)
+} else {
+  exports.getBuild = genConfig
+  exports.getAllBuilds = () =&gt; Object.keys(builds).map(genConfig)
+}
+</code></pre>
+
+<p>从 entry可知，入口是 <code>web/entry-runtime-with-compiler.js</code>。</p>
+
+<p>那么 <code>web</code>又是在哪呢？</p>
+
+<p>这时候结合第一行的<code>const aliases = require('./alias')</code>,打开同一目录下的<code>alias.js</code>文件，我们知道<code>web</code>这个别名实际所指的位置：</p>
+
+<pre><code class="language-js">module.exports = {
+  ...
+  web: resolve('src/platforms/web'),
+  ..
+}
+</code></pre>
+
+<p>最终，得到入口文件是 <code>src/platforms/web/entry-runtime-with-compiler.js</code></p>
+
+<p>下面！！
+我们即将进入正题！！</p>
+
+<p>打开 <code>entry-runtime-with-compiler.js</code>,我们可以看到</p>
+
+<pre><code class="language-js">import Vue from './runtime/index'
+</code></pre>
+
+<p>再往深处，继续打开<code>runtime/index</code>,你会发现第一行是</p>
+
+<pre><code class="language-js">import Vue from 'core/index'
+</code></pre>
+
+<p>终于 按照思路,剥开洋葱般， 我们知道 Vue构造函数的位置应该是在 <code>src/core/instance/index.js</code> 文件中.</p>
+
+<h2 id="分析vue原型实例">分析Vue原型实例</h2>
+
+<p>看一看 <code>src/core/instance/index.js</code>文件：</p>
+
+<pre><code class="language-js">import { initMixin } from './init'
+import { stateMixin } from './state'
+import { renderMixin } from './render'
+import { eventsMixin } from './events'
+import { lifecycleMixin } from './lifecycle'
+import { warn } from '../util/index'
+
+function Vue (options) {
+  if (process.env.NODE_ENV !== 'production' &amp;&amp;
+    !(this instanceof Vue)
+  ) {
+    warn('Vue is a constructor and should be called with the `new` keyword')
+  }
+  this._init(options)
+}
+
+initMixin(Vue)
+stateMixin(Vue)
+eventsMixin(Vue)
+lifecycleMixin(Vue)
+renderMixin(Vue)
+
+export default Vue
+
+</code></pre>
+
+<p>引入依赖，定义 Vue 构造函数，然后以Vue构造函数为参数，调用了五个方法，最后导出 Vue。
+我们找到这五个文件：<code>'./init'</code>、<code>'./state' </code> 、<code>'./render' </code> 、<code>'./events' </code> 、<code>'./lifecycle' </code>下这些mixin方法，可以知道这些方法或属性最后会挂载到 Vue 的<code>prototype</code> 上。
+所以 其实Vue应该长这样：</p>
+
+<pre><code class="language-js">// initMixin(Vue)    src/core/instance/init.js **************************************************
+Vue.prototype._init = function (options?: Object) {}
+
+// stateMixin(Vue)    src/core/instance/state.js **************************************************
+// 利用Object.defineProperty 处理$data属性
+Object.defineProperty(Vue.prototype, '$data', dataDef)
+// 利用Object.defineProperty 处理$props属性
+Object.defineProperty(Vue.prototype, '$props', propsDef)
+Vue.prototype.$set = set
+Vue.prototype.$delete = del
+Vue.prototype.$watch = function (
+    expOrFn: string | Function,
+    cb: any,
+    options?: Object
+  ){}
+
+// renderMixin(Vue)    src/core/instance/render.js **************************************************
+Vue.prototype.$nextTick = function (fn: Function) {}
+Vue.prototype._render = function (): VNode {}
+
+// eventsMixin(Vue)    src/core/instance/events.js **************************************************
+Vue.prototype.$on = function (event: string | Array&lt;string&gt;, fn: Function): Component {}
+Vue.prototype.$once = function (event: string, fn: Function): Component {}
+Vue.prototype.$off = function (event?: string | Array&lt;string&gt;, fn?: Function): Component {}
+Vue.prototype.$emit = function (event: string): Component {}
+
+// lifecycleMixin(Vue)    src/core/instance/lifecycle.js **************************************************
+Vue.prototype._update = function (vnode: VNode, hydrating?: boolean) {}
+Vue.prototype.$forceUpdate = function () {}
+Vue.prototype.$destroy = function () {}
+</code></pre>
+
+<p>在这里有两个需要关注的地方：</p>
+
+<pre><code class="language-js">Object.defineProperty(Vue.prototype, '$data', dataDef)
+Object.defineProperty(Vue.prototype, '$props', propsDef)
+</code></pre>
+
+<p>我们可以看到，其他属性或方法都是通过<code>prototype</code>原型链的方式添加属性，但是<code>$data</code> 和<code>$props</code> 是利用<code>Object.defineProperty()</code>的方式添加到原型中。那么这里有什么奥妙呢？</p>
+
+<p>看到同一个<code>stateMixin()</code>函数下的如下代码：</p>
+
+<pre><code class="language-js">// flow somehow has problems with directly declared definition object
+  // when using Object.defineProperty, so we have to procedurally build up
+  // the object here.
+  const dataDef = {}
+  dataDef.get = function () { return this._data }
+  const propsDef = {}
+  propsDef.get = function () { return this._props }
+  if (process.env.NODE_ENV !== 'production') {
+	dataDef.set = function (newData: Object) {
+	  warn(
+		'Avoid replacing instance root $data. ' +
+		'Use nested data properties instead.',
+		this
+	  )
+	}
+	propsDef.set = function () {
+	  warn($props is readonly., this)
+	}
+  }
+</code></pre>
+
+<p>这里利用<code>defineProperty()</code>方法的特性，修改了相应属性的特性。
+<code>$data</code>和<code>$props</code>定义了各自的 getter方法。对于属性<code>$data</code>和<code>$props</code>的访问会自动调用一个隐藏函数，它的返回值会被当作属性访问的返回值，也就是返回 <code>this._data</code>和<code>this._props </code>。由于我们只定义了 <code>this._data</code>和<code>this._props </code>的getter， 所以对<code>$data</code>和<code>$props</code>的值进行设置时set操作会<strong>忽略赋值操作</strong>，不会抛出错误。即便有合法的setter，set操作也是没有意义的，所以在下面的<code> if (process.env.NODE_ENV !== 'production') {..}</code>中，对非生产环境下的setter操作，即试图修改<code>$data</code>或<code>$props</code>的值的时候会抛出相应的警告。所以<code>$data</code>和<code>$props</code>是只读的.</p>
+
+<p>那么在<code>src/core/instance/index.js</code> 中<code>export default Vue</code>  后，Vue下一步又有怎样的变化呢？我们留到下回分解。</p>
+
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">YYY</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2018-06-01</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+
+    
+    
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          
+          <a href="/tags/javascript/">javascript</a>
+          
+          <a href="/tags/vue/">Vue</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+        
+          <a class="next" href="/post/algorithm-linkedlist/">
+            <span class="next-text nav-default">算法-链表</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/yyydao" class="iconfont icon-github" title="github"></a>
+  <a href="http://localhost:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2018
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">YYY</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script src="/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+
+
+<script type="text/javascript" src="/dist/even.min.js?v=3.1.1"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

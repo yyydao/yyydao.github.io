@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title> - Nodecafe</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="YYY" />
+  <meta name="description" content="Vue 构造函数 如何寻找Vue构造函数 从 npm run dev 着手 &amp;quot;dev&amp;quot;: &amp;quot;rollup -w -c scripts/config.js --environment TARGET:web-full-dev&amp;quot;, 有写过webpack配置的话，应该理解rollup就没难度了。这里大概就不重点解释" />
+
+  <meta name="keywords" content="Hugo, theme, Nodecafe" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.41" />
+
+
+<link rel="canonical" href="https://yyydao.github.io/posts/vue-source-code.1/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="/dist/even.min.css?v=3.1.1" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+
+
+<meta property="og:title" content="" />
+<meta property="og:description" content="Vue 构造函数 如何寻找Vue构造函数 从 npm run dev 着手 &quot;dev&quot;: &quot;rollup -w -c scripts/config.js --environment TARGET:web-full-dev&quot;, 有写过webpack配置的话，应该理解rollup就没难度了。这里大概就不重点解释" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://yyydao.github.io/posts/vue-source-code.1/" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="">
+<meta itemprop="description" content="Vue 构造函数 如何寻找Vue构造函数 从 npm run dev 着手 &quot;dev&quot;: &quot;rollup -w -c scripts/config.js --environment TARGET:web-full-dev&quot;, 有写过webpack配置的话，应该理解rollup就没难度了。这里大概就不重点解释">
+
+
+
+<meta itemprop="wordCount" content="757">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content=""/>
+<meta name="twitter:description" content="Vue 构造函数 如何寻找Vue构造函数 从 npm run dev 着手 &quot;dev&quot;: &quot;rollup -w -c scripts/config.js --environment TARGET:web-full-dev&quot;, 有写过webpack配置的话，应该理解rollup就没难度了。这里大概就不重点解释"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Nodecafe</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Nodecafe</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+  <div class="post-content">
+      
+
+<h1 id="vue-构造函数">Vue  构造函数</h1>
+
+<h2 id="如何寻找vue构造函数">如何寻找Vue构造函数</h2>
+
+<p>从 <code>npm run dev</code> 着手</p>
+
+<pre><code>&quot;dev&quot;: &quot;rollup -w -c scripts/config.js --environment TARGET:web-full-dev&quot;,
+</code></pre>
+
+<p>有写过webpack配置的话，应该理解rollup就没难度了。这里大概就不重点解释了。先不管细节，反正我们知道了要去
+<code>scripts</code> 文件夹下找到 <code>config.js</code></p>
+
+<p>打开后，寻找有 <code>web-full-dev</code>那行, 这就是上面命令 <code>--environment TARGET:web-full-dev&quot;</code> 的含义。</p>
+
+<pre><code class="language-js">const aliases = require('./alias')
+
+const builds = {
+  ...
+  // Runtime+compiler development build (Browser)
+  'web-full-dev': {
+    entry: resolve('web/entry-runtime-with-compiler.js'),
+    dest: resolve('dist/vue.js'),
+    format: 'umd',
+    env: 'development',
+    alias: { he: './entity-decoder' },
+    banner
+  },
+  ...
+  }
+  // 生成配置的方法
+function genConfig(name){
+    ...
+}
+
+if (process.env.TARGET) {
+  module.exports = genConfig(process.env.TARGET)
+} else {
+  exports.getBuild = genConfig
+  exports.getAllBuilds = () =&gt; Object.keys(builds).map(genConfig)
+}
+</code></pre>
+
+<p>从 entry可知，入口要去 <code>web/entry-runtime-with-compiler.js</code>寻找。
+那么 <code>web</code>又是在哪呢？</p>
+
+<p>这时候结合第一行的<code>const aliases = require('./alias')</code>,
+我们知道<code>web</code>这个别名实际所指的位置：</p>
+
+<pre><code class="language-js">module.exports = {
+  ...
+  web: resolve('src/platforms/web'),
+  ..
+}
+</code></pre>
+
+<p>从这里我们知道入口文件是 <code>src/platforms/web/entry-runtime-with-compiler.js</code></p>
+
+<p>下面！！
+我们即将进入正题！！</p>
+
+<p>打开 <code>entry-runtime-with-compiler.js</code>,我们可以看到</p>
+
+<pre><code class="language-js">import Vue from './runtime/index'
+</code></pre>
+
+<p>再打开<code>runtime/index</code>,你会发现第一行是</p>
+
+<pre><code class="language-js">import Vue from 'core/index'
+</code></pre>
+
+<p>终于 按照思路,宛如剥开洋葱般， 我们知道 Vue构造函数的位置应该是在 <code>src/core/instance/index.js</code> 文件中.</p>
+
+<p>看一看 <code>src/core/instance/index.js</code>文件：</p>
+
+<pre><code class="language-js">import { initMixin } from './init'
+import { stateMixin } from './state'
+import { renderMixin } from './render'
+import { eventsMixin } from './events'
+import { lifecycleMixin } from './lifecycle'
+import { warn } from '../util/index'
+
+function Vue (options) {
+  if (process.env.NODE_ENV !== 'production' &amp;&amp;
+    !(this instanceof Vue)
+  ) {
+    warn('Vue is a constructor and should be called with the `new` keyword')
+  }
+  this._init(options)
+}
+
+initMixin(Vue)
+stateMixin(Vue)
+eventsMixin(Vue)
+lifecycleMixin(Vue)
+renderMixin(Vue)
+
+export default Vue
+
+</code></pre>
+
+<p>引入依赖，定义 Vue 构造函数，然后以Vue构造函数为参数，调用了五个方法，最后导出 Vue。
+我们看看这五个文件下这些名字的方法，知道这些其实就是挂载到 Vue 的prototype 上方法或属性。
+所以 其实Vue应该长这样：</p>
+
+<pre><code class="language-js">// initMixin(Vue)    src/core/instance/init.js **************************************************
+Vue.prototype._init = function (options?: Object) {}
+
+// stateMixin(Vue)    src/core/instance/state.js **************************************************
+Vue.prototype.$data
+Vue.prototype.$set = set
+Vue.prototype.$delete = del
+Vue.prototype.$watch = function (
+    expOrFn: string | Function,
+    cb: any,
+    options?: Object
+  ){}
+
+// renderMixin(Vue)    src/core/instance/render.js **************************************************
+Vue.prototype.$nextTick = function (fn: Function) {}
+Vue.prototype._render = function (): VNode {}
+
+// eventsMixin(Vue)    src/core/instance/events.js **************************************************
+Vue.prototype.$on = function (event: string | Array&lt;string&gt;, fn: Function): Component {}
+Vue.prototype.$once = function (event: string, fn: Function): Component {}
+Vue.prototype.$off = function (event?: string | Array&lt;string&gt;, fn?: Function): Component {}
+Vue.prototype.$emit = function (event: string): Component {}
+
+// lifecycleMixin(Vue)    src/core/instance/lifecycle.js **************************************************
+Vue.prototype._update = function (vnode: VNode, hydrating?: boolean) {}
+Vue.prototype.$forceUpdate = function () {}
+Vue.prototype.$destroy = function () {}
+</code></pre>
+
+  </div>
+</article>
+        </div>
+        
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://localhost:1313" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="http://localhost:1313" class="iconfont icon-google" title="google"></a>
+      <a href="http://localhost:1313" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="http://localhost:1313" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="http://localhost:1313" class="iconfont icon-douban" title="douban"></a>
+      <a href="http://localhost:1313" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="http://localhost:1313" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
+  <a href="https://yyydao.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2018
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">YYY</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script src="/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+
+
+<script type="text/javascript" src="/dist/even.min.js?v=3.1.1"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

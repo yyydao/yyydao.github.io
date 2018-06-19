@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Debounce Throttle and More - Nodecafe</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="YYY" />
+  <meta name="description" content="Debounce和Throttle是两种常用的JS技巧，同时也是非常实用的技术。 所以有大量的文章专门介绍，包括不少洗稿了CSS-Trick那篇文章，尤其是那些用电梯做比喻的文章，不得不说，电梯的比喻烂透了。
+简单来说，debounce在计算机词典中译作防反跳，其他常见翻译是防抖动，由词根 de- 和 bounce 组成，具体详解见下文。throttle可译作节流，那些写成截流的，估计是用了拼音输入法并且没理解throttle含义，截流的英文通常译作closure，截流原指堵截水流，使改变方向或提高水位，所以叫截流根本是牛头不对马嘴；而节流本意是节制水流，比喻节约开支。其实想想成语开源节流或者节流阀门，就明白了。
+这两个从字面来看，似乎能得到些感性上的大致理解。下面，细说一下这两个技巧。
+
+" />
+
+  <meta name="keywords" content="Hugo, theme, Nodecafe" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.41" />
+
+
+<link rel="canonical" href="http://localhost:1313/post/debounce-throttle-and-more/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="/dist/even.min.css?v=3.1.1" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+
+
+<meta property="og:title" content="Debounce Throttle and More" />
+<meta property="og:description" content="Debounce和Throttle是两种常用的JS技巧，同时也是非常实用的技术。 所以有大量的文章专门介绍，包括不少洗稿了CSS-Trick那篇文章，尤其是那些用电梯做比喻的文章，不得不说，电梯的比喻烂透了。
+
+简单来说，debounce在计算机词典中译作防反跳，其他常见翻译是防抖动，由词根 de- 和 bounce 组成，具体详解见下文。throttle可译作节流，那些写成截流的，估计是用了拼音输入法并且没理解throttle含义，截流的英文通常译作closure，截流原指堵截水流，使改变方向或提高水位，所以叫截流根本是牛头不对马嘴；而节流本意是节制水流，比喻节约开支。其实想想成语开源节流或者节流阀门，就明白了。
+
+这两个从字面来看，似乎能得到些感性上的大致理解。下面，细说一下这两个技巧。
+
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/post/debounce-throttle-and-more/" />
+
+
+
+<meta property="article:published_time" content="2018-03-26T23:38:52&#43;08:00"/>
+
+<meta property="article:modified_time" content="2018-03-26T23:38:52&#43;08:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="Debounce Throttle and More">
+<meta itemprop="description" content="Debounce和Throttle是两种常用的JS技巧，同时也是非常实用的技术。 所以有大量的文章专门介绍，包括不少洗稿了CSS-Trick那篇文章，尤其是那些用电梯做比喻的文章，不得不说，电梯的比喻烂透了。
+
+简单来说，debounce在计算机词典中译作防反跳，其他常见翻译是防抖动，由词根 de- 和 bounce 组成，具体详解见下文。throttle可译作节流，那些写成截流的，估计是用了拼音输入法并且没理解throttle含义，截流的英文通常译作closure，截流原指堵截水流，使改变方向或提高水位，所以叫截流根本是牛头不对马嘴；而节流本意是节制水流，比喻节约开支。其实想想成语开源节流或者节流阀门，就明白了。
+
+这两个从字面来看，似乎能得到些感性上的大致理解。下面，细说一下这两个技巧。
+
+">
+
+
+<meta itemprop="datePublished" content="2018-03-26T23:38:52&#43;08:00" />
+<meta itemprop="dateModified" content="2018-03-26T23:38:52&#43;08:00" />
+<meta itemprop="wordCount" content="1855">
+
+
+
+<meta itemprop="keywords" content="javascript,fundamental," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Debounce Throttle and More"/>
+<meta name="twitter:description" content="Debounce和Throttle是两种常用的JS技巧，同时也是非常实用的技术。 所以有大量的文章专门介绍，包括不少洗稿了CSS-Trick那篇文章，尤其是那些用电梯做比喻的文章，不得不说，电梯的比喻烂透了。
+
+简单来说，debounce在计算机词典中译作防反跳，其他常见翻译是防抖动，由词根 de- 和 bounce 组成，具体详解见下文。throttle可译作节流，那些写成截流的，估计是用了拼音输入法并且没理解throttle含义，截流的英文通常译作closure，截流原指堵截水流，使改变方向或提高水位，所以叫截流根本是牛头不对马嘴；而节流本意是节制水流，比喻节约开支。其实想想成语开源节流或者节流阀门，就明白了。
+
+这两个从字面来看，似乎能得到些感性上的大致理解。下面，细说一下这两个技巧。
+
+"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Nodecafe</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">about</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Nodecafe</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">about</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Debounce Throttle and More</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-03-26 </span>
+        
+        
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#debounce">Debounce</a>
+<ul>
+<li><a href="#debounce-1">Debounce</a></li>
+</ul></li>
+<li><a href="#throttle">Throttle</a>
+<ul>
+<li>
+<ul>
+<li><a href="#何为-throttle">何为 Throttle</a></li>
+</ul></li>
+<li><a href="#debounce-vs-throttle">Debounce vs Throttle</a>
+<ul>
+<li><a href="#debounce-2">Debounce</a></li>
+<li><a href="#throttle-1">Throttle</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#实现debounce方法">实现Debounce方法</a>
+<ul>
+<li><a href="#实现throttle方法">实现Throttle方法</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      <p>Debounce和Throttle是两种常用的JS技巧，同时也是非常实用的技术。 所以有大量的文章专门介绍，包括不少洗稿了CSS-Trick那篇文章，尤其是那些用电梯做比喻的文章，不得不说，电梯的比喻烂透了。</p>
+
+<p>简单来说，debounce在计算机词典中译作防反跳，其他常见翻译是防抖动，由词根 <code>de-</code> 和 <code>bounce</code> 组成，具体详解见下文。throttle可译作节流，那些写成截流的，估计是用了拼音输入法并且没理解throttle含义，截流的英文通常译作closure，截流原指堵截水流，使改变方向或提高水位，所以叫截流根本是牛头不对马嘴；而节流本意是节制水流，比喻节约开支。其实想想成语开源节流或者节流阀门，就明白了。</p>
+
+<p>这两个从字面来看，似乎能得到些感性上的大致理解。下面，细说一下这两个技巧。</p>
+
+<p></p>
+
+<h2 id="debounce">Debounce</h2>
+
+<h3 id="debounce-1">Debounce</h3>
+
+
+<figure>
+    
+        <img src="/posts/images/bounce.jpg" />
+    
+    
+    <figcaption>
+        <h4>电路中的bounce现象</h4>
+        
+    </figcaption>
+    
+</figure>
+
+
+<p>如果学过数字电路/模拟电路的话，可能会知道，Bounce现象最开始是出现在一些电路设计中。机械开关或继电器闭合时，开关单元通常会发生反弹，这种抖动会导致传输的信号不清晰，会导致多次的状态转换。
+就类似一个皮球从高出落下，要经历过几次反弹后才最终稳定下来一样，这也是bounce原来的语意。</p>
+
+<p>比如键盘按下一个字母J，但是会得到了好几个J，或者鼠标单击变双击，这些都是常见的抖动现象。</p>
+
+<p>为了解决bounce问题，电路设计中会引入debounce，即防反跳器，以消除这类有害的抖动。</p>
+
+<p>在程序设计中，必然也会有debounce这样的设计。</p>
+
+<p>总之，Debounce的概念是：一个函数被调用过一次后，在阈值时间内未被再次调用，那么当这段时间过去后，就执行最后那一次调用函数。</p>
+
+<h2 id="throttle">Throttle</h2>
+
+<h4 id="何为-throttle">何为 Throttle</h4>
+
+<p>从字面理解，就是类似一条水管上的阀门，当流量太大的时候，就需要扭紧阀门降低流量。函数节流后，代码就不会在没有间断过的情况下，不断调用执行，而是以一种被限流状的态执行。</p>
+
+<p>转到前端的场景，比如在scroll事件中触发的函数，Throttle可以让函数调用阈值降到1S一次。那么在1S内，函数就不会被调用2次，10s内，无论有多少次scroll事件中触发，函数只调用10次。</p>
+
+<p>总之，throttle方法规定了在给定时间内，函数的最大可执行次数。</p>
+
+<h3 id="debounce-vs-throttle">Debounce vs Throttle</h3>
+
+<p>我们把100ms作为间隔的时间值，下面举例子说明两者区别：</p>
+
+<h4 id="debounce-2">Debounce</h4>
+
+<p>100ms已过，期间该函数没有被调用过，那么可执行该函数了。</p>
+
+<p>一个函数在很短的时间间隔内被<strong>连续</strong>调用了1000次，这个过程用了2s，如果你对该函数做了一个100ms的debounce处理，那么可能在2.3s时，由于时这段爆发式调用已经结束并且间隔了100ms都没有新的调用进来，那么执行一次该函数。</p>
+
+<h4 id="throttle-1">Throttle</h4>
+
+<p>每100ms，最多只执行一次该函数。</p>
+
+<p>10s内，你一共连续调用了1000次该函数，那么节流处理后，10s也就是10000ms时间内，该函数总共最多执行了</p>
+
+<p><sup>10000</sup>&frasl;<sub>100</sub> = 100次。</p>
+
+<h2 id="实现debounce方法">实现Debounce方法</h2>
+
+<p>debounce方法接受两个参数：1、需要防抖动处理的函数。2、延迟时间。</p>
+
+<pre><code class="language-javascript">/**
+*
+*@param func {Function} 实际执行的函数
+*@param delay {Number} 延迟阈值，毫秒单位
+*@return {Function}
+*/
+function debounce(func,delay){
+  // set a timer for setTimeout
+  let timer
+  //return the function that will be triggered after delay milliseconds
+  return function(){
+    // pass context and argument to func
+    let context = this
+    let args = arguments
+
+    // each time this function is invoked,then clear timeout and don't fired func
+    clearTimeout(timer)
+
+    //The function will be called after it stops being called for
+    // N milliseconds.
+    timer = setTimeout(function(){
+      func.apply(context,args)
+    },delay)
+  }
+}
+</code></pre>
+
+<p>以上实现的Demo可戳<a href="https://codepen.io/yyydao/pen/rdPpPN">这里</a></p>
+
+<p>可以实现一个ECMA2015+版本。会简洁不少。</p>
+
+<p><code>debounce</code>返回了一个箭头函数，箭头函数内部的<code>this</code>不会出现动态绑定的情况，省去了<code>let context = this</code>为了保存<code>this</code>不变而做的 hack。箭头函数利用<code>...args</code>作为「rest参数」，将<code>arguments</code>数组收集起来传入函数内，省去了 <code>let args = arguments</code>这一步操作，最后<code>setTimeout</code>函数内的<code>func(...args)</code>方法，替代原来的<code>func.apply(..)</code>,可以认为是<code>apply(..) </code>的缩写。</p>
+
+<pre><code class="language-javascript">/**
+ *
+ * @param func {Function} 要进行处理的函数
+ * @param delay {Number} 延迟阈值，毫秒单位
+ * @returns {Function}
+ */
+function debounce(func, delay) {
+    // set a timer for setTimeout
+    let timer
+
+    //return a function that will be triggered after delay milliseconds
+    return (...args) =&gt; {
+
+        // each time this function is invoked,then clear timeout and don't fired func
+        clearTimeout(timer)
+
+        //The function will be called after it stops being called for
+        // N milliseconds.
+
+        timer = setTimeout(() =&gt; {
+            timer = null
+            func(...args)
+        }, delay)
+    }
+}
+
+</code></pre>
+
+<p>Demo见 <a href="https://codepen.io/yyydao/pen/GxBPQb">这里</a></p>
+
+<h3 id="实现throttle方法">实现Throttle方法</h3>
+
+<p>类似debounce，在throttle中，接收两个参数，实际执行的函数 <code>func</code> 和阀门参数<code>threshold</code>来做限流。</p>
+
+<pre><code class="language-javascript">/**
+ *
+ * @param func
+ * @param threshold
+ * @return function
+ */
+function throttle(func, threshold) {
+  let timer 
+  let last
+  threshold || (threshold = 16)
+  return function(){
+    let context = this
+    let args = arguments
+    let now = +new Date()
+    if(last &amp;&amp; now&lt; last+threshold){
+      clearTimeout(timer)
+      timer = setTimeout(function(){
+        last = now
+        func.apply(context,args)
+      },threshold)
+    }else{
+      last = now
+      func.apply(context,args)
+    }
+  }
+}
+</code></pre>
+
+<p><a href="https://codepen.io/yyydao/pen/YadKVJ">demo</a></p>
+
+<p>ES6实现版本：</p>
+
+<pre><code class="language-javascript">/**
+ *
+ * @param func
+ * @param threshold
+ * @return function
+ */
+function throttle(func, threshold = 16) {
+    let last
+
+    let timer
+
+    return (...args) =&gt;{
+
+        let now = +new Date()
+
+        if (last &amp;&amp; now &lt; last + threshold) {
+            clearTimeout(timer)
+
+            timer = setTimeout(function () {
+                last = now
+                func(...args)
+            },threshold)
+        } else {
+            last = now
+            func(...args)
+        }
+    }
+
+}
+</code></pre>
+
+<p><a href="https://codepen.io/yyydao/pen/yKGBVJ">demo</a></p>
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">YYY</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2018-03-26</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+
+    
+    
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          
+          <a href="/tags/javascript/">javascript</a>
+          
+          <a href="/tags/fundamental/">fundamental</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+          <a class="prev" href="/post/vue-package-json-analyse/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Vue项目package.json分析</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        
+          <a class="next" href="/post/lets-encrypt/">
+            <span class="next-text nav-default">Let&#39;s Encrypt 部署</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/yyydao" class="iconfont icon-github" title="github"></a>
+  <a href="http://localhost:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2018
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">YYY</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script src="/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+
+
+<script type="text/javascript" src="/dist/even.min.js?v=3.1.1"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
