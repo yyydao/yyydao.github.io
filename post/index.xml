@@ -12,6 +12,15 @@
     
     
     <item>
+      <title>算法系列（二）-双向链表</title>
+      <link>https://nodecafe.me/post/algorithm-doublylinkedlist/</link>
+      <pubDate>Thu, 21 Jun 2018 23:11:58 +0800</pubDate>
+      
+      <guid>https://nodecafe.me/post/algorithm-doublylinkedlist/</guid>
+      <description>其实之前版本的链表实现是比较中规中矩的，nodejs中有一个链表实现方式，用简单的几十行就实现了一个双向链表。 可以访问这里看看这个链表是怎么</description>
+    </item>
+    
+    <item>
       <title>Vue  构造函数</title>
       <link>https://nodecafe.me/post/vue-construct-code/</link>
       <pubDate>Fri, 01 Jun 2018 10:44:05 +0800</pubDate>
@@ -21,12 +30,12 @@
     </item>
     
     <item>
-      <title>算法-链表</title>
+      <title>算法系列（一）-链表</title>
       <link>https://nodecafe.me/post/algorithm-linkedlist/</link>
       <pubDate>Tue, 29 May 2018 23:59:58 +0800</pubDate>
       
       <guid>https://nodecafe.me/post/algorithm-linkedlist/</guid>
-      <description>最近在复习算法知识，打算用JS来实现算法，估计会有一个系列的文章产出。 进入正题。 一般来说，链表这类数据结构插入和删除，而单纯的数组则擅长</description>
+      <description>最近在复习算法知识，打算用JS来实现算法，估计会有一个系列的文章产出。 进入正题。 一般来说，链表这类数据结构插入和删除，而单纯的数组则擅长随机</description>
     </item>
     
     <item>

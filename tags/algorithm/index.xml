@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Algorithm on Nodecafe</title>
+    <link>https://nodecafe.me/tags/algorithm/</link>
+    <description>Recent content in Algorithm on Nodecafe</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Thu, 21 Jun 2018 23:11:58 +0800</lastBuildDate>
+    
+	<atom:link href="https://nodecafe.me/tags/algorithm/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>算法系列（二）-双向链表</title>
+      <link>https://nodecafe.me/post/algorithm-doublylinkedlist/</link>
+      <pubDate>Thu, 21 Jun 2018 23:11:58 +0800</pubDate>
+      
+      <guid>https://nodecafe.me/post/algorithm-doublylinkedlist/</guid>
+      <description>其实之前版本的链表实现是比较中规中矩的，nodejs中有一个链表实现方式，用简单的几十行就实现了一个双向链表。 可以访问这里看看这个链表是怎么</description>
+    </item>
+    
+    <item>
+      <title>算法系列（一）-链表</title>
+      <link>https://nodecafe.me/post/algorithm-linkedlist/</link>
+      <pubDate>Tue, 29 May 2018 23:59:58 +0800</pubDate>
+      
+      <guid>https://nodecafe.me/post/algorithm-linkedlist/</guid>
+      <description>最近在复习算法知识，打算用JS来实现算法，估计会有一个系列的文章产出。 进入正题。 一般来说，链表这类数据结构插入和删除，而单纯的数组则擅长随机</description>
+    </item>
+    
+  </channel>
+</rss>

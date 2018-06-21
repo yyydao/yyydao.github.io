@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Vue项目package.json分析 - Nodecafe</title>
+  <title>算法系列（二）-双向链表 - Nodecafe</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -17,7 +17,7 @@
 
 
 <meta name="author" content="YYY" />
-  <meta name="description" content="Package.json 分析一下Vue使用的依赖以及一些配置。也可以学到不少东西，比如对于打包。 无副作用模块 关于此部分，可参见作者自己的回答。 太长不看版本：告诉打" />
+  <meta name="description" content="其实之前版本的链表实现是比较中规中矩的，nodejs中有一个链表实现方式，用简单的几十行就实现了一个双向链表。 可以访问这里看看这个链表是怎么" />
 
   <meta name="keywords" content="Hugo, theme, Nodecafe" />
 
@@ -29,7 +29,7 @@
 <meta name="generator" content="Hugo 0.41" />
 
 
-<link rel="canonical" href="https://nodecafe.me/post/vue-package-json-analyse/" />
+<link rel="canonical" href="https://nodecafe.me/post/algorithm-doublylinkedlist/" />
 
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -49,20 +49,16 @@
 
 
 
-<meta property="og:title" content="Vue项目package.json分析" />
-<meta property="og:description" content="Package.json 分析一下Vue使用的依赖以及一些配置。也可以学到不少东西，比如对于打包。 无副作用模块 关于此部分，可参见作者自己的回答。 太长不看版本：告诉打" />
+<meta property="og:title" content="算法系列（二）-双向链表" />
+<meta property="og:description" content="其实之前版本的链表实现是比较中规中矩的，nodejs中有一个链表实现方式，用简单的几十行就实现了一个双向链表。 可以访问这里看看这个链表是怎么" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://nodecafe.me/post/vue-package-json-analyse/" />
+<meta property="og:url" content="https://nodecafe.me/post/algorithm-doublylinkedlist/" />
 
 
 
-<meta property="article:published_time" content="2018-05-10T10:44:05&#43;08:00"/>
+<meta property="article:published_time" content="2018-06-21T23:11:58&#43;08:00"/>
 
-<meta property="article:modified_time" content="2018-05-10T10:44:05&#43;08:00"/>
-
-
-
-
+<meta property="article:modified_time" content="2018-06-21T23:11:58&#43;08:00"/>
 
 
 
@@ -70,20 +66,24 @@
 
 
 
-<meta itemprop="name" content="Vue项目package.json分析">
-<meta itemprop="description" content="Package.json 分析一下Vue使用的依赖以及一些配置。也可以学到不少东西，比如对于打包。 无副作用模块 关于此部分，可参见作者自己的回答。 太长不看版本：告诉打">
-
-
-<meta itemprop="datePublished" content="2018-05-10T10:44:05&#43;08:00" />
-<meta itemprop="dateModified" content="2018-05-10T10:44:05&#43;08:00" />
-<meta itemprop="wordCount" content="525">
 
 
 
-<meta itemprop="keywords" content="javascript," />
+
+<meta itemprop="name" content="算法系列（二）-双向链表">
+<meta itemprop="description" content="其实之前版本的链表实现是比较中规中矩的，nodejs中有一个链表实现方式，用简单的几十行就实现了一个双向链表。 可以访问这里看看这个链表是怎么">
+
+
+<meta itemprop="datePublished" content="2018-06-21T23:11:58&#43;08:00" />
+<meta itemprop="dateModified" content="2018-06-21T23:11:58&#43;08:00" />
+<meta itemprop="wordCount" content="627">
+
+
+
+<meta itemprop="keywords" content="algorithm," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Vue项目package.json分析"/>
-<meta name="twitter:description" content="Package.json 分析一下Vue使用的依赖以及一些配置。也可以学到不少东西，比如对于打包。 无副作用模块 关于此部分，可参见作者自己的回答。 太长不看版本：告诉打"/>
+<meta name="twitter:title" content="算法系列（二）-双向链表"/>
+<meta name="twitter:description" content="其实之前版本的链表实现是比较中规中矩的，nodejs中有一个链表实现方式，用简单的几十行就实现了一个双向链表。 可以访问这里看看这个链表是怎么"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -150,10 +150,10 @@
           <article class="post">
     
     <header class="post-header">
-      <h1 class="post-title">Vue项目package.json分析</h1>
+      <h1 class="post-title">算法系列（二）-双向链表</h1>
 
       <div class="post-meta">
-        <span class="post-time"> 2018-05-10 </span>
+        <span class="post-time"> 2018-06-21 </span>
         
         
         
@@ -166,16 +166,7 @@
   <h2 class="post-toc-title">Contents</h2>
   
   <div class="post-toc-content always-active">
-    <nav id="TableOfContents">
-<ul>
-<li><a href="#package-json">Package.json</a>
-<ul>
-<li><a href="#无副作用模块">无副作用模块</a></li>
-<li><a href="#提交时的githook和规范">提交时的githook和规范</a></li>
-<li><a href="#依赖package">依赖package：</a></li>
-</ul></li>
-</ul>
-</nav>
+    
   </div>
 </div>
 
@@ -184,65 +175,70 @@
 
     
     <div class="post-content">
-      
+      <p>其实之前版本的链表实现是比较中规中矩的，nodejs中有一个链表实现方式，用简单的几十行就实现了一个双向链表。</p>
 
-<h1 id="package-json">Package.json</h1>
+<p>可以访问<a href="https://github.com/nodejs/node/blob/master/lib/internal/linkedlist.js" title="nodejs-linkedlist">这里</a>看看这个链表是怎么实现的。</p>
 
-<p>分析一下Vue使用的依赖以及一些配置。也可以学到不少东西，比如对于打包。</p>
+<p>对于Node至关重要的<a href="https://github.com/nodejs/node/blob/master/lib/timers.js" title="nodejs-timer">timer</a>中，链表就大有用武之地，在node的timer中，这些操作都得到了优化：</p>
 
-<h2 id="无副作用模块">无副作用模块</h2>
+<ul>
+<li>新增一个定时器  （insert）</li>
+<li>移除一个已存在的定时器 （remove）</li>
+<li>处理定时器超时 (timeout)</li>
+</ul>
 
-<p>关于此部分，可参见<a href="https://www.zhihu.com/question/41922432/answer/93346223">作者自己的回答</a>。
-太长不看版本：告诉打包工具我写的代码无副作用，也就是说多余的东西放心移除就好。这样可以缩小体积。</p>
+<p>下面我打算分析一下nodejs的源码中这个精简优雅的链表实现。</p>
 
-<pre><code class="language-json">&quot;sideEffects&quot;: false,
+<pre><code class="language-js">'use strict';
+
+//初始化一个链表，利用对象的属性当成节点，把Object当成链表
+function init(list) {
+  list._idleNext = list;
+  list._idlePrev = list;
+}
+
+// Show the most idle item. 取到前一个节点
+function peek(list) {
+  if (list._idlePrev === list) return null;
+  return list._idlePrev;
+}
+
+// Remove an item from its list. 移除一个节点
+function remove(item) {
+	//如果item存在后继节点，则把item的后续节点的prev指针指向item的前继节点
+  if (item._idleNext) {
+	item._idleNext._idlePrev = item._idlePrev;
+  }
+// 如果item存在前继节点，这需要把item的前继节点的next指针指向item的后续节点
+  if (item._idlePrev) {
+	item._idlePrev._idleNext = item._idleNext;
+  }
+// 断开item的所有指针
+  item._idleNext = null;
+  item._idlePrev = null;
+}
+
+// Remove an item from its list and place at the end.挂载
+function append(list, item) {
+// 如果item节点在列表中，先移除出来
+  if (item._idleNext || item._idlePrev) {
+	remove(item);
+  }
+
+  // Items are linked  with _idleNext -&gt; (older) and _idlePrev -&gt; (newer).
+  // Note: This linkage (next being older) may seem counter-intuitive at first.很符合直觉的append，把原有的list的指向数据给了item，为接下来item挂载到list做准备
+  item._idleNext = list._idleNext;
+  item._idlePrev = list;
+
+  // The list _idleNext points to tail (newest) and _idlePrev to head (oldest). list 的_idleNext 指向tail，_idlePrev指向head，list的_idleNext指向item，成功挂载
+  list._idleNext._idlePrev = item;
+  list._idleNext = item;
+}
+
+function isEmpty(list) {
+  return list._idleNext === list;
+}
 </code></pre>
-
-<h2 id="提交时的githook和规范">提交时的githook和规范</h2>
-
-<pre><code class="language-json">&quot;gitHooks&quot;: {  
-  &quot;pre-commit&quot;: &quot;lint-staged&quot;,  
-  &quot;commit-msg&quot;: &quot;node scripts/verify-commit-msg.js&quot;  
-},  
-&quot;lint-staged&quot;: {  
-  &quot;*.js&quot;: [  
-  &quot;eslint --fix&quot;,  
-  &quot;git add&quot;  
-  ]  
-},
-</code></pre>
-
-<h2 id="依赖package">依赖package：</h2>
-
-<p>对于<code>rollup</code>、<code>jasmine</code>、<code>karma</code>、<code>eslint</code>、<code>Flow</code>、<code>phantomjs</code>、<code>nightwatch</code>这些相关的就不一一分析了。</p>
-
-<p><code>acorn</code>  小而精的 JavaScript parser, 完全用JavaScript编写.</p>
-
-<p><code>buble</code> &amp; <code>rollup-plugin-buble</code> ES2015 编译器, Bublé is an ES2015+ compiler. 可以让ES2015/16 JavaScript 代码 转化到目前的主流环境，包括老版本Node.js 和 Internet Explorer.</p>
-
-<p><code>chalk</code> 命令行着色渲染</p>
-
-<p><code>codecov</code> CI 相关</p>
-
-<p><code>cz-conventional-changelog</code>&amp; <code>commitizen</code> &amp; <code>conventional-changelog</code> 利用commit信息生成changelog</p>
-
-<p><code>cross-spawn</code>  跨平台的node&rsquo;s spawn 和 spawnSync解决方案.</p>
-
-<p><code>de-indentation</code>  处理ES6模版字符，转换成统一的换行缩进</p>
-
-<p><code>escodegen</code> 基于 <a href="https://developer.mozilla.org/en/SpiderMonkey/Parser_API" title="Mozilla's Parser API">Mozilla&rsquo;s Parser API </a>AST生成ES代码</p>
-
-<p><code>hash-sum</code>  散列值生成</p>
-
-<p><code>he</code> 处理HTML字符实体的编码解码</p>
-
-<p><code>lru-cache</code>  利用LRU算法，在内存中管理缓存</p>
-
-<p><code>serialize-javascript</code>  将JS序列化成包含正则、日期、函数的JSON超集，也可过滤XSS</p>
-
-<p><code>shelljs</code>  可移植Unix命令集成</p>
-
-<p><code>yorkie</code>  尤雨溪对 <a href="https://github.com/typicode/husky">husky</a> 这个处理<code>git hook</code>的库的一份用于Vue项目的fork</p>
 
     </div>
 
@@ -254,7 +250,7 @@
   </p>
   <p class="copyright-item">
     <span class="item-title">LastMod</span>
-    <span class="item-content">2018-05-10</span>
+    <span class="item-content">2018-06-21</span>
   </p>
   
   <p class="copyright-item">
@@ -269,21 +265,16 @@
     <footer class="post-footer">
       <div class="post-tags">
           
-          <a href="/tags/javascript/">javascript</a>
+          <a href="/tags/algorithm/">algorithm</a>
           
         </div>
 
       
       <nav class="post-nav">
         
-          <a class="prev" href="/post/algorithm-linkedlist/">
-            <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">算法系列（一）-链表</span>
-            <span class="prev-text nav-mobile">Prev</span>
-          </a>
         
-          <a class="next" href="/post/debounce-throttle-and-more/">
-            <span class="next-text nav-default">Debounce Throttle and More</span>
+          <a class="next" href="/post/vue-construct-code/">
+            <span class="next-text nav-default">Vue  构造函数</span>
             <span class="next-text nav-mobile">Next</span>
             <i class="iconfont icon-right"></i>
           </a>
