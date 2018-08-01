@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title> - Nodecafe</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="YYY" />
+  <meta name="description" content="最近接手了一个大坑项目——快应用。 开发体验十分痛苦，忍着写完了一期，中间踩坑填坑不少。 当然，目前来看，其实最不能忍受的坑就是：coding 3" />
+
+  <meta name="keywords" content="Hugo, theme, Nodecafe" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.42.2" />
+
+
+<link rel="canonical" href="https://nodecafe.me/post/util-test-with-jest-in-quick-app/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="/dist/even.min.css?v=3.1.1" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+
+
+<meta property="og:title" content="" />
+<meta property="og:description" content="最近接手了一个大坑项目——快应用。 开发体验十分痛苦，忍着写完了一期，中间踩坑填坑不少。 当然，目前来看，其实最不能忍受的坑就是：coding 3" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nodecafe.me/post/util-test-with-jest-in-quick-app/" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="">
+<meta itemprop="description" content="最近接手了一个大坑项目——快应用。 开发体验十分痛苦，忍着写完了一期，中间踩坑填坑不少。 当然，目前来看，其实最不能忍受的坑就是：coding 3">
+
+
+
+<meta itemprop="wordCount" content="1351">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content=""/>
+<meta name="twitter:description" content="最近接手了一个大坑项目——快应用。 开发体验十分痛苦，忍着写完了一期，中间踩坑填坑不少。 当然，目前来看，其实最不能忍受的坑就是：coding 3"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Nodecafe</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">about</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Nodecafe</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">about</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title"></h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 0001-01-01 </span>
+        
+        
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#抽离-复用">抽离 &amp; 复用</a></li>
+<li><a href="#单元测试">单元测试</a></li>
+<li><a href="#配置jest">配置JEST</a></li>
+<li><a href="#编写测试代码">编写测试代码</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<p>最近接手了一个大坑项目——快应用。
+开发体验十分痛苦，忍着写完了一期，中间踩坑填坑不少。
+当然，目前来看，其实最不能忍受的坑就是：coding 30s，编译3分钟。</p>
+
+<p>有时为了验证一些效果，尤其是需要调出来的那类效果，花费的时间成本都在等待编译上。所以，快应用？真的快吗？呵呵😄。</p>
+
+<p>牢骚发完，下面说说后面发现的一些等稍微缓解这类问题的方案。</p>
+
+<h2 id="抽离-复用">抽离 &amp; 复用</h2>
+
+<p>项目中一定存在一些较复杂的JS，比如处理各种字符串、各种转换、时间parse。
+这部分代码是可以抽离到一个公共的地方，然后再其他需要进行相应的字符处理的地方，引入这些方法就行了。</p>
+
+<p>对于快应用这类体量的项目，其实本身也不会太复杂庞大。做好抽离 &amp; 复用，其实是有不少好处的。</p>
+
+<p><code>app.ux</code>中有引入一个<code>util.js</code>。</p>
+
+<p><img src="https://gitee.com/DaoG/img/raw/master/quick1.png" alt="" title="struct" /></p>
+
+<p>官方提供的这套例子中，把公共方法放入util中，再通过app .ux进行引入。</p>
+
+<p>项目结构如下：</p>
+
+<pre><code>
+├── src 
+│   ├── Page                 页面目录
+│   |   └── index.ux         页面文件，可自定义页面名称
+│   ├── app.ux               项目入口
+|   |—— util.js              公共方法util 				
+│   └── manifest.json        项目配置文件，配置应用图标、页面路由等
+└── package.json              定义项目需要的各种模块及配置信息
+</code></pre>
+
+<h2 id="单元测试">单元测试</h2>
+
+<p>抽出来的方法，就很容易来做单元测试了。
+但是在快应用的场景我们还需要进行一些额外处理。</p>
+
+<p>快应用demo的util中引入的自身的模块，是无法mock的。</p>
+
+<pre><code class="language-js">import prompt from '@system.prompt'
+import router from '@system.router'
+import app from '@system.app'
+import shortcut from '@system.shortcut'
+import fetch from '@system.fetch'
+import network from '@system.network'
+
+</code></pre>
+
+<p>这部分东西利用到快应用自身的功能，由于这些module只在快应用的app里，即不存在<code>node_module</code>中也不在其他模块中，所以是无法利用常规思路进行mock的，因为测试框架无法到达这些模块。</p>
+
+<p>但是util中存在一些处理其他业务的代码，而且相对来说更复杂也容易出问题，所以此时需要修改结构，将没有引入快应用自身功能的代码再独立成其他的模块，这样就可以进行单元测试了。</p>
+
+<p>我们修改了代码，把相应部分都移到<code>helper.js</code>中</p>
+
+<pre><code class="language-js">//helper.js
+import {
+  toThousands,
+  trim,
+  validPhone,
+  validateEmail,
+  testEmoji,
+  truncate,
+  generateUUID,
+  phoneFormat,
+  toDecima12,
+  bankCardFormat
+} from './helper'
+
+
+</code></pre>
+
+<p>这样的代码就是容易进行测试的代码。</p>
+
+<h2 id="配置jest">配置JEST</h2>
+
+<p>我们选用jest进行测试。
+首先需要安装相应j模块。
+<code>npm install jest@22.4.4</code>。</p>
+
+<p>在<code>package.json</code>的script部分加入如下配置：</p>
+
+<pre><code class="language-json">{
+...
+&quot;scripts&quot;: {
+	....
+	&quot;test&quot;:&quot;jest&quot;
+  },
+&quot;dependencies&quot;: {
+	...
+  },
+...
+
+}
+
+</code></pre>
+
+<p>在项目根目录下创建jest的配置文件 <code>jest.config.js</code>。
+加入以下内容：</p>
+
+<pre><code class="language-js">module.exports = {
+  verbose: false, // 不启用verbose
+  collectCoverage: true, // 收集覆盖率
+  coverageDirectory: './coverage/', // 覆盖率报告输出路径
+};
+
+</code></pre>
+
+<p>然后在src下创建 <code>__test__</code>文件夹，jest会自动从这个文件夹内查找测试代码。</p>
+
+<p>最终，项目结构会变成这样：</p>
+
+<pre><code>
+├── src 
+|—— |—— __test__           jest测试目录
+│   ├── Page               页面目录
+│   |   └── index.ux       页面文件，可自定义页面名称
+│   ├── app.ux             项目入口
+|   |—— util.js            公共方法util 				     
+|   |—— helper.js          无依赖helper模块				
+│   └── manifest.json      项目配置文件，配置应用图标、页面路由等		
+|—— jest.config.js         jest 配置文件		
+└── package.json           定义项目需要的各种模块及配置信息
+
+</code></pre>
+
+<h2 id="编写测试代码">编写测试代码</h2>
+
+<p>在<code>__test__</code> 文件夹创建<code>helper.test.js</code> 文件。</p>
+
+<p>比如<code>helper.js</code> 中有一个方法用来缩略字符串的，在超过的长度替换显示成 <code>...</code>：</p>
+
+<pre><code class="language-js">//helper.js
+
+/**
+ * 将字符串省略并加入
+ * @param str 字符串
+ * @param n 长度
+ * @return {string}
+ */
+export function truncate(str, n) {
+  return (str.length &gt; n) ? str.substr(0, n - 1) + '...' : str;
+}
+
+</code></pre>
+
+<p>我们可以这样对其做测试。</p>
+
+<pre><code class="language-js">import { truncate } from '../helper'
+
+describe('helper', () =&gt; {
+	it('should truncate string with length', () =&gt; {
+		const truncateString = truncate(`Don't panic`,6)
+		expect(truncateString).toBe(`Don't...`)
+		const truncateString2 = truncate(`Don't panic`,22)
+		expect(truncateString2).toBe(`Don't panic`)
+	  })
+})
+
+</code></pre>
+
+<p>执行<code>npm run test</code>。得到如下结果：</p>
+
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">YYY</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">0001-01-01</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+
+    
+    
+
+    <footer class="post-footer">
+      
+
+      
+      <nav class="post-nav">
+        
+          <a class="prev" href="/post/mac-full-stack-env/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">mac全栈开发环境</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        
+          <a class="next" href="/post/%E6%97%A0%E6%A0%87%E9%A2%98/">
+            <span class="next-text nav-default"></span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:yyydao11@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/yyydao" class="iconfont icon-github" title="github"></a>
+  <a href="https://nodecafe.me/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2018
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">YYY</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script src="/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+
+
+<script type="text/javascript" src="/dist/even.min.js?v=3.1.1"></script>
+
+
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-40600328-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>
