@@ -6,10 +6,19 @@
     <description>Recent content on Nodecafe</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Thu, 21 Jun 2018 23:11:58 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 31 Jul 2018 10:44:05 +0800</lastBuildDate>
     
 	<atom:link href="https://nodecafe.me/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>在快应用中使用单元测试</title>
+      <link>https://nodecafe.me/post/util-test-with-jest-in-quick-app/</link>
+      <pubDate>Tue, 31 Jul 2018 10:44:05 +0800</pubDate>
+      
+      <guid>https://nodecafe.me/post/util-test-with-jest-in-quick-app/</guid>
+      <description>最近接手了一个大坑项目——快应用。 开发体验十分痛苦，忍受着写完了一期，中间踩坑填坑不少。 当然，目前来看，其实最不能忍受的坑就是：coding</description>
+    </item>
     
     <item>
       <title>算法系列（二）-双向链表</title>

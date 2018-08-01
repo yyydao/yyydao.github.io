@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title> - Nodecafe</title>
+  <title>在快应用中使用单元测试 - Nodecafe</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -17,7 +17,7 @@
 
 
 <meta name="author" content="YYY" />
-  <meta name="description" content="最近接手了一个大坑项目——快应用。 开发体验十分痛苦，忍着写完了一期，中间踩坑填坑不少。 当然，目前来看，其实最不能忍受的坑就是：coding 3" />
+  <meta name="description" content="最近接手了一个大坑项目——快应用。 开发体验十分痛苦，忍受着写完了一期，中间踩坑填坑不少。 当然，目前来看，其实最不能忍受的坑就是：coding" />
 
   <meta name="keywords" content="Hugo, theme, Nodecafe" />
 
@@ -49,13 +49,16 @@
 
 
 
-<meta property="og:title" content="" />
-<meta property="og:description" content="最近接手了一个大坑项目——快应用。 开发体验十分痛苦，忍着写完了一期，中间踩坑填坑不少。 当然，目前来看，其实最不能忍受的坑就是：coding 3" />
+<meta property="og:title" content="在快应用中使用单元测试" />
+<meta property="og:description" content="最近接手了一个大坑项目——快应用。 开发体验十分痛苦，忍受着写完了一期，中间踩坑填坑不少。 当然，目前来看，其实最不能忍受的坑就是：coding" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://nodecafe.me/post/util-test-with-jest-in-quick-app/" />
 
 
 
+<meta property="article:published_time" content="2018-07-31T10:44:05&#43;08:00"/>
+
+<meta property="article:modified_time" content="2018-07-31T10:44:05&#43;08:00"/>
 
 
 
@@ -67,21 +70,20 @@
 
 
 
+<meta itemprop="name" content="在快应用中使用单元测试">
+<meta itemprop="description" content="最近接手了一个大坑项目——快应用。 开发体验十分痛苦，忍受着写完了一期，中间踩坑填坑不少。 当然，目前来看，其实最不能忍受的坑就是：coding">
 
 
-<meta itemprop="name" content="">
-<meta itemprop="description" content="最近接手了一个大坑项目——快应用。 开发体验十分痛苦，忍着写完了一期，中间踩坑填坑不少。 当然，目前来看，其实最不能忍受的坑就是：coding 3">
+<meta itemprop="datePublished" content="2018-07-31T10:44:05&#43;08:00" />
+<meta itemprop="dateModified" content="2018-07-31T10:44:05&#43;08:00" />
+<meta itemprop="wordCount" content="2619">
 
 
 
-<meta itemprop="wordCount" content="1351">
-
-
-
-<meta itemprop="keywords" content="" />
+<meta itemprop="keywords" content="javascript," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content=""/>
-<meta name="twitter:description" content="最近接手了一个大坑项目——快应用。 开发体验十分痛苦，忍着写完了一期，中间踩坑填坑不少。 当然，目前来看，其实最不能忍受的坑就是：coding 3"/>
+<meta name="twitter:title" content="在快应用中使用单元测试"/>
+<meta name="twitter:description" content="最近接手了一个大坑项目——快应用。 开发体验十分痛苦，忍受着写完了一期，中间踩坑填坑不少。 当然，目前来看，其实最不能忍受的坑就是：coding"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -148,10 +150,10 @@
           <article class="post">
     
     <header class="post-header">
-      <h1 class="post-title"></h1>
+      <h1 class="post-title">在快应用中使用单元测试</h1>
 
       <div class="post-meta">
-        <span class="post-time"> 0001-01-01 </span>
+        <span class="post-time"> 2018-07-31 </span>
         
         
         
@@ -186,12 +188,13 @@
       
 
 <p>最近接手了一个大坑项目——快应用。
-开发体验十分痛苦，忍着写完了一期，中间踩坑填坑不少。
+开发体验十分痛苦，忍受着写完了一期，中间踩坑填坑不少。
 当然，目前来看，其实最不能忍受的坑就是：coding 30s，编译3分钟。</p>
 
 <p>有时为了验证一些效果，尤其是需要调出来的那类效果，花费的时间成本都在等待编译上。所以，快应用？真的快吗？呵呵😄。</p>
 
-<p>牢骚发完，下面说说后面发现的一些等稍微缓解这类问题的方案。</p>
+<p>牢骚发完，下面说说后面发现的一些等稍微缓解这类问题的方案。
+虐我千遍，待如初恋。控制好自己能做的事情就行了。</p>
 
 <h2 id="抽离-复用">抽离 &amp; 复用</h2>
 
@@ -348,6 +351,164 @@ describe('helper', () =&gt; {
 
 <p>执行<code>npm run test</code>。得到如下结果：</p>
 
+<p><img src="https://gitee.com/DaoG/img/raw/master/cover.png" alt="" />
+因为在jest的config中我们配置了<code>collectCoverage： true</code>， 所以这里输出了覆盖率报告，jest内置了<code>istanbul</code>来生成覆盖率数据。</p>
+
+<p>由于我们只对<code>truncate</code>这个方法进行了测试，所以其他部分都是没有测试到的，</p>
+
+<p>在项目下同时也生成了一份html版本的覆盖率报告。
+<img src="https://gitee.com/DaoG/img/raw/master/icov-report.png" alt="" /></p>
+
+<p>这份报告很直观输出了目前对<code>helper.js</code>的各个语句、逻辑分支、函数的测试情况的汇总，以及目前的测试覆盖了源码的哪一行。
+<img src="https://gitee.com/DaoG/img/raw/master/icov-report-helper.png" alt="" /></p>
+
+<p><img src="https://gitee.com/DaoG/img/raw/master/cover-detail.png" alt="" /></p>
+
+<p>现在我们测试一下<code>phoneFormat</code>这个方法,<code>phoneFormat</code>方法实现了如下需求：
+- 将手机号格式化成<code>xxx xxxx xxxx</code>这样的344格式
+- 输入到第三位的时候，插入空格与第四位数字分隔开
+- 输入到第七位的时候，插入空格与第八位数字分隔开</p>
+
+<p><code>phoneFormat</code>的实现代码：</p>
+
+<pre><code class="language-js">//helper.js
+/**
+ * 格式化手机
+ * @param value
+ * @return {string}
+ */
+export function phoneFormat(value) {
+  if (value) {
+	let phoneNumber = value.replace(/\D/g, '')
+
+	if (phoneNumber.length &gt; 11) {
+	  return phoneNumber
+	} else {
+	  let number = phoneNumber.substring(0, 11);
+	  let numberLen = number.length;
+
+	  if (numberLen &gt; 3 &amp;&amp; numberLen &lt; 8) {
+		number = `${number.substr(0, 3)} ${number.substr(3)}`;
+	  } else if (numberLen &gt;= 8) {
+		number = `${number.substr(0, 3)} ${number.substr(3, 4)} ${number.substr(7)}`;
+	  }
+	  return number;
+	}
+
+  } else {
+	return &quot;&quot;;
+  }
+}
+
+</code></pre>
+
+<p>在<code>helper.test.js</code> 中，接在之前<code>truncate</code>方法后面加入 <code>phoneFormat</code> 的测试代码：</p>
+
+<pre><code class="language-js">//helper.test.js
+import { truncate,phoneFormat } from '../helper'
+
+describe('helper', () =&gt; {
+	it('should truncate string with length', () =&gt; {
+		...
+	  })
+
+	it('should return parse phone format like xxx xxxx xxxx', () =&gt; {
+	const phone = phoneFormat(`13000000000`)
+	expect(phone).toBe(`130 0000 0000`)
+
+  })
+})
+
+</code></pre>
+
+<p>我们看到加入了这部分测试代码后，覆盖率一下子就提升了上来。
+一般来说，测试覆盖率在75以上，就能让项目的质量有了不少保证，一些基础架构核心类型的项目，覆盖率有可能要求达到100%。</p>
+
+<p><img src="https://gitee.com/DaoG/img/raw/master/icov-reporter-html.png" alt="" /></p>
+
+<p>这里的测试率报告也同时给出了，这个方法内哪些分支覆盖了测试，哪些没有。</p>
+
+<p>细心的朋友会发现，这里多出了两种黑底黄字的图标，分别写了E和I。
+把鼠标hover到96行的E图标上，会出现一句title：else path not taken。
+这就是表明这里的<code> if{…} else{…}</code>语句我们只测试了<code>if</code>部分，113行的<code>else</code>部分代码的背景是红色的，说明目前的测试代码没有覆盖到else部分。
+同理，99行的图标 I 当然就是 if path not taken。表明 :</p>
+
+<pre><code class="language-js">if (phoneNumber.length &gt; 11) {
+	  return phoneNumber
+	}
+</code></pre>
+
+<p>这部分if逻辑分支，用于处理长度超过11的部分的代码并没被覆盖到。</p>
+
+<p>我们接着在后面添加测试代码：</p>
+
+<pre><code class="language-js">//helper.test.js
+import { truncate,phoneFormat } from '../helper'
+
+describe('helper', () =&gt; {
+	it('should truncate string with length', () =&gt; {
+		...
+	  })
+
+	it('should return parse phone format like xxx xxxx xxxx', () =&gt; {
+	const phone = phoneFormat(`13000000000`)
+	expect(phone).toBe(`130 0000 0000`)
+	
+	const inputEmpty = phoneFormat(``)
+	expect(inputEmpty).toBe(``)
+  })
+})
+</code></pre>
+
+<p>由于测试了else部分，所以我们的覆盖率中，语句和分支这部分都比之前提升了。打开覆盖率报告，发现 黑底黄字的E图标也没了，113行else部分的代码也不是红色背景了。
+<img src="https://gitee.com/DaoG/img/raw/master/icov-else-taken.png" alt="" /></p>
+
+<p>现在我们继续完善测试代码，比如模拟用户输入手机号到第4位和第7位时，是否正确加入了空格。</p>
+
+<pre><code class="language-js">//helper.test.js
+import { truncate,phoneFormat } from '../helper'
+
+describe('helper', () =&gt; {
+	it('should truncate string with length', () =&gt; {
+		...
+	})
+
+	it('should return parse phone format like xxx xxxx xxxx', () =&gt; {
+	  const phone = phoneFormat(`13000000000`)
+	  expect(phone).toBe(`130 0000 0000`)
+	
+	  const longphone = phoneFormat(`131234567890`)
+  	  expect(longphone).toBe(`131234567890`)
+
+	  const input4number = phoneFormat(`1300`)
+	  expect(input4number).toBe(`130 0`)
+
+	  const input7number = phoneFormat(`130 0000`)
+	  expect(input7number).toBe(`130 0000`)
+
+	  const input8number = phoneFormat(`130 0000 0`)
+	  expect(input8number).toBe(`130 0000 0`)
+
+	  const inputmorethan8number = phoneFormat(`130 0000 000`)
+	  expect(inputmorethan8number).toBe(`130 0000 000`)
+
+	  const inputEmpty = phoneFormat(``)
+	  expect(inputEmpty).toBe(``)
+    })
+})
+
+</code></pre>
+
+<p>至此，<code>phoneFormat</code> 方法里全部分支以及语句都测试覆盖了。</p>
+
+<p>按照以上方式，持续补全测试代码，
+<img src="https://gitee.com/DaoG/img/raw/master/final-cover.png" alt="" /></p>
+
+<p>目前就只剩2个分支没有覆盖到了，其余部分都挺不错。
+如果代码不易测试的话，那么就可能需要考虑重构了，当然，如何重构就是另一篇文章讨论的了，这里就暂不展开说了。</p>
+
+<p>-EOF-</p>
+
     </div>
 
     
@@ -358,7 +519,7 @@ describe('helper', () =&gt; {
   </p>
   <p class="copyright-item">
     <span class="item-title">LastMod</span>
-    <span class="item-content">0001-01-01</span>
+    <span class="item-content">2018-07-31</span>
   </p>
   
   <p class="copyright-item">
@@ -371,19 +532,18 @@ describe('helper', () =&gt; {
     
 
     <footer class="post-footer">
-      
+      <div class="post-tags">
+          
+          <a href="/tags/javascript/">javascript</a>
+          
+        </div>
 
       
       <nav class="post-nav">
         
-          <a class="prev" href="/post/mac-full-stack-env/">
-            <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">mac全栈开发环境</span>
-            <span class="prev-text nav-mobile">Prev</span>
-          </a>
         
-          <a class="next" href="/post/%E6%97%A0%E6%A0%87%E9%A2%98/">
-            <span class="next-text nav-default"></span>
+          <a class="next" href="/post/algorithm-doublylinkedlist/">
+            <span class="next-text nav-default">算法系列（二）-双向链表</span>
             <span class="next-text nav-mobile">Next</span>
             <i class="iconfont icon-right"></i>
           </a>
