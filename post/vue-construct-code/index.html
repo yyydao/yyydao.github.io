@@ -76,7 +76,7 @@
 
 <meta itemprop="datePublished" content="2018-06-01T10:44:05&#43;08:00" />
 <meta itemprop="dateModified" content="2018-06-01T10:44:05&#43;08:00" />
-<meta itemprop="wordCount" content="1650">
+<meta itemprop="wordCount" content="1651">
 
 
 
@@ -372,6 +372,8 @@ Object.defineProperty(Vue.prototype, '$props', propsDef)
 <code>$data</code>和<code>$props</code>定义了各自的 getter方法。对于属性<code>$data</code>和<code>$props</code>的访问会自动调用一个隐藏函数，它的返回值会被当作属性访问的返回值，也就是返回 <code>this._data</code>和<code>this._props </code>。由于我们只定义了 <code>this._data</code>和<code>this._props </code>的getter， 所以对<code>$data</code>和<code>$props</code>的值进行设置时set操作会<strong>忽略赋值操作</strong>，不会抛出错误。即便有合法的setter，set操作也是没有意义的，所以在下面的<code> if (process.env.NODE_ENV !== 'production') {..}</code>中，对非生产环境下的setter操作，即试图修改<code>$data</code>或<code>$props</code>的值的时候会抛出相应的警告。所以<code>$data</code>和<code>$props</code>是只读的.</p>
 
 <p>那么在<code>src/core/instance/index.js</code> 中<code>export default Vue</code>  后，Vue下一步又有怎样的变化呢？我们留到下回分解。</p>
+
+<p>-EOF-</p>
 
     </div>
 

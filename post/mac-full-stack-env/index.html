@@ -89,7 +89,7 @@
 
 <meta itemprop="datePublished" content="2018-03-23T10:44:05&#43;08:00" />
 <meta itemprop="dateModified" content="2018-03-23T10:44:05&#43;08:00" />
-<meta itemprop="wordCount" content="980">
+<meta itemprop="wordCount" content="981">
 
 
 
@@ -253,7 +253,7 @@
 
 <h3 id="安装">安装</h3>
 
-<pre><code class="language-bash"> /usr/bin/ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;
+<pre><code class="language-bash">/usr/bin/ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;
 </code></pre>
 
 <h3 id="检查安装情况">检查安装情况</h3>
@@ -316,22 +316,22 @@ source ~/.zshrc
 
 <pre><code class="language-shell"># check the zsh info
 brew info zsh
-    
+        
 # install zsh
 brew install --without-etcdir zsh
-    
+        
 # add shell path
 sudo vim /etc/shells
-    
+        
 # add the following line into the very end of the file(/etc/shells)
 /usr/local/bin/zsh
-    
+        
 # change default shell
 chsh -s /usr/local/bin/zsh
-</code></pre></li>
-</ol>
+</code></pre>
 
-<h3 id="一些插件">一些插件</h3>
+<h3 id="一些插件">一些插件</h3></li>
+</ol>
 
 <h4 id="zsh-autosuggestions">zsh-autosuggestions</h4>
 
@@ -345,10 +345,10 @@ chsh -s /usr/local/bin/zsh
 
 <p><code>plugins=(zsh-autosuggestions)</code></p></li>
 
-<li><p>新开一个终端会话就可体验了。</p></li>
-</ol>
+<li><p>新开一个终端会话就可体验了。</p>
 
-<h3 id="安装tmux">安装tmux</h3>
+<h3 id="安装tmux">安装tmux</h3></li>
+</ol>
 
 <p><code>brew install tmux</code></p>
 
@@ -449,23 +449,23 @@ load-nvmrc
 <li>创建全局包目录</li>
 </ol>
 
-<pre><code class="language-shell">    $ mkdir &quot;${HOME}/.npm-packages&quot;
+<pre><code class="language-shell"> $ mkdir &quot;${HOME}/.npm-packages&quot;
 </code></pre>
 
 <ol>
 <li>.zshrc 配置</li>
 </ol>
 
-<pre><code class="language-shell">    NPM_PACKAGES=&quot;${HOME}/.npm-packages&quot;
-    NODE_PATH=&quot;$NPM_PACKAGES/lib/node_modules:$NODE_PATH&quot;
-    PATH=&quot;$NPM_PACKAGES/bin:$PATH&quot;
+<pre><code class="language-shell"> NPM_PACKAGES=&quot;${HOME}/.npm-packages&quot;
+ NODE_PATH=&quot;$NPM_PACKAGES/lib/node_modules:$NODE_PATH&quot;
+ PATH=&quot;$NPM_PACKAGES/bin:$PATH&quot;
 </code></pre>
 
 <ol>
 <li>在 $HOME/.npmrc 中增加下面代码</li>
 </ol>
 
-<pre><code class="language-shell">    prefix=${HOME}/.npm-packages
+<pre><code class="language-shell"> prefix=${HOME}/.npm-packages
 </code></pre>
 
 <h3 id="yarn">Yarn</h3>
@@ -500,6 +500,8 @@ load-nvmrc
 
 <pre><code class="language-shell"> brew cask install mounty
 </code></pre>
+
+<p>-EOF-</p>
     </div>
 
     
