@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Algorithm on Nodecafe</title>
+    <title>algorithm on Nodecafe</title>
     <link>https://nodecafe.me/tags/algorithm/</link>
-    <description>Recent content in Algorithm on Nodecafe</description>
+    <description>Recent content in algorithm on Nodecafe</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <lastBuildDate>Thu, 21 Jun 2018 23:11:58 +0800</lastBuildDate>

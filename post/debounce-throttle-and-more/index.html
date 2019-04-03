@@ -20,7 +20,6 @@
   <meta name="description" content="Debounce和Throttle是两种常用的JS技巧，同时也是非常实用的技术。 所以有大量的文章专门介绍，包括不少洗稿了CSS-Trick那篇文章，尤其是那些用电梯做比喻的文章，不得不说，电梯的比喻烂透了。
 简单来说，debounce在计算机词典中译作防反跳，其他常见翻译是防抖动，由词根 de- 和 bounce 组成，具体详解见下文。throttle可译作节流，那些写成截流的，估计是用了拼音输入法并且没理解throttle含义，截流的英文通常译作closure，截流原指堵截水流，使改变方向或提高水位，所以叫截流根本是牛头不对马嘴；而节流本意是节制水流，比喻节约开支。其实想想成语开源节流或者节流阀门，就明白了。
 这两个从字面来看，似乎能得到些感性上的大致理解。下面，细说一下这两个技巧。
-
 " />
 
   <meta name="keywords" content="Hugo, theme, Nodecafe" />
@@ -30,7 +29,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.42.2" />
+<meta name="generator" content="Hugo 0.54.0" />
 
 
 <link rel="canonical" href="https://nodecafe.me/post/debounce-throttle-and-more/" />
@@ -58,41 +57,23 @@
 
 简单来说，debounce在计算机词典中译作防反跳，其他常见翻译是防抖动，由词根 de- 和 bounce 组成，具体详解见下文。throttle可译作节流，那些写成截流的，估计是用了拼音输入法并且没理解throttle含义，截流的英文通常译作closure，截流原指堵截水流，使改变方向或提高水位，所以叫截流根本是牛头不对马嘴；而节流本意是节制水流，比喻节约开支。其实想想成语开源节流或者节流阀门，就明白了。
 
-这两个从字面来看，似乎能得到些感性上的大致理解。下面，细说一下这两个技巧。
-
-" />
+这两个从字面来看，似乎能得到些感性上的大致理解。下面，细说一下这两个技巧。" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://nodecafe.me/post/debounce-throttle-and-more/" />
-
-
-
 <meta property="article:published_time" content="2018-03-26T23:38:52&#43;08:00"/>
-
 <meta property="article:modified_time" content="2018-03-26T23:38:52&#43;08:00"/>
-
-
-
-
-
-
-
-
-
-
 
 <meta itemprop="name" content="Debounce Throttle and More">
 <meta itemprop="description" content="Debounce和Throttle是两种常用的JS技巧，同时也是非常实用的技术。 所以有大量的文章专门介绍，包括不少洗稿了CSS-Trick那篇文章，尤其是那些用电梯做比喻的文章，不得不说，电梯的比喻烂透了。
 
 简单来说，debounce在计算机词典中译作防反跳，其他常见翻译是防抖动，由词根 de- 和 bounce 组成，具体详解见下文。throttle可译作节流，那些写成截流的，估计是用了拼音输入法并且没理解throttle含义，截流的英文通常译作closure，截流原指堵截水流，使改变方向或提高水位，所以叫截流根本是牛头不对马嘴；而节流本意是节制水流，比喻节约开支。其实想想成语开源节流或者节流阀门，就明白了。
 
-这两个从字面来看，似乎能得到些感性上的大致理解。下面，细说一下这两个技巧。
-
-">
+这两个从字面来看，似乎能得到些感性上的大致理解。下面，细说一下这两个技巧。">
 
 
 <meta itemprop="datePublished" content="2018-03-26T23:38:52&#43;08:00" />
 <meta itemprop="dateModified" content="2018-03-26T23:38:52&#43;08:00" />
-<meta itemprop="wordCount" content="1856">
+<meta itemprop="wordCount" content="1892">
 
 
 
@@ -103,9 +84,7 @@
 
 简单来说，debounce在计算机词典中译作防反跳，其他常见翻译是防抖动，由词根 de- 和 bounce 组成，具体详解见下文。throttle可译作节流，那些写成截流的，估计是用了拼音输入法并且没理解throttle含义，截流的英文通常译作closure，截流原指堵截水流，使改变方向或提高水位，所以叫截流根本是牛头不对马嘴；而节流本意是节制水流，比喻节约开支。其实想想成语开源节流或者节流阀门，就明白了。
 
-这两个从字面来看，似乎能得到些感性上的大致理解。下面，细说一下这两个技巧。
-
-"/>
+这两个从字面来看，似乎能得到些感性上的大致理解。下面，细说一下这两个技巧。"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -229,23 +208,14 @@
 
 <p>这两个从字面来看，似乎能得到些感性上的大致理解。下面，细说一下这两个技巧。</p>
 
-<p></p>
-
 <h2 id="debounce">Debounce</h2>
 
 <h3 id="debounce-1">Debounce</h3>
 
-
 <figure>
-    
-        <img src="/posts/images/bounce.jpg" />
-    
-    
-    <figcaption>
-        <h4>电路中的bounce现象</h4>
-        
-    </figcaption>
-    
+    <img src="/posts/images/bounce.jpg"/> <figcaption>
+            <h4>电路中的bounce现象</h4>
+        </figcaption>
 </figure>
 
 
@@ -319,7 +289,30 @@ function debounce(func,delay){
 }
 </code></pre>
 
-<p>以上实现的Demo可戳<a href="https://codepen.io/yyydao/pen/rdPpPN">这里</a></p>
+<p>以上实现的完整Demo可戳<a href="https://codepen.io/yyydao/pen/rdPpPN">这里</a>。
+codepen预览如下 ，看不到的请自备梯子。</p>
+
+
+
+
+
+
+
+
+
+
+
+<script
+    data-slug-hash="rdPpPN"
+    data-user="jorin"
+    data-height="500"
+    data-default-tab="result"
+    data-theme-id="8862"
+    class='codepen'
+    async
+    src="//codepen.io/assets/embed/ei.js"
+></script>
+
 
 <p>可以实现一个ECMA2015+版本。会简洁不少。</p>
 
@@ -353,7 +346,29 @@ function debounce(func, delay) {
 
 </code></pre>
 
-<p>Demo见 <a href="https://codepen.io/yyydao/pen/GxBPQb">这里</a></p>
+<p>完整demo见 <a href="https://codepen.io/yyydao/pen/GxBPQb">这里</a></p>
+
+
+
+
+
+
+
+
+
+
+
+<script
+    data-slug-hash="GxBPQb"
+    data-user="jorin"
+    data-height="500"
+    data-default-tab="result"
+    data-theme-id="8862"
+    class='codepen'
+    async
+    src="//codepen.io/assets/embed/ei.js"
+></script>
+
 
 <h3 id="实现throttle方法">实现Throttle方法</h3>
 
@@ -387,7 +402,29 @@ function throttle(func, threshold) {
 }
 </code></pre>
 
-<p><a href="https://codepen.io/yyydao/pen/YadKVJ">demo</a></p>
+<p><a href="https://codepen.io/yyydao/pen/YadKVJ">完整demo</a></p>
+
+
+
+
+
+
+
+
+
+
+
+<script
+    data-slug-hash="YadKVJ"
+    data-user="jorin"
+    data-height="500"
+    data-default-tab="result"
+    data-theme-id="8862"
+    class='codepen'
+    async
+    src="//codepen.io/assets/embed/ei.js"
+></script>
+
 
 <p>ES6实现版本：</p>
 
@@ -422,9 +459,28 @@ function throttle(func, threshold = 16) {
 }
 </code></pre>
 
-<p><a href="https://codepen.io/yyydao/pen/yKGBVJ">demo</a></p>
+<p><a href="https://codepen.io/yyydao/pen/yKGBVJ">完整demo</a></p>
 
-<p>-EOF-</p>
+
+
+
+
+
+
+
+
+
+
+<script
+    data-slug-hash="yKGBVJ"
+    data-user="jorin"
+    data-height="500"
+    data-default-tab="result"
+    data-theme-id="8862"
+    class='codepen'
+    async
+    src="//codepen.io/assets/embed/ei.js"
+></script>
     </div>
 
     
@@ -503,7 +559,9 @@ function throttle(func, threshold = 16) {
 
   <span class="copyright-year">
     &copy; 
-    2018
+    
+      2018 - 
+    2019
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
@@ -525,7 +583,7 @@ function throttle(func, threshold = 16) {
 <script type="text/javascript" src="/dist/even.min.js?v=3.1.1"></script>
 
 
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;

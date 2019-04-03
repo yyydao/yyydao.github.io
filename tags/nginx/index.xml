@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Nginx on Nodecafe</title>
+    <title>nginx on Nodecafe</title>
     <link>https://nodecafe.me/tags/nginx/</link>
-    <description>Recent content in Nginx on Nodecafe</description>
+    <description>Recent content in nginx on Nodecafe</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <lastBuildDate>Sun, 25 Mar 2018 12:16:12 +0800</lastBuildDate>
@@ -17,9 +17,7 @@
       <pubDate>Sun, 25 Mar 2018 12:16:12 +0800</pubDate>
       
       <guid>https://nodecafe.me/post/lets-encrypt/</guid>
-      <description>&lt;p&gt;Let&amp;rsquo;s Encrypt 最近支持wildcard，顺便自己之前vps的东西也铲掉重来，所以这里是一篇再次部署Let&amp;rsquo;s encrypt证书的文章。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;Let&amp;rsquo;s Encrypt 最近支持wildcard，顺便自己之前vps的东西也铲掉重来，所以这里是一篇再次部署Let&amp;rsquo;s encrypt证书的文章。&lt;/p&gt;</description>
     </item>
     
   </channel>
