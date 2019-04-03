@@ -16,21 +16,17 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="YYY" />
-  <meta name="description" content="Package.json 分析一下Vue使用的依赖以及一些配置。也可以学到不少东西，比如对于打包。 无副作用模块 关于此部分，可参见作者自己的回答。 太长不看版本：告诉打" />
-
-  <meta name="keywords" content="Hugo, theme, Nodecafe" />
+<meta name="author" content="YYY" /><meta name="description" content="Package.json 分析一下Vue使用的依赖以及一些配置。也可以学到不少东西，比如对于打包。 无副作用模块 关于此部分，可参见作者自己的回答。 太长不看版本：告诉打" /><meta name="keywords" content="Hugo, theme, Nodecafe" />
 
 
 
 
 
 
-<meta name="generator" content="Hugo 0.54.0" />
+<meta name="generator" content="Hugo 0.54.0 with even 4.0.0" />
 
 
 <link rel="canonical" href="https://nodecafe.me/post/vue-package-json-analyse/" />
-
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -38,15 +34,8 @@
 <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
 
 
-
-
-
-
-
-<link href="/dist/even.min.css?v=3.1.1" rel="stylesheet">
-<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
-
-
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
 <meta property="og:title" content="Vue项目package.json分析" />
@@ -62,7 +51,7 @@
 
 <meta itemprop="datePublished" content="2018-05-10T10:44:05&#43;08:00" />
 <meta itemprop="dateModified" content="2018-05-10T10:44:05&#43;08:00" />
-<meta itemprop="wordCount" content="526">
+<meta itemprop="wordCount" content="537">
 
 
 
@@ -142,15 +131,11 @@
         <span class="post-time"> 2018-05-10 </span>
         
         
-        
       </div>
     </header>
 
-    
-    
-<div class="post-toc" id="post-toc">
+    <div class="post-toc" id="post-toc">
   <h2 class="post-toc-title">Contents</h2>
-  
   <div class="post-toc-content always-active">
     <nav id="TableOfContents">
 <ul>
@@ -164,11 +149,6 @@
 </nav>
   </div>
 </div>
-
-    
-    
-
-    
     <div class="post-content">
       
 
@@ -180,24 +160,41 @@
 
 <p>关于此部分，可参见<a href="https://www.zhihu.com/question/41922432/answer/93346223">作者自己的回答</a>。
 太长不看版本：告诉打包工具我写的代码无副作用，也就是说多余的东西放心移除就好。这样可以缩小体积。</p>
-
-<pre><code class="language-json">&quot;sideEffects&quot;: false,
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="s2">&#34;sideEffects&#34;</span><span class="err">:</span> <span class="kc">false</span><span class="err">,</span></code></pre></td></tr></table>
+</div>
+</div>
 <h2 id="提交时的githook和规范">提交时的githook和规范</h2>
-
-<pre><code class="language-json">&quot;gitHooks&quot;: {  
-  &quot;pre-commit&quot;: &quot;lint-staged&quot;,  
-  &quot;commit-msg&quot;: &quot;node scripts/verify-commit-msg.js&quot;  
-},  
-&quot;lint-staged&quot;: {  
-  &quot;*.js&quot;: [  
-  &quot;eslint --fix&quot;,  
-  &quot;git add&quot;  
-  ]  
-},
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="s2">&#34;gitHooks&#34;</span><span class="err">:</span> <span class="p">{</span>  
+  <span class="nt">&#34;pre-commit&#34;</span><span class="p">:</span> <span class="s2">&#34;lint-staged&#34;</span><span class="p">,</span>  
+  <span class="nt">&#34;commit-msg&#34;</span><span class="p">:</span> <span class="s2">&#34;node scripts/verify-commit-msg.js&#34;</span>  
+<span class="p">}</span><span class="err">,</span>  
+<span class="s2">&#34;lint-staged&#34;</span><span class="err">:</span> <span class="p">{</span>  
+  <span class="nt">&#34;*.js&#34;</span><span class="p">:</span> <span class="p">[</span>  
+  <span class="s2">&#34;eslint --fix&#34;</span><span class="p">,</span>  
+  <span class="s2">&#34;git add&#34;</span>  
+  <span class="p">]</span>  
+<span class="p">}</span><span class="err">,</span></code></pre></td></tr></table>
+</div>
+</div>
 <h2 id="依赖package">依赖package：</h2>
 
 <p>对于<code>rollup</code>、<code>jasmine</code>、<code>karma</code>、<code>eslint</code>、<code>Flow</code>、<code>phantomjs</code>、<code>nightwatch</code>这些相关的就不一一分析了。</p>
@@ -234,7 +231,6 @@
 
     </div>
 
-    
     <div class="post-copyright">
   <p class="copyright-item">
     <span class="item-title">Author</span>
@@ -242,7 +238,10 @@
   </p>
   <p class="copyright-item">
     <span class="item-title">LastMod</span>
-    <span class="item-content">2018-05-10</span>
+    <span class="item-content">
+        2018-05-10
+        
+    </span>
   </p>
   
   <p class="copyright-item">
@@ -250,27 +249,17 @@
     <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
   </p>
 </div>
-
-    
-    
-
-    <footer class="post-footer">
+<footer class="post-footer">
       <div class="post-tags">
-          
           <a href="/tags/javascript/">javascript</a>
-          
-        </div>
-
-      
+          </div>
       <nav class="post-nav">
-        
-          <a class="prev" href="/post/algorithm-linkedlist/">
+        <a class="prev" href="/post/algorithm-linkedlist/">
             <i class="iconfont icon-left"></i>
             <span class="prev-text nav-default">算法系列（一）-链表</span>
             <span class="prev-text nav-mobile">Prev</span>
           </a>
-        
-          <a class="next" href="/post/debounce-throttle-and-more/">
+        <a class="next" href="/post/debounce-throttle-and-more/">
             <span class="next-text nav-default">Debounce Throttle and More</span>
             <span class="next-text nav-mobile">Next</span>
             <i class="iconfont icon-right"></i>
@@ -280,9 +269,6 @@
   </article>
         </div>
         
-  
-
-  
 
       </div>
     </main>
@@ -308,8 +294,7 @@
 
   <span class="copyright-year">
     &copy; 
-    
-      2018 - 
+    2018 - 
     2019
     <span class="heart">
       <i class="iconfont icon-heart"></i>
@@ -324,12 +309,10 @@
     </div>
   </div>
   
-<script src="/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
-  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
-  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
-
-
-<script type="text/javascript" src="/dist/even.min.js?v=3.1.1"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
 
 
 <script type="application/javascript">
@@ -337,7 +320,7 @@ var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
 	ga('create', 'UA-40600328-2', 'auto');
-	
+	ga('set', 'anonymizeIp', true);
 	ga('send', 'pageview');
 }
 </script>
