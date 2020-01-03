@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>react-project-unitest - Nodecafe</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="YYY" /><meta name="description" content="遇到问题： 1 2 jest node[20471] (FSEvents.framework) FSEventStreamStart: register_with_server: ERROR: f2d_register_rpc() =&amp;gt; (null) (-22) 相关问题：[https://github.com/facebook/jest/issues/1767] 解决" /><meta name="keywords" content="Hugo, theme, Nodecafe" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.62.1 with theme even" />
+
+
+<link rel="canonical" href="https://nodecafe.me/post/react-project-unitest/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.b66c6488.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="react-project-unitest" />
+<meta property="og:description" content="遇到问题： 1 2 jest node[20471] (FSEvents.framework) FSEventStreamStart: register_with_server: ERROR: f2d_register_rpc() =&gt; (null) (-22) 相关问题：[https://github.com/facebook/jest/issues/1767] 解决" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nodecafe.me/post/react-project-unitest/" />
+<meta property="article:published_time" content="2019-03-23T10:44:05+08:00" />
+<meta property="article:modified_time" content="2019-03-23T10:44:05+08:00" />
+<meta itemprop="name" content="react-project-unitest">
+<meta itemprop="description" content="遇到问题： 1 2 jest node[20471] (FSEvents.framework) FSEventStreamStart: register_with_server: ERROR: f2d_register_rpc() =&gt; (null) (-22) 相关问题：[https://github.com/facebook/jest/issues/1767] 解决">
+<meta itemprop="datePublished" content="2019-03-23T10:44:05&#43;08:00" />
+<meta itemprop="dateModified" content="2019-03-23T10:44:05&#43;08:00" />
+<meta itemprop="wordCount" content="309">
+
+
+
+<meta itemprop="keywords" content="React," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="react-project-unitest"/>
+<meta name="twitter:description" content="遇到问题： 1 2 jest node[20471] (FSEvents.framework) FSEventStreamStart: register_with_server: ERROR: f2d_register_rpc() =&gt; (null) (-22) 相关问题：[https://github.com/facebook/jest/issues/1767] 解决"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Nodecafe</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">about</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Nodecafe</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">about</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">react-project-unitest</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-03-23 </span>
+        
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents"></nav>
+  </div>
+</div>
+    <div class="post-content">
+      <ul>
+<li>遇到问题：</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">jest</span> <span class="nx">node</span><span class="p">[</span><span class="mi">20471</span><span class="p">]</span> <span class="p">(</span><span class="nx">FSEvents</span><span class="p">.</span><span class="nx">framework</span><span class="p">)</span> <span class="nx">FSEventStreamStart</span><span class="o">:</span> <span class="nx">register_with_server</span><span class="o">:</span> <span class="nx">ERROR</span><span class="o">:</span> <span class="nx">f2d_register_rpc</span><span class="p">(</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">(</span><span class="kc">null</span><span class="p">)</span> <span class="p">(</span><span class="o">-</span><span class="mi">22</span><span class="p">)</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>相关问题：[https://github.com/facebook/jest/issues/1767]
+解决：升级watchman</p>
+<ul>
+<li>
+<p>url问题：
+解决方案：<a href="https://www.ryandoll.com/post/2018/3/29/jest-and-url-mocking" title="jest url 模拟">https://www.ryandoll.com/post/2018/3/29/jest-and-url-mocking</a>。（屌的啦</p>
+</li>
+<li>
+<p>document is not defined ：</p>
+</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="err">●</span> <span class="nx">Test</span> <span class="nx">suite</span> <span class="nx">failed</span> <span class="nx">to</span> <span class="nx">run</span>
+
+    <span class="nx">ReferenceError</span><span class="o">:</span> <span class="nb">document</span> <span class="nx">is</span> <span class="nx">not</span> <span class="nx">defined</span>
+      
+      <span class="nx">at</span> <span class="nb">Object</span><span class="p">.</span><span class="o">&lt;</span><span class="nx">anonymous</span><span class="o">&gt;</span> <span class="p">(</span><span class="nx">node_modules</span><span class="o">/</span><span class="nx">bizcharts</span><span class="o">/</span><span class="nx">umd</span><span class="o">/</span><span class="nx">BizCharts</span><span class="p">.</span><span class="nx">js</span><span class="o">:</span><span class="mi">21580</span><span class="o">:</span><span class="mi">13</span><span class="p">)</span>
+      <span class="nx">at</span> <span class="nx">__webpack_require__</span> <span class="p">(</span><span class="nx">node_modules</span><span class="o">/</span><span class="nx">bizcharts</span><span class="o">/</span><span class="nx">umd</span><span class="o">/</span><span class="nx">BizCharts</span><span class="p">.</span><span class="nx">js</span><span class="o">:</span><span class="mi">30</span><span class="o">:</span><span class="mi">30</span><span class="p">)</span>
+      <span class="nx">at</span> <span class="nb">Object</span><span class="p">.</span><span class="o">&lt;</span><span class="nx">anonymous</span><span class="o">&gt;</span> <span class="p">(</span><span class="nx">node_modules</span><span class="o">/</span><span class="nx">bizcharts</span><span class="o">/</span><span class="nx">umd</span><span class="o">/</span><span class="nx">BizCharts</span><span class="p">.</span><span class="nx">js</span><span class="o">:</span><span class="mi">20927</span><span class="o">:</span><span class="mi">14</span><span class="p">)</span>
+      <span class="nx">at</span> <span class="nx">__webpack_require__</span> <span class="p">(</span><span class="nx">node_modules</span><span class="o">/</span><span class="nx">bizcharts</span><span class="o">/</span><span class="nx">umd</span><span class="o">/</span><span class="nx">BizCharts</span><span class="p">.</span><span class="nx">js</span><span class="o">:</span><span class="mi">30</span><span class="o">:</span><span class="mi">30</span><span class="p">)</span>
+      <span class="nx">at</span> <span class="nb">Object</span><span class="p">.</span><span class="o">&lt;</span><span class="nx">anonymous</span><span class="o">&gt;</span> <span class="p">(</span><span class="nx">node_modules</span><span class="o">/</span><span class="nx">bizcharts</span><span class="o">/</span><span class="nx">umd</span><span class="o">/</span><span class="nx">BizCharts</span><span class="p">.</span><span class="nx">js</span><span class="o">:</span><span class="mi">145</span><span class="o">:</span><span class="mi">18</span><span class="p">)</span>
+      <span class="nx">at</span> <span class="nx">__webpack_require__</span> <span class="p">(</span><span class="nx">node_modules</span><span class="o">/</span><span class="nx">bizcharts</span><span class="o">/</span><span class="nx">umd</span><span class="o">/</span><span class="nx">BizCharts</span><span class="p">.</span><span class="nx">js</span><span class="o">:</span><span class="mi">30</span><span class="o">:</span><span class="mi">30</span><span class="p">)</span>
+      <span class="nx">at</span> <span class="nb">Object</span><span class="p">.</span><span class="o">&lt;</span><span class="nx">anonymous</span><span class="o">&gt;</span> <span class="p">(</span><span class="nx">node_modules</span><span class="o">/</span><span class="nx">bizcharts</span><span class="o">/</span><span class="nx">umd</span><span class="o">/</span><span class="nx">BizCharts</span><span class="p">.</span><span class="nx">js</span><span class="o">:</span><span class="mi">41728</span><span class="o">:</span><span class="mi">12</span><span class="p">)</span>
+      <span class="nx">at</span> <span class="nx">__webpack_require__</span> <span class="p">(</span><span class="nx">node_modules</span><span class="o">/</span><span class="nx">bizcharts</span><span class="o">/</span><span class="nx">umd</span><span class="o">/</span><span class="nx">BizCharts</span><span class="p">.</span><span class="nx">js</span><span class="o">:</span><span class="mi">30</span><span class="o">:</span><span class="mi">30</span><span class="p">)</span>
+      <span class="nx">at</span> <span class="nb">Object</span><span class="p">.</span><span class="o">&lt;</span><span class="nx">anonymous</span><span class="o">&gt;</span> <span class="p">(</span><span class="nx">node_modules</span><span class="o">/</span><span class="nx">bizcharts</span><span class="o">/</span><span class="nx">umd</span><span class="o">/</span><span class="nx">BizCharts</span><span class="p">.</span><span class="nx">js</span><span class="o">:</span><span class="mi">4442</span><span class="o">:</span><span class="mi">11</span><span class="p">)</span>
+      <span class="nx">at</span> <span class="nx">__webpack_require__</span> <span class="p">(</span><span class="nx">node_modules</span><span class="o">/</span><span class="nx">bizcharts</span><span class="o">/</span><span class="nx">umd</span><span class="o">/</span><span class="nx">BizCharts</span><span class="p">.</span><span class="nx">js</span><span class="o">:</span><span class="mi">30</span><span class="o">:</span><span class="mi">30</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>解决：webstorm的 Jest options 加入 <code>--env=jsdom</code></p>
+<ul>
+<li>localstorage not defined
+解决：mock一下</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js">
+<span class="kr">class</span> <span class="nx">LocalStorageMock</span> <span class="p">{</span>
+    <span class="nx">constructor</span><span class="p">(</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">store</span> <span class="o">=</span> <span class="p">{</span><span class="p">}</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nx">clear</span><span class="p">(</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">store</span> <span class="o">=</span> <span class="p">{</span><span class="p">}</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nx">getItem</span><span class="p">(</span><span class="nx">key</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">store</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">||</span> <span class="kc">null</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nx">setItem</span><span class="p">(</span><span class="nx">key</span><span class="p">,</span> <span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">store</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">=</span> <span class="nx">value</span><span class="p">.</span><span class="nx">toString</span><span class="p">(</span><span class="p">)</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nx">removeItem</span><span class="p">(</span><span class="nx">key</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">delete</span> <span class="k">this</span><span class="p">.</span><span class="nx">store</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span><span class="p">;</span>
+
+<span class="nx">global</span><span class="p">.</span><span class="nx">localStorage</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">LocalStorageMock</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">YYY</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2019-03-23
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/react/">React</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/whatwg-event-loop/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Whatwg Event Loop 翻译</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/use-postgres-with-docker/">
+            <span class="next-text nav-default">利用Docker快速使用Postgres数据库</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:yyydao11@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/yyydao" class="iconfont icon-github" title="github"></a>
+  <a href="https://nodecafe.me/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">YYY</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-40600328-2', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

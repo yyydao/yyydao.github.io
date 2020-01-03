@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Vue on Nodecafe</title>
@@ -6,10 +6,19 @@
     <description>Recent content in Vue on Nodecafe</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Fri, 01 Jun 2018 10:44:05 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 17 Jun 2018 10:44:05 +0800</lastBuildDate>
     
 	<atom:link href="https://nodecafe.me/tags/vue/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Vue  全局API </title>
+      <link>https://nodecafe.me/post/vue-core-global-api/</link>
+      <pubDate>Sun, 17 Jun 2018 10:44:05 +0800</pubDate>
+      
+      <guid>https://nodecafe.me/post/vue-core-global-api/</guid>
+      <description>Vue 全局API 书接上回， 从之前分析Vue构造函数那篇起，回溯之前调用src/core/instance/index.js的src/core/i</description>
+    </item>
     
     <item>
       <title>Vue  构造函数</title>

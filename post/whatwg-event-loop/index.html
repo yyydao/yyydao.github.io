@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Whatwg Event Loop 翻译 - Nodecafe</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="YYY" /><meta name="description" content="8.1.4 Event loops 8.1.4.1 Definitions 为了协调事件，用户交互，脚本，渲染，网络等，用户代理必须使用本文所述的事件循环。有两种事件循环：用于浏览上下文(browsing c" /><meta name="keywords" content="Hugo, theme, Nodecafe" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.62.1 with theme even" />
+
+
+<link rel="canonical" href="https://nodecafe.me/post/whatwg-event-loop/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.b66c6488.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Whatwg Event Loop 翻译" />
+<meta property="og:description" content="8.1.4 Event loops 8.1.4.1 Definitions 为了协调事件，用户交互，脚本，渲染，网络等，用户代理必须使用本文所述的事件循环。有两种事件循环：用于浏览上下文(browsing c" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nodecafe.me/post/whatwg-event-loop/" />
+<meta property="article:published_time" content="2019-04-14T10:44:05+08:00" />
+<meta property="article:modified_time" content="2019-04-14T10:44:05+08:00" />
+<meta itemprop="name" content="Whatwg Event Loop 翻译">
+<meta itemprop="description" content="8.1.4 Event loops 8.1.4.1 Definitions 为了协调事件，用户交互，脚本，渲染，网络等，用户代理必须使用本文所述的事件循环。有两种事件循环：用于浏览上下文(browsing c">
+<meta itemprop="datePublished" content="2019-04-14T10:44:05&#43;08:00" />
+<meta itemprop="dateModified" content="2019-04-14T10:44:05&#43;08:00" />
+<meta itemprop="wordCount" content="4759">
+
+
+
+<meta itemprop="keywords" content="javascript," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Whatwg Event Loop 翻译"/>
+<meta name="twitter:description" content="8.1.4 Event loops 8.1.4.1 Definitions 为了协调事件，用户交互，脚本，渲染，网络等，用户代理必须使用本文所述的事件循环。有两种事件循环：用于浏览上下文(browsing c"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Nodecafe</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">about</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Nodecafe</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">about</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Whatwg Event Loop 翻译</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-04-14 </span>
+        
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#814-event-loops1"> 8.1.4 Event loops </a>
+      <ul>
+        <li><a href="#8141-definitions">8.1.4.1 Definitions</a></li>
+      </ul>
+    </li>
+    <li><a href="#heading">处理模型</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h2 id="814-event-loops1"><a href="https://html.spec.whatwg.org/multipage/webappapis.html#event-loops"> 8.1.4 Event loops </a></h2>
+<h3 id="8141-definitions">8.1.4.1 Definitions</h3>
+<p>为了协调事件，用户交互，脚本，渲染，网络等，用户代理必须使用本文所述的事件循环。有两种事件循环：用于<code>浏览上下文(browsing contexts)</code>和<code>Worker</code>。</p>
+<blockquote>
+<p>在将来, 该标准希望能明确定义event loop 何时被创建或重用。</p>
+</blockquote>
+<p>一个 <strong>window event loop</strong> 是<a href="https://html.spec.whatwg.org/multipage/webappapis.html#similar-origin-window-agent" title="similar-origin-window-agent">相似源窗口代理</a>使用的事件循环 . 用户代理可以跨 <a href="https://html.spec.whatwg.org/multipage/webappapis.html#similar-origin-window-agent" title="similar-origin-window-agent">相似源窗口代理</a>共享事件循环。</p>
+<blockquote>
+<p>该规范并未描述如何处理由<a href="https://html.spec.whatwg.org/multipage/webappapis.html#similar-origin-window-agent" title="similar-origin-window-agent">相似源窗口代理</a> 之间<a href="https://html.spec.whatwg.org/multipage/browsing-the-web.html#navigate" title="navigate">导航</a>所引起的复杂情况。例如, 当 <a href="https://html.spec.whatwg.org/multipage/browsers.html#browsing-context" title="browsing-context">浏览器上下文</a> 从 <code>https://example.com/</code> 导航到 <code>https://shop.example/</code>.</p>
+</blockquote>
+<p>每个用户代理必须至少有一个浏览上下文事件循环，并且至多有一个unit of related similar-origin browsing contexts（没查到中文这叫啥，字面我自行翻译成相似来源相关浏览上下文单元，该概念可以看<a href="https://html.spec.whatwg.org/multipage/browsers.html#unit-of-related-similar-origin-browsing-contexts">这里</a>）。</p>
+<blockquote>
+<p>对于有多个相关浏览上下文单元事件循环的情况，当该组中的浏览上下文被导航，从一个相关的相似来源浏览上下文单元切换到另一个单元时，复杂性会出现。 本规范目前没有描述如何处理这些复杂问题。</p>
+</blockquote>
+<p>浏览上下文事件循环始终至少有一个浏览上下文。如果这样的事件循环的浏览上下文全部消失，那么事件循环也会消失。浏览上下文总是有一个事件循环来协调其活动。</p>
+<p>Worker事件循环更简单：每个Worker都有一个事件循环，通过<a href="https://html.spec.whatwg.org/multipage/workers.html#run-a-worker">Worker处理模型 ( worker processing model )</a>管理事件循环的生命周期。</p>
+<p>事件循环具有一个或多个<a href="https://html.spec.whatwg.org/multipage/webappapis.html#task-queue">任务队列 ( task queue )</a>。任务队列是一个有序的任务列表，它是负责如下工作的算法：</p>
+<ul>
+<li>
+<p>事件</p>
+<p>在特定的EventTarget对象上分派Event对象，通常由专门的任务完成。</p>
+</li>
+</ul>
+<blockquote>
+<p>并非所有事件都使用任务队列分派，其他许多事件都会在其他任务中分派。</p>
+</blockquote>
+<ul>
+<li>Parsing</li>
+</ul>
+<p>HTML解析器token一个或多个字节，然后处理任何结果令牌，这个过程一般视为一个任务。</p>
+<ul>
+<li>Callbacks</li>
+</ul>
+<p>调用回调通常由指定任务完成。</p>
+<ul>
+<li>Using a resource</li>
+</ul>
+<p>当算法获取资源时，如果以非阻塞方式进行提取，那么一旦某个或全部资源可用，对资源的处理由任务执行。</p>
+<ul>
+<li>对DOM操作作出反应</li>
+</ul>
+<p>某些元素具有响应DOM操作而触发的任务，例如，当该元素插入到文档中时。</p>
+<p>浏览上下文类型的事件循环中的每一个任务都与一个Document对象关联；如果任务的队列在一个元素的上下文中，那么它是元素的节点文档；如果任务队列在浏览上下文中，那么它是任务排队时的浏览上下文活动文档；如果任务是因为script脚本产生的队列，那么该文档对象是由该（script's settings object）产生的（A responsible document）</p>
+<blockquote>
+<p>A responsible document: For example, the URL of the responsible document is used to set the URL of the Document after it has been reset using document.open().</p>
+</blockquote>
+<p>一个 任务(task) 旨在用于特定的事件循环：这个事件循环负责处理这些和Documenet以及Worker相关的任务。</p>
+<p>每个任务都被定义为来自特定的任务源。 所有来自一个特定任务源的并且指向特定事件循环的任务集（例如，由Document定时器产生的回调，针对在该Document上的鼠标移动触发的事件，为该Document的解析器排队的任务）必须始终添加 到相同类型的任务队列，但来自不同任务源的任务集可能被放置在不同的任务队列中。</p>
+<blockquote>
+<p>例如，用户代理可以有一个用于鼠标和键盘事件的任务队列（用户交互任务源），另一个用于其他任务。 然后，用户代理可以在四分之三的时间内将键盘和鼠标事件优先于其他任务，从而保持界面响应，但不会让其他任务队列挨饿，同时又无法处理来其他任务源的事件。</p>
+</blockquote>
+<p>每个事件循环都有一个当前运行的任务。 最初，这是空的。 同时需要处理处理重入（Reentrancy，是指该函数在自己调用自己的时候，不必担心数据被破坏）。 每个事件循环还有一个<code>执行微任务检查点 (performing a microtask checkpoint)</code>标志位，该标志位最初必须为false。 它用于防止performing a microtask checkpoint算法发生重入调用。</p>
+<h2 id="heading">处理模型</h2>
+<p>只要事件循环存在，那么它就必须持续地执行一下步骤：</p>
+<ol>
+<li>
+<p>让oldestTask成为事件循环任务队列中最老的任务（如果有的话），在浏览上下文事件循环的情况下，忽略关联文档不完全活动的任务。 用户代理可以选择任何任务队列。 如果没有要选择的任务，则跳转到下面的<code>microtasks</code>步骤。</p>
+</li>
+<li>
+<p>将事件循环的当前正在运行的任务设置为oldestTask。</p>
+</li>
+<li>
+<p>运行 oldestTask.</p>
+</li>
+<li>
+<p>将事件循环当前运行的任务设置为空。</p>
+</li>
+<li>
+<p>从 任务队列 ( task queue ) 中移除oldestTask</p>
+</li>
+<li>
+<p>Microtasks：执行一个微任务检查点。</p>
+</li>
+<li>
+<p>更新呈现：如果此事件循环是浏览上下文事件循环（而不是worker事件循环），则运行以下子步骤:</p>
+<ol>
+<li>
+<p>将 <code>now</code> 设为Performance对象的now（）方法返回的值。[HRT\]</p>
+</li>
+<li>
+<p>将 <code>docs</code> 做为所讨论的Document对象列表，除了必须满足以下条件外，可以任意排序：</p>
+<ul>
+<li>
+<p>任何通过文档A嵌套的文档B必须列在列表中的A之后。</p>
+</li>
+<li>
+<p>如果存在两个文档A和B，其浏览上下文都是嵌套浏览上下文，并且它们的浏览上下文容器（<a href="https://html.spec.whatwg.org/multipage/browsers.html#browsing-context-container">browsing context containers</a>）都是同一文档C中的元素，则列表中的A和B的顺序，必须匹配它们各自在C中的浏览上下文容器的顺序.</p>
+<p>在迭代文档的以下步骤中，必须按照在列表中找到的顺序处理每个文档。</p>
+</li>
+</ul>
+</li>
+<li>
+<p>如果有顶级浏览上下文B，用户代理认为此时不会从其渲染更新中受益，则从文档中移除其浏览上下文的顶级浏览上下文位于B中的所有Document对象。</p>
+<p>&gt; 顶层浏览上下文是否会因更新渲染而受益取决于各种因素，例如更新频率。例如，如果浏览器试图达到60Hz的刷新率，那么这些步骤只需要每60秒（约16.7ms）。如果浏览器发现顶级的浏览上下文无法维持此速率，那么它可能会下降到该组文档的更可持续的30Hz，而不是偶尔丢失帧。 （这个规范并没有规定何时更新渲染的任何特定模型。）同样，如果顶级浏览上下文在后台，用户代理可能会决定将该页面放慢到4Hz甚至更低。
+&gt;
+&gt; 浏览器可能会跳过更新渲染的另一个例子：通过交错<a href="https://html.spec.whatwg.org/multipage/webappapis.html#perform-a-microtask-checkpoint">microtask checkpoints</a>（并且没有，例如动画帧回调交错）的方式，以此确保某些任务一个紧接着一个执行。例如，用户代理可能希望将计时器回调合并在一起，而不需要中间渲染更新。</p>
+</li>
+<li>
+<p>如果用户代理认为嵌套的浏览上下文B不会从此时更新其呈现中受益，则从文档中移除其浏览上下文位于B中的所有Document对象。</p>
+<p>&gt; 与顶级浏览上下文一样，各种因素都会影响浏览器是否优化嵌套浏览上下文的更新渲染。 例如，用户代理可能希望花费较少的资源来呈现第三方内容，尤其是当用户目前不可见或资源受限时。 在这种情况下，浏览器可能决定不经常更新此类内容的呈现或从不更新。</p>
+</li>
+<li>
+<p>文档中的每个完全活动的文档，执行resize事件（<a href="https://drafts.csswg.org/cssom-view/#run-the-resize-steps">run the resize steps</a>）的时间，现在作为时间戳传入。</p>
+</li>
+<li>
+<p>文档中的每个完全活动的文档，执行scroll事件（<a href="https://drafts.csswg.org/cssom-view/#run-the-scroll-steps">run the scroll steps</a>）的时间，现在作为时间戳传入。</p>
+</li>
+<li>
+<p>文档中的每个完全活动的文档，计算媒体查询和报告变化（<a href="https://drafts.csswg.org/cssom-view/#evaluate-media-queries-and-report-changes">evaluate media queries and report changes</a>）的时间，现在作为时间戳传入。</p>
+</li>
+<li>
+<p>文档中的每个完全活动的文档，更新动画和相应事件（<a href="https://drafts.csswg.org/web-animations/#update-animations-and-send-events">update animations and send events</a>）的时间，现在作为时间戳传入。</p>
+</li>
+<li>
+<p>文档中的每个完全活动的文档，执行全屏事件（<a href="https://fullscreen.spec.whatwg.org/#run-the-fullscreen-steps">run the fullscreen steps</a>）的时间，现在作为时间戳传入。</p>
+</li>
+<li>
+<p>文档中的每个完全活动的文档，执行动画帧回调（<a href="https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html#run-the-animation-frame-callbacks">run the animation frame callbacks</a>）的时间，现在作为时间戳传入。</p>
+</li>
+<li>
+<p>文档中的每个完全活动的文档，执行intersection observations（<a href="https://w3c.github.io/IntersectionObserver/#run-the-update-intersection-observations-steps">run the update intersection observations steps</a>）的时间，现在作为时间戳传入。</p>
+</li>
+<li>
+<p>对于文档中的每个完全活动的Document，更新该Document的呈现或用户界面及其浏览上下文以反映当前状态。</p>
+</li>
+</ol>
+</li>
+<li>
+<p>如果这是一个worker件循环（即为WorkerGlobalScope运行一个循环），但事件循环的任务队列中没有任务并且WorkerGlobalScope对象的关闭标志为true，则销毁事件循环，中止这些步骤，恢复运行 下面的Web Worker部分描述了的步骤。</p>
+</li>
+</ol>
+<p>每个事件循环都有一个microtask队列。microtask任务不同于task任务，microtask最初在microtask队列中而不是task队列。有两种类型微任务：孤立回调microtasks（solitary callback microtasks）和复合microtasks（compound microtasks.）。</p>
+<blockquote>
+<p>此规范仅具有单独的回调微任务。使用复合微任务的规范必须格外小心，以包装回调来处理事件循环。</p>
+</blockquote>
+<p>microtask的排队算法，它必须附加到相关的事件循环的microtask队列;这类microtask的任务源属于microtask任务源。</p>
+<blockquote>
+<p>如果在初始执行过程中它将转换事件循环，则可以将微任务移动到常规任务队列中。在这种情况下，microtask任务源是使用的任务源。通常，微任务的任务源是不相关的。</p>
+</blockquote>
+<p>当一用户代理要执行一次 设置microtask  检查点时，如果该标志位为 false ，那么用户代理会执行一下步骤：</p>
+<ol>
+<li>
+<p>将<a href="https://html.spec.whatwg.org/multipage/webappapis.html#performing-a-microtask-checkpoint">performing a microtask checkpoint</a>标志位设为 true</p>
+</li>
+<li>
+<p>此时event loop的 microtask 队列不为空</p>
+<ol>
+<li>
+<p>将event loop microtask队列中的 <em>oldestMicroTask</em>  作为最旧的 microtask</p>
+</li>
+<li>
+<p>设置当前 event loop 正在执行的任务（<a href="https://html.spec.whatwg.org/multipage/webappapis.html#currently-running-task">currently running task</a>） 作为 <em>oldestMicroTask</em></p>
+</li>
+<li>
+<p>执行 <em>oldestMicroTask</em></p>
+<p>&gt; 这可能涉及调用脚本回调，最终在执行<a href="https://html.spec.whatwg.org/multipage/webappapis.html#clean-up-after-running-script">clean up after running script</a>这一步骤中，会再次调用<a href="https://html.spec.whatwg.org/multipage/webappapis.html#perform-a-microtask-checkpoint">perform a microtask checkpoint</a>算法，这就是为什么我们使用<a href="https://html.spec.whatwg.org/multipage/webappapis.html#perform-a-microtask-checkpoint">perform a microtask checkpoint</a>标志位来避免重入的原因。</p>
+</li>
+<li>
+<p>将event loop 的 <a href="https://html.spec.whatwg.org/multipage/webappapis.html#currently-running-task">currently running task</a> 设置为null</p>
+</li>
+<li>
+<p>从 microtask queue中移除 oldestMicrotask。</p>
+</li>
+</ol>
+</li>
+<li>
+<p>对其所主管的事件循环内的每个环境设置对象( <a href="https://html.spec.whatwg.org/multipage/webappapis.html#environment-settings-object">environment settings object</a> )，通知有关该环境设置对象rejected promises。</p>
+</li>
+<li>
+<p>清理 indexed DB 转换。</p>
+</li>
+<li>
+<p>将 <a href="https://html.spec.whatwg.org/multipage/webappapis.html#performing-a-microtask-checkpoint">performing a microtask checkpoint</a> 标志置为false。</p>
+</li>
+</ol>
+<p>如果在复合微任务运行时，用户代理需要执行复合微任务子任务以运行一系列步骤，则用户代理必须执行以下步骤：</p>
+<ol>
+<li>
+<p>将事件循环内当前正在运行的任务（the currently running<a href="https://html.spec.whatwg.org/multipage/webappapis.html#compound-microtask">compound microtask</a>）作为parent</p>
+</li>
+<li>
+<p>将子任务作为新任务，新任务由下面这一系列步骤组成。该 microtask的任务源作为 <a href="https://html.spec.whatwg.org/multipage/webappapis.html#microtask-task-source">microtask task source</a>。这是一个合成microtask子任务。</p>
+</li>
+<li>
+<p>将event loop内正在运行的任务作为subtask。</p>
+</li>
+<li>
+<p>执行子任务。</p>
+</li>
+<li>
+<p>将事件循环当前正在运行的任务返回至parent。</p>
+</li>
+</ol>
+<p>当并行运行的算法要等待稳定状态时，用户代理必须对运行以下步骤的microtask进行排队，然后必须停止执行（如下面的步骤中所述，当微任务运行时，将继续执行算法）：</p>
+<ol>
+<li>
+<p>执行算法的同步部分。</p>
+</li>
+<li>
+<p>如果合适，按照算法步骤中的描述，并行恢复算法的执行。</p>
+</li>
+</ol>
+<p>当算法要求遍历事件循环直到达到条件目标时，用户代理必须执行以下步骤：</p>
+<ol>
+<li>
+<p>让task成为事件循环当前正在运行的任务。</p>
+<p>&gt; task 作为一个孤立回调microtask时，可以是 microtask。也可能作为复合microtask的子任务或者一个通常的task而不是microtask。不过不会变成一个复合microtask。</p>
+</li>
+<li>
+<p>将任务源作为任务的<a href="https://html.spec.whatwg.org/multipage/webappapis.html#task-source">task source</a></p>
+</li>
+<li>
+<p>将<a href="https://tc39.github.io/ecma262/#execution-context-stack">JavaScript execution context stack</a> 复制一份到 old stack。</p>
+</li>
+<li>
+<p>清空 <a href="https://tc39.github.io/ecma262/#execution-context-stack">JavaScript execution context stack</a></p>
+</li>
+<li>
+<p><a href="https://html.spec.whatwg.org/multipage/webappapis.html#perform-a-microtask-checkpoint">Perform a microtask checkpoint</a>.</p>
+</li>
+<li>
+<p>停止任务，即使算法已在重新调用任务，依然继续执并行执行该步骤。</p>
+<p>&gt; 这将导致以下算法之一继续执行：事件循环的主要步骤集，执行微任务检查点算法，或执行复合微任务子任务算法。</p>
+</li>
+<li>
+<p>等待直到满足结果。</p>
+</li>
+<li>
+<p>排队任务以使用任务源任务源继续运行这些步骤。等到这个新任务运行后再继续这些步骤。</p>
+</li>
+<li>
+<p>用旧堆栈替换JavaScript执行上下文堆栈。</p>
+</li>
+<li>
+<p>返回至调用者。</p>
+</li>
+</ol>
+<p>由于历史原因，本规范中的一些算法要求用户代理在运行任务时暂停，直到满足条件目标。这意味着运行以下步骤：</p>
+<ol>
+<li>
+<p>如有必要，更新任何文档或浏览上下文的呈现或用户界面以反映当前状态。</p>
+</li>
+<li>
+<p>等到条件目标得到满足。 虽然用户代理具有暂停的任务，但相应的事件循环不得运行更多任务，并且当前正在运行的任务中的任何脚本都必须阻止。 用户代理应该在暂停时保持对用户输入的响应，然而，尽管容量减少，事件循环不会做任何事情。</p>
+</li>
+</ol>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">YYY</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2019-04-14
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/javascript/">javascript</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/react-project-unitest/">
+            <span class="next-text nav-default">react-project-unitest</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:yyydao11@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/yyydao" class="iconfont icon-github" title="github"></a>
+  <a href="https://nodecafe.me/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">YYY</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-40600328-2', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

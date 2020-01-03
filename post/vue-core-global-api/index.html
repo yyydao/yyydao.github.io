@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Vue  全局API  - Nodecafe</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="YYY" /><meta name="description" content="Vue 全局API 书接上回， 从之前分析Vue构造函数那篇起，回溯之前调用src/core/instance/index.js的src/core/i" /><meta name="keywords" content="Hugo, theme, Nodecafe" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.62.1 with theme even" />
+
+
+<link rel="canonical" href="https://nodecafe.me/post/vue-core-global-api/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.b66c6488.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Vue  全局API " />
+<meta property="og:description" content="Vue 全局API 书接上回， 从之前分析Vue构造函数那篇起，回溯之前调用src/core/instance/index.js的src/core/i" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nodecafe.me/post/vue-core-global-api/" />
+<meta property="article:published_time" content="2018-06-17T10:44:05+08:00" />
+<meta property="article:modified_time" content="2018-06-17T10:44:05+08:00" />
+<meta itemprop="name" content="Vue  全局API ">
+<meta itemprop="description" content="Vue 全局API 书接上回， 从之前分析Vue构造函数那篇起，回溯之前调用src/core/instance/index.js的src/core/i">
+<meta itemprop="datePublished" content="2018-06-17T10:44:05&#43;08:00" />
+<meta itemprop="dateModified" content="2018-06-17T10:44:05&#43;08:00" />
+<meta itemprop="wordCount" content="1126">
+
+
+
+<meta itemprop="keywords" content="javascript,Vue," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Vue  全局API "/>
+<meta name="twitter:description" content="Vue 全局API 书接上回， 从之前分析Vue构造函数那篇起，回溯之前调用src/core/instance/index.js的src/core/i"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Nodecafe</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">about</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Nodecafe</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">about</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Vue  全局API </h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-06-17 </span>
+        
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#vueapi">Vue全局API</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="vue--api">Vue  全局API</h1>
+<p>书接上回，
+从之前分析Vue构造函数那篇起，回溯之前调用<code>src/core/instance/index.js</code>的<code>src/core/index.js</code>。</p>
+<p>现在我们打开<code>src/core/index.js</code>,看到这个文件引入了如下的内容：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="kr">import</span> <span class="nx">Vue</span> <span class="nx">from</span> <span class="s1">&#39;./instance/index&#39;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">initGlobalAPI</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./global-api/index&#39;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">isServerRendering</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;core/util/env&#39;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">FunctionalRenderContext</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;core/vdom/create-functional-component&#39;</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>这部分有什么奥妙？</p>
+<h2 id="vueapi">Vue全局API</h2>
+<p>看到这行 <code>initGlobalAPI(Vue)</code>,在<code>src/core/instance/index.js</code>  export出来的Vue初始化了<a href="https://vuejs.org/v2/api/#Global-API">全局API</a>。</p>
+<p>下面对ssr的情况进行判断处理：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// core/index.js 文件中
+</span><span class="c1"></span><span class="nb">Object</span><span class="p">.</span><span class="nx">defineProperty</span><span class="p">(</span><span class="nx">Vue</span><span class="p">.</span><span class="nx">prototype</span><span class="p">,</span> <span class="s1">&#39;$isServer&#39;</span><span class="p">,</span> <span class="p">{</span>
+  <span class="nx">get</span><span class="o">:</span> <span class="nx">isServerRendering</span>
+<span class="p">}</span><span class="p">)</span>
+
+<span class="nb">Object</span><span class="p">.</span><span class="nx">defineProperty</span><span class="p">(</span><span class="nx">Vue</span><span class="p">.</span><span class="nx">prototype</span><span class="p">,</span> <span class="s1">&#39;$ssrContext&#39;</span><span class="p">,</span> <span class="p">{</span>
+  <span class="nx">get</span> <span class="p">(</span><span class="p">)</span> <span class="p">{</span>
+	<span class="cm">/* istanbul ignore next */</span>
+	<span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">$vnode</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">$vnode</span><span class="p">.</span><span class="nx">ssrContext</span>
+  <span class="p">}</span>
+<span class="p">}</span><span class="p">)</span>
+<span class="c1">// expose FunctionalRenderContext for ssr runtime helper installation
+</span><span class="c1"></span><span class="nb">Object</span><span class="p">.</span><span class="nx">defineProperty</span><span class="p">(</span><span class="nx">Vue</span><span class="p">,</span> <span class="s1">&#39;FunctionalRenderContext&#39;</span><span class="p">,</span> <span class="p">{</span>
+  <span class="nx">value</span><span class="o">:</span> <span class="nx">FunctionalRenderContext</span>
+<span class="p">}</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>同理，对SSR的<code>$isServer</code>和<code>$ssrContext</code>也是只读的。</p>
+<p>最后的</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">Vue</span><span class="p">.</span><span class="nx">version</span> <span class="o">=</span> <span class="s1">&#39;__VERSION__&#39;</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>则是用打包工具在相应的环境替换成对应的版本号。</p>
+<p>这里，我们主要重点关注全局API的具体实现。</p>
+<p>打开 <code>src/core/global-api/index.js</code>，这里是全局API实现的入口文件。
+首先是引入配置：<code>import config from '../config'</code></p>
+<p>在<code>src/core/global-api/</code>的文件夹下面，还分别有4个文件，我们可以看到<code>index.js</code>的开头引入了这些文件：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="kr">import</span> <span class="p">{</span> <span class="nx">initUse</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./use&#39;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">initMixin</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./mixin&#39;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">initExtend</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./extend&#39;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">initAssetRegisters</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./assets&#39;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这部分是全局api的一些功能实现，被拆分到几个部分。</p>
+<p>接下来，看到下面几行</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="kr">import</span> <span class="p">{</span> <span class="nx">set</span><span class="p">,</span> <span class="nx">del</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;../observer/index&#39;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">ASSET_TYPES</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;shared/constants&#39;</span>
+<span class="kr">import</span> <span class="nx">builtInComponents</span> <span class="nx">from</span> <span class="s1">&#39;../components/index&#39;</span>
+
+<span class="kr">import</span> <span class="p">{</span>
+  <span class="nx">warn</span><span class="p">,</span>
+  <span class="nx">extend</span><span class="p">,</span>
+  <span class="nx">nextTick</span><span class="p">,</span>
+  <span class="nx">mergeOptions</span><span class="p">,</span>
+  <span class="nx">defineReactive</span>
+<span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;../util/index&#39;</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>这些引入的模块具体是做什么的，我们顺着下面的代码读下去应该就能知道。</p>
+<p>在文件的20行左右，是一个函数
+<code>export function initGlobalAPI (Vue: GlobalAPI) {...}</code>
+见名知意，这个函数就是负责初始化全局API。
+函数参数后的<code>GlobalAPI</code>是Flow的 <code>Interface</code>,用来检查和GlobalAPI相关的类型的。</p>
+<p>下面看到函数内部的实现：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// config
+</span><span class="c1"></span>  <span class="kr">const</span> <span class="nx">configDef</span> <span class="o">=</span> <span class="p">{</span><span class="p">}</span>
+  <span class="nx">configDef</span><span class="p">.</span><span class="nx">get</span> <span class="o">=</span> <span class="p">(</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">config</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">NODE_ENV</span> <span class="o">!==</span> <span class="s1">&#39;production&#39;</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">configDef</span><span class="p">.</span><span class="nx">set</span> <span class="o">=</span> <span class="p">(</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+	  <span class="nx">warn</span><span class="p">(</span>
+		<span class="s1">&#39;Do not replace the Vue.config object, set individual fields instead.&#39;</span>
+	  <span class="p">)</span>
+	<span class="p">}</span>
+  <span class="p">}</span>
+  <span class="nb">Object</span><span class="p">.</span><span class="nx">defineProperty</span><span class="p">(</span><span class="nx">Vue</span><span class="p">,</span> <span class="s1">&#39;config&#39;</span><span class="p">,</span> <span class="nx">configDef</span><span class="p">)</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>这里的<strong>configDef</strong>，注意，是<strong>configDef</strong>。<code>configDef</code>是类似这前一章分析过的那样，利用了<code>defineProperty()</code>方法和存取器属性（accessor property）。在<strong>非生产环境</strong>企图修改configDef会有个警告。关于config的具体分析，笔者会在另一篇文章中详述。</p>
+<p>下面继续向下看，</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"> <span class="c1">// exposed util methods.
+</span><span class="c1"></span>  <span class="c1">// NOTE: these are not considered part of the public API - avoid relying on
+</span><span class="c1"></span>  <span class="c1">// them unless you are aware of the risk.
+</span><span class="c1"></span>  <span class="nx">Vue</span><span class="p">.</span><span class="nx">util</span> <span class="o">=</span> <span class="p">{</span>
+	<span class="nx">warn</span><span class="p">,</span>
+	<span class="nx">extend</span><span class="p">,</span>
+	<span class="nx">mergeOptions</span><span class="p">,</span>
+	<span class="nx">defineReactive</span>
+  <span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这里暴露了Vue自己的一些util方法。但是注释告知了，这些方法不属于公共API，要避免依赖于这样方法。</p>
+<p>下面是：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"> <span class="nx">Vue</span><span class="p">.</span><span class="nx">set</span> <span class="o">=</span> <span class="nx">set</span>
+ <span class="nx">Vue</span><span class="p">.</span><span class="k">delete</span> <span class="o">=</span> <span class="nx">del</span>
+  <span class="nx">Vue</span><span class="p">.</span><span class="nx">nextTick</span> <span class="o">=</span> <span class="nx">nextTick</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><code>set</code> 和 <code>del</code> 分别来自：
+<code>import { set, del } from '../observer/index'</code> 。
+<code>nextTick</code> 来自<code>'../util/index'</code>。</p>
+<p>接下来是</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">Vue</span><span class="p">.</span><span class="nx">options</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="kc">null</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">YYY</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2018-06-17
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/javascript/">javascript</a>
+          <a href="/tags/vue/">Vue</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/algorithm-doublylinkedlist/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">算法系列（二）-双向链表</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/vue-construct-code/">
+            <span class="next-text nav-default">Vue  构造函数</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:yyydao11@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/yyydao" class="iconfont icon-github" title="github"></a>
+  <a href="https://nodecafe.me/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">YYY</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-40600328-2', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

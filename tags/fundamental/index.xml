@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>fundamental on Nodecafe</title>
@@ -18,9 +18,7 @@
       
       <guid>https://nodecafe.me/post/debounce-throttle-and-more/</guid>
       <description>&lt;p&gt;Debounce和Throttle是两种常用的JS技巧，同时也是非常实用的技术。 所以有大量的文章专门介绍，包括不少洗稿了CSS-Trick那篇文章，尤其是那些用电梯做比喻的文章，不得不说，电梯的比喻烂透了。&lt;/p&gt;
-
 &lt;p&gt;简单来说，debounce在计算机词典中译作防反跳，其他常见翻译是防抖动，由词根 &lt;code&gt;de-&lt;/code&gt; 和 &lt;code&gt;bounce&lt;/code&gt; 组成，具体详解见下文。throttle可译作节流，那些写成截流的，估计是用了拼音输入法并且没理解throttle含义，截流的英文通常译作closure，截流原指堵截水流，使改变方向或提高水位，所以叫截流根本是牛头不对马嘴；而节流本意是节制水流，比喻节约开支。其实想想成语开源节流或者节流阀门，就明白了。&lt;/p&gt;
-
 &lt;p&gt;这两个从字面来看，似乎能得到些感性上的大致理解。下面，细说一下这两个技巧。&lt;/p&gt;</description>
     </item>
     

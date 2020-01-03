@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.54.0 with even 4.0.0" />
+<meta name="generator" content="Hugo 0.62.1 with theme even" />
 
 
 <link rel="canonical" href="https://nodecafe.me/post/vue-construct-code/" />
@@ -42,21 +42,17 @@
 <meta property="og:description" content="Vue 构造函数 如何寻找Vue构造函数 当我们使用 Vue 的时候，常常这样开始： 1 2 3 4 5 6 var app = new Vue({ el: &#39;#app&#39;, data: { message: &#39;Hello Vue!&#39; } }) 那么当我们 new Vue() 的时候，到底发生了什" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://nodecafe.me/post/vue-construct-code/" />
-<meta property="article:published_time" content="2018-06-01T10:44:05&#43;08:00"/>
-<meta property="article:modified_time" content="2018-06-01T10:44:05&#43;08:00"/>
-
+<meta property="article:published_time" content="2018-06-01T10:44:05+08:00" />
+<meta property="article:modified_time" content="2018-06-01T10:44:05+08:00" />
 <meta itemprop="name" content="Vue  构造函数">
 <meta itemprop="description" content="Vue 构造函数 如何寻找Vue构造函数 当我们使用 Vue 的时候，常常这样开始： 1 2 3 4 5 6 var app = new Vue({ el: &#39;#app&#39;, data: { message: &#39;Hello Vue!&#39; } }) 那么当我们 new Vue() 的时候，到底发生了什">
-
-
 <meta itemprop="datePublished" content="2018-06-01T10:44:05&#43;08:00" />
 <meta itemprop="dateModified" content="2018-06-01T10:44:05&#43;08:00" />
-<meta itemprop="wordCount" content="1765">
+<meta itemprop="wordCount" content="1766">
 
 
 
-<meta itemprop="keywords" content="javascript,Vue," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="javascript,Vue," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Vue  构造函数"/>
 <meta name="twitter:description" content="Vue 构造函数 如何寻找Vue构造函数 当我们使用 Vue 的时候，常常这样开始： 1 2 3 4 5 6 var app = new Vue({ el: &#39;#app&#39;, data: { message: &#39;Hello Vue!&#39; } }) 那么当我们 new Vue() 的时候，到底发生了什"/>
 
@@ -138,27 +134,20 @@
   <h2 class="post-toc-title">Contents</h2>
   <div class="post-toc-content always-active">
     <nav id="TableOfContents">
-<ul>
-<li><a href="#vue-构造函数">Vue  构造函数</a>
-<ul>
-<li><a href="#如何寻找vue构造函数">如何寻找Vue构造函数</a></li>
-<li><a href="#分析vue原型实例">分析Vue原型实例</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#vue">如何寻找Vue构造函数</a></li>
+    <li><a href="#vue-1">分析Vue原型实例</a></li>
+  </ul>
 </nav>
   </div>
 </div>
     <div class="post-content">
-      
-
-<h1 id="vue-构造函数">Vue  构造函数</h1>
-
-<h2 id="如何寻找vue构造函数">如何寻找Vue构造函数</h2>
-
+      <h1 id="vue--">Vue  构造函数</h1>
+<h2 id="vue">如何寻找Vue构造函数</h2>
 <p>当我们使用 Vue 的时候，常常这样开始：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -166,35 +155,31 @@
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vue</span><span class="p">(</span><span class="p">{</span>
   <span class="nx">el</span><span class="o">:</span> <span class="s1">&#39;#app&#39;</span><span class="p">,</span>
   <span class="nx">data</span><span class="o">:</span> <span class="p">{</span>
 	<span class="nx">message</span><span class="o">:</span> <span class="s1">&#39;Hello Vue!&#39;</span>
   <span class="p">}</span>
-<span class="p">})</span>
+<span class="p">}</span><span class="p">)</span>
 </code></pre></td></tr></table>
 </div>
-</div>
-<p>那么当我们 <code>new Vue()</code> 的时候，到底发生了什么？？</p>
-
+</div><p>那么当我们 <code>new Vue()</code> 的时候，到底发生了什么？？</p>
 <p>跟我心中念着 「洋葱」这首歌：一层一层地拨开我的心</p>
-
 <p>首先我们从<code>package.json</code>的 <code>npm run dev</code> 着手</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt">1
-</span></pre></td>
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
 <td class="lntd">
-<pre class="chroma">&#34;dev&#34;: &#34;rollup -w -c scripts/config.js --environment TARGET:web-full-dev&#34;,</pre></td></tr></table>
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">&#34;dev&#34;: &#34;rollup -w -c scripts/config.js --environment TARGET:web-full-dev&#34;,
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>有写过webpack配置的话，应该理解rollup就没难度了。这里大概就不重点解释了。先不管细节，反正我们知道了要去
+</div><p>有写过webpack配置的话，应该理解rollup就没难度了。这里大概就不重点解释了。先不管细节，反正我们知道了要去
 <code>scripts</code> 文件夹下找到 <code>config.js</code></p>
-
 <p>打开后，寻找有 <code>web-full-dev</code>那行, 这就是上面命令 <code>--environment TARGET:web-full-dev&quot;</code> 的含义。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -222,23 +207,23 @@
 </span><span class="lnt">26
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-js" data-lang="js"><span class="k">const</span> <span class="nx">aliases</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./alias&#39;</span><span class="p">)</span>
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="kr">const</span> <span class="nx">aliases</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./alias&#39;</span><span class="p">)</span>
 
-<span class="k">const</span> <span class="nx">builds</span> <span class="o">=</span> <span class="p">{</span>
+<span class="kr">const</span> <span class="nx">builds</span> <span class="o">=</span> <span class="p">{</span>
   <span class="p">...</span>
   <span class="c1">// Runtime+compiler development build (Browser)
 </span><span class="c1"></span>  <span class="s1">&#39;web-full-dev&#39;</span><span class="o">:</span> <span class="p">{</span>
-    <span class="nx">entry</span><span class="o">:</span> <span class="nx">resolve</span><span class="p">(</span><span class="s1">&#39;web/entry-runtime-with-compiler.js&#39;</span><span class="p">),</span>
-    <span class="nx">dest</span><span class="o">:</span> <span class="nx">resolve</span><span class="p">(</span><span class="s1">&#39;dist/vue.js&#39;</span><span class="p">),</span>
+    <span class="nx">entry</span><span class="o">:</span> <span class="nx">resolve</span><span class="p">(</span><span class="s1">&#39;web/entry-runtime-with-compiler.js&#39;</span><span class="p">)</span><span class="p">,</span>
+    <span class="nx">dest</span><span class="o">:</span> <span class="nx">resolve</span><span class="p">(</span><span class="s1">&#39;dist/vue.js&#39;</span><span class="p">)</span><span class="p">,</span>
     <span class="nx">format</span><span class="o">:</span> <span class="s1">&#39;umd&#39;</span><span class="p">,</span>
     <span class="nx">env</span><span class="o">:</span> <span class="s1">&#39;development&#39;</span><span class="p">,</span>
-    <span class="nx">alias</span><span class="o">:</span> <span class="p">{</span> <span class="nx">he</span><span class="o">:</span> <span class="s1">&#39;./entity-decoder&#39;</span> <span class="p">},</span>
+    <span class="nx">alias</span><span class="o">:</span> <span class="p">{</span> <span class="nx">he</span><span class="o">:</span> <span class="s1">&#39;./entity-decoder&#39;</span> <span class="p">}</span><span class="p">,</span>
     <span class="nx">banner</span>
-  <span class="p">},</span>
+  <span class="p">}</span><span class="p">,</span>
   <span class="p">...</span>
   <span class="p">}</span>
   <span class="c1">// 生成配置的方法
-</span><span class="c1"></span><span class="kd">function</span> <span class="nx">genConfig</span><span class="p">(</span><span class="nx">name</span><span class="p">){</span>
+</span><span class="c1"></span><span class="kd">function</span> <span class="nx">genConfig</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span><span class="p">{</span>
     <span class="p">...</span>
 <span class="p">}</span>
 
@@ -246,19 +231,16 @@
   <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">genConfig</span><span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">TARGET</span><span class="p">)</span>
 <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
   <span class="nx">exports</span><span class="p">.</span><span class="nx">getBuild</span> <span class="o">=</span> <span class="nx">genConfig</span>
-  <span class="nx">exports</span><span class="p">.</span><span class="nx">getAllBuilds</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">builds</span><span class="p">).</span><span class="nx">map</span><span class="p">(</span><span class="nx">genConfig</span><span class="p">)</span>
+  <span class="nx">exports</span><span class="p">.</span><span class="nx">getAllBuilds</span> <span class="o">=</span> <span class="p">(</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">builds</span><span class="p">)</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">genConfig</span><span class="p">)</span>
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
-</div>
-<p>从 entry可知，入口是 <code>web/entry-runtime-with-compiler.js</code>。</p>
-
+</div><p>从 entry可知，入口是 <code>web/entry-runtime-with-compiler.js</code>。</p>
 <p>那么 <code>web</code>又是在哪呢？</p>
-
 <p>这时候结合第一行的<code>const aliases = require('./alias')</code>,打开同一目录下的<code>alias.js</code>文件，我们知道<code>web</code>这个别名实际所指的位置：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -267,45 +249,38 @@
 <td class="lntd">
 <pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
   <span class="p">...</span>
-  <span class="nx">web</span><span class="o">:</span> <span class="nx">resolve</span><span class="p">(</span><span class="s1">&#39;src/platforms/web&#39;</span><span class="p">),</span>
-  <span class="p">..</span>
+  <span class="nx">web</span><span class="o">:</span> <span class="nx">resolve</span><span class="p">(</span><span class="s1">&#39;src/platforms/web&#39;</span><span class="p">)</span><span class="p">,</span>
+  <span class="p">.</span><span class="p">.</span>
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
-</div>
-<p>最终，得到入口文件是 <code>src/platforms/web/entry-runtime-with-compiler.js</code></p>
-
+</div><p>最终，得到入口文件是 <code>src/platforms/web/entry-runtime-with-compiler.js</code></p>
 <p>下面！！
 我们即将进入正题！！</p>
-
 <p>打开 <code>entry-runtime-with-compiler.js</code>,我们可以看到</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-js" data-lang="js"><span class="k">import</span> <span class="nx">Vue</span> <span class="nx">from</span> <span class="s1">&#39;./runtime/index&#39;</span>
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="kr">import</span> <span class="nx">Vue</span> <span class="nx">from</span> <span class="s1">&#39;./runtime/index&#39;</span>
 </code></pre></td></tr></table>
 </div>
-</div>
-<p>再往深处，继续打开<code>runtime/index</code>,你会发现第一行是</p>
+</div><p>再往深处，继续打开<code>runtime/index</code>,你会发现第一行是</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-js" data-lang="js"><span class="k">import</span> <span class="nx">Vue</span> <span class="nx">from</span> <span class="s1">&#39;core/index&#39;</span>
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="kr">import</span> <span class="nx">Vue</span> <span class="nx">from</span> <span class="s1">&#39;core/index&#39;</span>
 </code></pre></td></tr></table>
 </div>
-</div>
-<p>终于 按照思路,剥开洋葱般， 我们知道 Vue构造函数的位置应该是在 <code>src/core/instance/index.js</code> 文件中.</p>
-
-<h2 id="分析vue原型实例">分析Vue原型实例</h2>
-
+</div><p>终于 按照思路,剥开洋葱般， 我们知道 Vue构造函数的位置应该是在 <code>src/core/instance/index.js</code> 文件中.</p>
+<h2 id="vue-1">分析Vue原型实例</h2>
 <p>看一看 <code>src/core/instance/index.js</code>文件：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -328,14 +303,15 @@
 </span><span class="lnt">21
 </span><span class="lnt">22
 </span><span class="lnt">23
+</span><span class="lnt">24
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-js" data-lang="js"><span class="k">import</span> <span class="p">{</span> <span class="nx">initMixin</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./init&#39;</span>
-<span class="k">import</span> <span class="p">{</span> <span class="nx">stateMixin</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./state&#39;</span>
-<span class="k">import</span> <span class="p">{</span> <span class="nx">renderMixin</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./render&#39;</span>
-<span class="k">import</span> <span class="p">{</span> <span class="nx">eventsMixin</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./events&#39;</span>
-<span class="k">import</span> <span class="p">{</span> <span class="nx">lifecycleMixin</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./lifecycle&#39;</span>
-<span class="k">import</span> <span class="p">{</span> <span class="nx">warn</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;../util/index&#39;</span>
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="kr">import</span> <span class="p">{</span> <span class="nx">initMixin</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./init&#39;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">stateMixin</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./state&#39;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">renderMixin</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./render&#39;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">eventsMixin</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./events&#39;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">lifecycleMixin</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./lifecycle&#39;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">warn</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;../util/index&#39;</span>
 
 <span class="kd">function</span> <span class="nx">Vue</span> <span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">NODE_ENV</span> <span class="o">!==</span> <span class="s1">&#39;production&#39;</span> <span class="o">&amp;&amp;</span>
@@ -352,16 +328,16 @@
 <span class="nx">lifecycleMixin</span><span class="p">(</span><span class="nx">Vue</span><span class="p">)</span>
 <span class="nx">renderMixin</span><span class="p">(</span><span class="nx">Vue</span><span class="p">)</span>
 
-<span class="k">export</span> <span class="k">default</span> <span class="nx">Vue</span>
+<span class="kr">export</span> <span class="k">default</span> <span class="nx">Vue</span>
+
 </code></pre></td></tr></table>
 </div>
-</div>
-<p>引入依赖，定义 Vue 构造函数，然后以Vue构造函数为参数，调用了五个方法，最后导出 Vue。
+</div><p>引入依赖，定义 Vue 构造函数，然后以Vue构造函数为参数，调用了五个方法，最后导出 Vue。
 我们找到这五个文件：<code>'./init'</code>、<code>'./state' </code> 、<code>'./render' </code> 、<code>'./events' </code> 、<code>'./lifecycle' </code>下这些mixin方法，可以知道这些方法或属性最后会挂载到 Vue 的<code>prototype</code> 上。
 所以 其实Vue应该长这样：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -394,10 +370,10 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// initMixin(Vue)    src/core/instance/init.js **************************************************
-</span><span class="c1"></span><span class="nx">Vue</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">_init</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">options</span><span class="o">?:</span> <span class="nb">Object</span><span class="p">)</span> <span class="p">{}</span>
+</span><span class="c1"></span><span class="nx">Vue</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">_init</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">options</span><span class="o">?</span><span class="o">:</span> <span class="nb">Object</span><span class="p">)</span> <span class="p">{</span><span class="p">}</span>
 
 <span class="c1">// stateMixin(Vue)    src/core/instance/state.js **************************************************
-</span><span class="c1">// 利用Object.defineProperty 处理$data属性
+</span><span class="c1"></span><span class="c1">// 利用Object.defineProperty 处理$data属性
 </span><span class="c1"></span><span class="nb">Object</span><span class="p">.</span><span class="nx">defineProperty</span><span class="p">(</span><span class="nx">Vue</span><span class="p">.</span><span class="nx">prototype</span><span class="p">,</span> <span class="s1">&#39;$data&#39;</span><span class="p">,</span> <span class="nx">dataDef</span><span class="p">)</span>
 <span class="c1">// 利用Object.defineProperty 处理$props属性
 </span><span class="c1"></span><span class="nb">Object</span><span class="p">.</span><span class="nx">defineProperty</span><span class="p">(</span><span class="nx">Vue</span><span class="p">.</span><span class="nx">prototype</span><span class="p">,</span> <span class="s1">&#39;$props&#39;</span><span class="p">,</span> <span class="nx">propsDef</span><span class="p">)</span>
@@ -406,30 +382,29 @@
 <span class="nx">Vue</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">$watch</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span>
     <span class="nx">expOrFn</span><span class="o">:</span> <span class="nx">string</span> <span class="o">|</span> <span class="nb">Function</span><span class="p">,</span>
     <span class="nx">cb</span><span class="o">:</span> <span class="nx">any</span><span class="p">,</span>
-    <span class="nx">options</span><span class="o">?:</span> <span class="nb">Object</span>
-  <span class="p">){}</span>
+    <span class="nx">options</span><span class="o">?</span><span class="o">:</span> <span class="nb">Object</span>
+  <span class="p">)</span><span class="p">{</span><span class="p">}</span>
 
 <span class="c1">// renderMixin(Vue)    src/core/instance/render.js **************************************************
-</span><span class="c1"></span><span class="nx">Vue</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">$nextTick</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">fn</span><span class="o">:</span> <span class="nb">Function</span><span class="p">)</span> <span class="p">{}</span>
-<span class="nx">Vue</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">_render</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span><span class="o">:</span> <span class="nx">VNode</span> <span class="p">{}</span>
+</span><span class="c1"></span><span class="nx">Vue</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">$nextTick</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">fn</span><span class="o">:</span> <span class="nb">Function</span><span class="p">)</span> <span class="p">{</span><span class="p">}</span>
+<span class="nx">Vue</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">_render</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="p">)</span><span class="o">:</span> <span class="nx">VNode</span> <span class="p">{</span><span class="p">}</span>
 
 <span class="c1">// eventsMixin(Vue)    src/core/instance/events.js **************************************************
-</span><span class="c1"></span><span class="nx">Vue</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">$on</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">event</span><span class="o">:</span> <span class="nx">string</span> <span class="o">|</span> <span class="nb">Array</span><span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">,</span> <span class="nx">fn</span><span class="o">:</span> <span class="nb">Function</span><span class="p">)</span><span class="o">:</span> <span class="nx">Component</span> <span class="p">{}</span>
-<span class="nx">Vue</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">$once</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">event</span><span class="o">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">fn</span><span class="o">:</span> <span class="nb">Function</span><span class="p">)</span><span class="o">:</span> <span class="nx">Component</span> <span class="p">{}</span>
-<span class="nx">Vue</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">$off</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">event</span><span class="o">?:</span> <span class="nx">string</span> <span class="o">|</span> <span class="nb">Array</span><span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">,</span> <span class="nx">fn</span><span class="o">?:</span> <span class="nb">Function</span><span class="p">)</span><span class="o">:</span> <span class="nx">Component</span> <span class="p">{}</span>
-<span class="nx">Vue</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">$emit</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">event</span><span class="o">:</span> <span class="nx">string</span><span class="p">)</span><span class="o">:</span> <span class="nx">Component</span> <span class="p">{}</span>
+</span><span class="c1"></span><span class="nx">Vue</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">$on</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">event</span><span class="o">:</span> <span class="nx">string</span> <span class="o">|</span> <span class="nb">Array</span><span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">,</span> <span class="nx">fn</span><span class="o">:</span> <span class="nb">Function</span><span class="p">)</span><span class="o">:</span> <span class="nx">Component</span> <span class="p">{</span><span class="p">}</span>
+<span class="nx">Vue</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">$once</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">event</span><span class="o">:</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">fn</span><span class="o">:</span> <span class="nb">Function</span><span class="p">)</span><span class="o">:</span> <span class="nx">Component</span> <span class="p">{</span><span class="p">}</span>
+<span class="nx">Vue</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">$off</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">event</span><span class="o">?</span><span class="o">:</span> <span class="nx">string</span> <span class="o">|</span> <span class="nb">Array</span><span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">,</span> <span class="nx">fn</span><span class="o">?</span><span class="o">:</span> <span class="nb">Function</span><span class="p">)</span><span class="o">:</span> <span class="nx">Component</span> <span class="p">{</span><span class="p">}</span>
+<span class="nx">Vue</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">$emit</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">event</span><span class="o">:</span> <span class="nx">string</span><span class="p">)</span><span class="o">:</span> <span class="nx">Component</span> <span class="p">{</span><span class="p">}</span>
 
 <span class="c1">// lifecycleMixin(Vue)    src/core/instance/lifecycle.js **************************************************
-</span><span class="c1"></span><span class="nx">Vue</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">_update</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">vnode</span><span class="o">:</span> <span class="nx">VNode</span><span class="p">,</span> <span class="nx">hydrating</span><span class="o">?:</span> <span class="kr">boolean</span><span class="p">)</span> <span class="p">{}</span>
-<span class="nx">Vue</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">$forceUpdate</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{}</span>
-<span class="nx">Vue</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">$destroy</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{}</span>
+</span><span class="c1"></span><span class="nx">Vue</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">_update</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">vnode</span><span class="o">:</span> <span class="nx">VNode</span><span class="p">,</span> <span class="nx">hydrating</span><span class="o">?</span><span class="o">:</span> <span class="kr">boolean</span><span class="p">)</span> <span class="p">{</span><span class="p">}</span>
+<span class="nx">Vue</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">$forceUpdate</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="p">)</span> <span class="p">{</span><span class="p">}</span>
+<span class="nx">Vue</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">$destroy</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="p">)</span> <span class="p">{</span><span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
-</div>
-<p>在这里有两个需要关注的地方：</p>
+</div><p>在这里有两个需要关注的地方：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
@@ -437,13 +412,11 @@
 <span class="nb">Object</span><span class="p">.</span><span class="nx">defineProperty</span><span class="p">(</span><span class="nx">Vue</span><span class="p">.</span><span class="nx">prototype</span><span class="p">,</span> <span class="s1">&#39;$props&#39;</span><span class="p">,</span> <span class="nx">propsDef</span><span class="p">)</span>
 </code></pre></td></tr></table>
 </div>
-</div>
-<p>我们可以看到，其他属性或方法都是通过<code>prototype</code>原型链的方式添加属性，但是<code>$data</code> 和<code>$props</code> 是利用<code>Object.defineProperty()</code>的方式添加到原型中。那么这里有什么奥妙呢？</p>
-
+</div><p>我们可以看到，其他属性或方法都是通过<code>prototype</code>原型链的方式添加属性，但是<code>$data</code> 和<code>$props</code> 是利用<code>Object.defineProperty()</code>的方式添加到原型中。那么这里有什么奥妙呢？</p>
 <p>看到同一个<code>stateMixin()</code>函数下的如下代码：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -467,10 +440,10 @@
 <pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// flow somehow has problems with directly declared definition object
 </span><span class="c1"></span>  <span class="c1">// when using Object.defineProperty, so we have to procedurally build up
 </span><span class="c1"></span>  <span class="c1">// the object here.
-</span><span class="c1"></span>  <span class="k">const</span> <span class="nx">dataDef</span> <span class="o">=</span> <span class="p">{}</span>
-  <span class="nx">dataDef</span><span class="p">.</span><span class="nx">get</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">_data</span> <span class="p">}</span>
-  <span class="k">const</span> <span class="nx">propsDef</span> <span class="o">=</span> <span class="p">{}</span>
-  <span class="nx">propsDef</span><span class="p">.</span><span class="nx">get</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">_props</span> <span class="p">}</span>
+</span><span class="c1"></span>  <span class="kr">const</span> <span class="nx">dataDef</span> <span class="o">=</span> <span class="p">{</span><span class="p">}</span>
+  <span class="nx">dataDef</span><span class="p">.</span><span class="nx">get</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">_data</span> <span class="p">}</span>
+  <span class="kr">const</span> <span class="nx">propsDef</span> <span class="o">=</span> <span class="p">{</span><span class="p">}</span>
+  <span class="nx">propsDef</span><span class="p">.</span><span class="nx">get</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">_props</span> <span class="p">}</span>
   <span class="k">if</span> <span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">NODE_ENV</span> <span class="o">!==</span> <span class="s1">&#39;production&#39;</span><span class="p">)</span> <span class="p">{</span>
 	<span class="nx">dataDef</span><span class="p">.</span><span class="nx">set</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">newData</span><span class="o">:</span> <span class="nb">Object</span><span class="p">)</span> <span class="p">{</span>
 	  <span class="nx">warn</span><span class="p">(</span>
@@ -479,18 +452,15 @@
 		<span class="k">this</span>
 	  <span class="p">)</span>
 	<span class="p">}</span>
-	<span class="nx">propsDef</span><span class="p">.</span><span class="nx">set</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-	  <span class="nx">warn</span><span class="p">(</span><span class="nx">$props</span> <span class="nx">is</span> <span class="nx">readonly</span><span class="p">.,</span> <span class="k">this</span><span class="p">)</span>
+	<span class="nx">propsDef</span><span class="p">.</span><span class="nx">set</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="p">)</span> <span class="p">{</span>
+	  <span class="nx">warn</span><span class="p">(</span><span class="nx">$props</span> <span class="nx">is</span> <span class="nx">readonly</span><span class="p">.</span><span class="p">,</span> <span class="k">this</span><span class="p">)</span>
 	<span class="p">}</span>
   <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
-</div>
-<p>这里利用<code>defineProperty()</code>方法的特性，修改了相应属性的特性。
+</div><p>这里利用<code>defineProperty()</code>方法的特性，修改了相应属性的特性。
 <code>$data</code>和<code>$props</code>定义了各自的 getter方法。对于属性<code>$data</code>和<code>$props</code>的访问会自动调用一个隐藏函数，它的返回值会被当作属性访问的返回值，也就是返回 <code>this._data</code>和<code>this._props </code>。由于我们只定义了 <code>this._data</code>和<code>this._props </code>的getter， 所以对<code>$data</code>和<code>$props</code>的值进行设置时set操作会<strong>忽略赋值操作</strong>，不会抛出错误。即便有合法的setter，set操作也是没有意义的，所以在下面的<code> if (process.env.NODE_ENV !== 'production') {..}</code>中，对非生产环境下的setter操作，即试图修改<code>$data</code>或<code>$props</code>的值的时候会抛出相应的警告。所以<code>$data</code>和<code>$props</code>是只读的.</p>
-
 <p>那么在<code>src/core/instance/index.js</code> 中<code>export default Vue</code>  后，Vue下一步又有怎样的变化呢？我们留到下回分解。</p>
-
 <p>-EOF-</p>
 
     </div>
@@ -519,9 +489,9 @@
           <a href="/tags/vue/">Vue</a>
           </div>
       <nav class="post-nav">
-        <a class="prev" href="/post/algorithm-doublylinkedlist/">
+        <a class="prev" href="/post/vue-core-global-api/">
             <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">算法系列（二）-双向链表</span>
+            <span class="prev-text nav-default">Vue  全局API </span>
             <span class="prev-text nav-mobile">Prev</span>
           </a>
         <a class="next" href="/post/algorithm-linkedlist/">
@@ -534,6 +504,10 @@
   </article>
         </div>
         
+
+  
+
+  
 
       </div>
     </main>
@@ -560,7 +534,7 @@
   <span class="copyright-year">
     &copy; 
     2018 - 
-    2019
+    2020
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Nodecafe</title>
@@ -6,10 +6,28 @@
     <description>Recent content on Nodecafe</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Wed, 08 Aug 2018 16:14:05 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 14 Apr 2019 10:44:05 +0800</lastBuildDate>
     
 	<atom:link href="https://nodecafe.me/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Whatwg Event Loop 翻译</title>
+      <link>https://nodecafe.me/post/whatwg-event-loop/</link>
+      <pubDate>Sun, 14 Apr 2019 10:44:05 +0800</pubDate>
+      
+      <guid>https://nodecafe.me/post/whatwg-event-loop/</guid>
+      <description>8.1.4 Event loops 8.1.4.1 Definitions 为了协调事件，用户交互，脚本，渲染，网络等，用户代理必须使用本文所述的事件循环。有两种事件循环：用于浏览上下文(browsing c</description>
+    </item>
+    
+    <item>
+      <title>react-project-unitest</title>
+      <link>https://nodecafe.me/post/react-project-unitest/</link>
+      <pubDate>Sat, 23 Mar 2019 10:44:05 +0800</pubDate>
+      
+      <guid>https://nodecafe.me/post/react-project-unitest/</guid>
+      <description>遇到问题： 1 2 jest node[20471] (FSEvents.framework) FSEventStreamStart: register_with_server: ERROR: f2d_register_rpc() =&amp;gt; (null) (-22) 相关问题：[https://github.com/facebook/jest/issues/1767] 解决</description>
+    </item>
     
     <item>
       <title>利用Docker快速使用Postgres数据库</title>
@@ -36,6 +54,15 @@
       
       <guid>https://nodecafe.me/post/algorithm-doublylinkedlist/</guid>
       <description>其实之前版本的链表实现是比较中规中矩的，nodejs中有一个链表实现方式，用简单的几十行就实现了一个双向链表。 可以访问这里看看这个链表是怎么</description>
+    </item>
+    
+    <item>
+      <title>Vue  全局API </title>
+      <link>https://nodecafe.me/post/vue-core-global-api/</link>
+      <pubDate>Sun, 17 Jun 2018 10:44:05 +0800</pubDate>
+      
+      <guid>https://nodecafe.me/post/vue-core-global-api/</guid>
+      <description>Vue 全局API 书接上回， 从之前分析Vue构造函数那篇起，回溯之前调用src/core/instance/index.js的src/core/i</description>
     </item>
     
     <item>
@@ -72,9 +99,7 @@
       
       <guid>https://nodecafe.me/post/debounce-throttle-and-more/</guid>
       <description>&lt;p&gt;Debounce和Throttle是两种常用的JS技巧，同时也是非常实用的技术。 所以有大量的文章专门介绍，包括不少洗稿了CSS-Trick那篇文章，尤其是那些用电梯做比喻的文章，不得不说，电梯的比喻烂透了。&lt;/p&gt;
-
 &lt;p&gt;简单来说，debounce在计算机词典中译作防反跳，其他常见翻译是防抖动，由词根 &lt;code&gt;de-&lt;/code&gt; 和 &lt;code&gt;bounce&lt;/code&gt; 组成，具体详解见下文。throttle可译作节流，那些写成截流的，估计是用了拼音输入法并且没理解throttle含义，截流的英文通常译作closure，截流原指堵截水流，使改变方向或提高水位，所以叫截流根本是牛头不对马嘴；而节流本意是节制水流，比喻节约开支。其实想想成语开源节流或者节流阀门，就明白了。&lt;/p&gt;
-
 &lt;p&gt;这两个从字面来看，似乎能得到些感性上的大致理解。下面，细说一下这两个技巧。&lt;/p&gt;</description>
     </item>
     
@@ -84,7 +109,7 @@
       <pubDate>Sun, 25 Mar 2018 12:16:12 +0800</pubDate>
       
       <guid>https://nodecafe.me/post/lets-encrypt/</guid>
-      <description>&lt;p&gt;Let&amp;rsquo;s Encrypt 最近支持wildcard，顺便自己之前vps的东西也铲掉重来，所以这里是一篇再次部署Let&amp;rsquo;s encrypt证书的文章。&lt;/p&gt;</description>
+      <description>&lt;p&gt;Let&#39;s Encrypt 最近支持wildcard，顺便自己之前vps的东西也铲掉重来，所以这里是一篇再次部署Let&#39;s encrypt证书的文章。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -95,7 +120,6 @@
       <guid>https://nodecafe.me/post/mac-full-stack-env/</guid>
       <description>&lt;p&gt;最近Mac由于磁盘空间被用完导致开不了机，天才吧排队又久，TimeMachine 恢复系统后，居然进不去系统。
 无奈之下只能选择重装系统。这就意味着之前整好的开发环境要全部重新再折腾一次。&lt;/p&gt;
-
 &lt;p&gt;此文作为本次重装的一次记录，一是为了方便自己，也希望能方便他人。&lt;/p&gt;</description>
     </item>
     

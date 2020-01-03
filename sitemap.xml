@@ -1,6 +1,54 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <?xml-stylesheet type="text/xsl" href="https://nodecafe.me/sitemap.xsl"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <url>
+    <loc>https://nodecafe.me/tags/javascript/</loc>
+    <lastmod>2019-04-14T10:44:05+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://nodecafe.me/</loc>
+    <lastmod>2019-04-14T10:44:05+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://nodecafe.me/tags/</loc>
+    <lastmod>2019-04-14T10:44:05+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://nodecafe.me/post/whatwg-event-loop/</loc>
+    <lastmod>2019-04-14T10:44:05+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://nodecafe.me/tags/react/</loc>
+    <lastmod>2019-03-23T10:44:05+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://nodecafe.me/post/react-project-unitest/</loc>
+    <lastmod>2019-03-23T10:44:05+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://nodecafe.me/tags/docker/</loc>
+    <lastmod>2018-08-08T16:14:05+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
   
   <url>
     <loc>https://nodecafe.me/post/use-postgres-with-docker/</loc>
@@ -17,8 +65,29 @@
   </url>
   
   <url>
+    <loc>https://nodecafe.me/tags/algorithm/</loc>
+    <lastmod>2018-06-21T23:11:58+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://nodecafe.me/post/algorithm-doublylinkedlist/</loc>
     <lastmod>2018-06-21T23:11:58+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://nodecafe.me/tags/vue/</loc>
+    <lastmod>2018-06-17T10:44:05+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://nodecafe.me/post/vue-core-global-api/</loc>
+    <lastmod>2018-06-17T10:44:05+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -52,8 +121,36 @@
   </url>
   
   <url>
+    <loc>https://nodecafe.me/tags/fundamental/</loc>
+    <lastmod>2018-03-26T23:38:52+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://nodecafe.me/tags/https/</loc>
+    <lastmod>2018-03-25T12:16:12+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://nodecafe.me/post/lets-encrypt/</loc>
     <lastmod>2018-03-25T12:16:12+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://nodecafe.me/tags/nginx/</loc>
+    <lastmod>2018-03-25T12:16:12+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://nodecafe.me/tags/mac/</loc>
+    <lastmod>2018-03-23T10:44:05+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -81,77 +178,7 @@
   <url>
     <loc>https://nodecafe.me/categories/</loc>
     <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://nodecafe.me/tags/mac/</loc>
-    <lastmod>2018-03-23T10:44:05+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://nodecafe.me/</loc>
-    <lastmod>2018-08-08T16:14:05+08:00</lastmod>
-    <changefreq>weekly</changefreq>
     <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://nodecafe.me/tags/</loc>
-    <lastmod>2018-03-23T10:44:05+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://nodecafe.me/tags/vue/</loc>
-    <lastmod>2018-06-01T10:44:05+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://nodecafe.me/tags/algorithm/</loc>
-    <lastmod>2018-06-21T23:11:58+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://nodecafe.me/tags/fundamental/</loc>
-    <lastmod>2018-03-26T23:38:52+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://nodecafe.me/tags/https/</loc>
-    <lastmod>2018-03-25T12:16:12+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://nodecafe.me/tags/javascript/</loc>
-    <lastmod>2018-07-31T10:44:05+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://nodecafe.me/tags/nginx/</loc>
-    <lastmod>2018-03-25T12:16:12+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://nodecafe.me/tags/docker/</loc>
-    <lastmod>2018-08-08T16:14:05+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
   </url>
   
 </urlset>

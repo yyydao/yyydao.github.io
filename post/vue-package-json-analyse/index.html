@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.54.0 with even 4.0.0" />
+<meta name="generator" content="Hugo 0.62.1 with theme even" />
 
 
 <link rel="canonical" href="https://nodecafe.me/post/vue-package-json-analyse/" />
@@ -42,21 +42,17 @@
 <meta property="og:description" content="Package.json 分析一下Vue使用的依赖以及一些配置。也可以学到不少东西，比如对于打包。 无副作用模块 关于此部分，可参见作者自己的回答。 太长不看版本：告诉打" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://nodecafe.me/post/vue-package-json-analyse/" />
-<meta property="article:published_time" content="2018-05-10T10:44:05&#43;08:00"/>
-<meta property="article:modified_time" content="2018-05-10T10:44:05&#43;08:00"/>
-
+<meta property="article:published_time" content="2018-05-10T10:44:05+08:00" />
+<meta property="article:modified_time" content="2018-05-10T10:44:05+08:00" />
 <meta itemprop="name" content="Vue项目package.json分析">
 <meta itemprop="description" content="Package.json 分析一下Vue使用的依赖以及一些配置。也可以学到不少东西，比如对于打包。 无副作用模块 关于此部分，可参见作者自己的回答。 太长不看版本：告诉打">
-
-
 <meta itemprop="datePublished" content="2018-05-10T10:44:05&#43;08:00" />
 <meta itemprop="dateModified" content="2018-05-10T10:44:05&#43;08:00" />
-<meta itemprop="wordCount" content="537">
+<meta itemprop="wordCount" content="531">
 
 
 
-<meta itemprop="keywords" content="javascript," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="javascript," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Vue项目package.json分析"/>
 <meta name="twitter:description" content="Package.json 分析一下Vue使用的依赖以及一些配置。也可以学到不少东西，比如对于打包。 无副作用模块 关于此部分，可参见作者自己的回答。 太长不看版本：告诉打"/>
 
@@ -138,40 +134,32 @@
   <h2 class="post-toc-title">Contents</h2>
   <div class="post-toc-content always-active">
     <nav id="TableOfContents">
-<ul>
-<li><a href="#package-json">Package.json</a>
-<ul>
-<li><a href="#无副作用模块">无副作用模块</a></li>
-<li><a href="#提交时的githook和规范">提交时的githook和规范</a></li>
-<li><a href="#依赖package">依赖package：</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#heading">无副作用模块</a></li>
+    <li><a href="#githook">提交时的githook和规范</a></li>
+    <li><a href="#package">依赖package：</a></li>
+  </ul>
 </nav>
   </div>
 </div>
     <div class="post-content">
-      
-
-<h1 id="package-json">Package.json</h1>
-
+      <h1 id="packagejson">Package.json</h1>
 <p>分析一下Vue使用的依赖以及一些配置。也可以学到不少东西，比如对于打包。</p>
-
-<h2 id="无副作用模块">无副作用模块</h2>
-
+<h2 id="heading">无副作用模块</h2>
 <p>关于此部分，可参见<a href="https://www.zhihu.com/question/41922432/answer/93346223">作者自己的回答</a>。
 太长不看版本：告诉打包工具我写的代码无副作用，也就是说多余的东西放心移除就好。这样可以缩小体积。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-json" data-lang="json"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-json" data-lang="json"><span class="s2">&#34;sideEffects&#34;</span><span class="err">:</span> <span class="kc">false</span><span class="err">,</span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="s2">&#34;sideEffects&#34;</span><span class="err">:</span> <span class="kc">false</span><span class="err">,</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<h2 id="提交时的githook和规范">提交时的githook和规范</h2>
+</div><h2 id="githook">提交时的githook和规范</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-json" data-lang="json"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -192,41 +180,25 @@
   <span class="s2">&#34;eslint --fix&#34;</span><span class="p">,</span>  
   <span class="s2">&#34;git add&#34;</span>  
   <span class="p">]</span>  
-<span class="p">}</span><span class="err">,</span></code></pre></td></tr></table>
+<span class="p">}</span><span class="err">,</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<h2 id="依赖package">依赖package：</h2>
-
+</div><h2 id="package">依赖package：</h2>
 <p>对于<code>rollup</code>、<code>jasmine</code>、<code>karma</code>、<code>eslint</code>、<code>Flow</code>、<code>phantomjs</code>、<code>nightwatch</code>这些相关的就不一一分析了。</p>
-
 <p><code>acorn</code>  小而精的 JavaScript parser, 完全用JavaScript编写.</p>
-
 <p><code>buble</code> &amp; <code>rollup-plugin-buble</code> ES2015 编译器, Bublé is an ES2015+ compiler. 可以让ES2015/16 JavaScript 代码 转化到目前的主流环境，包括老版本Node.js 和 Internet Explorer.</p>
-
 <p><code>chalk</code> 命令行着色渲染</p>
-
 <p><code>codecov</code> CI 相关</p>
-
 <p><code>cz-conventional-changelog</code>&amp; <code>commitizen</code> &amp; <code>conventional-changelog</code> 利用commit信息生成changelog</p>
-
-<p><code>cross-spawn</code>  跨平台的node&rsquo;s spawn 和 spawnSync解决方案.</p>
-
+<p><code>cross-spawn</code>  跨平台的node's spawn 和 spawnSync解决方案.</p>
 <p><code>de-indentation</code>  处理ES6模版字符，转换成统一的换行缩进</p>
-
-<p><code>escodegen</code> 基于 <a href="https://developer.mozilla.org/en/SpiderMonkey/Parser_API" title="Mozilla's Parser API">Mozilla&rsquo;s Parser API </a>AST生成ES代码</p>
-
+<p><code>escodegen</code> 基于 <a href="https://developer.mozilla.org/en/SpiderMonkey/Parser_API" title="Mozilla's Parser API">Mozilla's Parser API </a>AST生成ES代码</p>
 <p><code>hash-sum</code>  散列值生成</p>
-
 <p><code>he</code> 处理HTML字符实体的编码解码</p>
-
 <p><code>lru-cache</code>  利用LRU算法，在内存中管理缓存</p>
-
 <p><code>serialize-javascript</code>  将JS序列化成包含正则、日期、函数的JSON超集，也可过滤XSS</p>
-
 <p><code>shelljs</code>  可移植Unix命令集成</p>
-
 <p><code>yorkie</code>  尤雨溪对 <a href="https://github.com/typicode/husky">husky</a> 这个处理<code>git hook</code>的库的一份用于Vue项目的fork</p>
-
 <p>-EOF-</p>
 
     </div>
@@ -270,6 +242,10 @@
         </div>
         
 
+  
+
+  
+
       </div>
     </main>
 
@@ -295,7 +271,7 @@
   <span class="copyright-year">
     &copy; 
     2018 - 
-    2019
+    2020
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>

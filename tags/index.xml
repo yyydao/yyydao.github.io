@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on Nodecafe</title>
@@ -6,26 +6,35 @@
     <description>Recent content in Tags on Nodecafe</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Fri, 23 Mar 2018 10:44:05 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 14 Apr 2019 10:44:05 +0800</lastBuildDate>
     
 	<atom:link href="https://nodecafe.me/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Mac</title>
-      <link>https://nodecafe.me/tags/mac/</link>
-      <pubDate>Fri, 23 Mar 2018 10:44:05 +0800</pubDate>
+      <title>javascript</title>
+      <link>https://nodecafe.me/tags/javascript/</link>
+      <pubDate>Sun, 14 Apr 2019 10:44:05 +0800</pubDate>
       
-      <guid>https://nodecafe.me/tags/mac/</guid>
+      <guid>https://nodecafe.me/tags/javascript/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Vue</title>
-      <link>https://nodecafe.me/tags/vue/</link>
-      <pubDate>Fri, 01 Jun 2018 10:44:05 +0800</pubDate>
+      <title>React</title>
+      <link>https://nodecafe.me/tags/react/</link>
+      <pubDate>Sat, 23 Mar 2019 10:44:05 +0800</pubDate>
       
-      <guid>https://nodecafe.me/tags/vue/</guid>
+      <guid>https://nodecafe.me/tags/react/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>“Docker&#34;</title>
+      <link>https://nodecafe.me/tags/docker/</link>
+      <pubDate>Wed, 08 Aug 2018 16:14:05 +0800</pubDate>
+      
+      <guid>https://nodecafe.me/tags/docker/</guid>
       <description></description>
     </item>
     
@@ -35,6 +44,15 @@
       <pubDate>Thu, 21 Jun 2018 23:11:58 +0800</pubDate>
       
       <guid>https://nodecafe.me/tags/algorithm/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Vue</title>
+      <link>https://nodecafe.me/tags/vue/</link>
+      <pubDate>Sun, 17 Jun 2018 10:44:05 +0800</pubDate>
+      
+      <guid>https://nodecafe.me/tags/vue/</guid>
       <description></description>
     </item>
     
@@ -57,15 +75,6 @@
     </item>
     
     <item>
-      <title>javascript</title>
-      <link>https://nodecafe.me/tags/javascript/</link>
-      <pubDate>Tue, 31 Jul 2018 10:44:05 +0800</pubDate>
-      
-      <guid>https://nodecafe.me/tags/javascript/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>nginx</title>
       <link>https://nodecafe.me/tags/nginx/</link>
       <pubDate>Sun, 25 Mar 2018 12:16:12 +0800</pubDate>
@@ -75,11 +84,11 @@
     </item>
     
     <item>
-      <title>“Docker&#34;</title>
-      <link>https://nodecafe.me/tags/docker/</link>
-      <pubDate>Wed, 08 Aug 2018 16:14:05 +0800</pubDate>
+      <title>Mac</title>
+      <link>https://nodecafe.me/tags/mac/</link>
+      <pubDate>Fri, 23 Mar 2018 10:44:05 +0800</pubDate>
       
-      <guid>https://nodecafe.me/tags/docker/</guid>
+      <guid>https://nodecafe.me/tags/mac/</guid>
       <description></description>
     </item>
     

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>React on Nodecafe</title>
+    <link>https://nodecafe.me/tags/react/</link>
+    <description>Recent content in React on Nodecafe</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sat, 23 Mar 2019 10:44:05 +0800</lastBuildDate>
+    
+	<atom:link href="https://nodecafe.me/tags/react/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>react-project-unitest</title>
+      <link>https://nodecafe.me/post/react-project-unitest/</link>
+      <pubDate>Sat, 23 Mar 2019 10:44:05 +0800</pubDate>
+      
+      <guid>https://nodecafe.me/post/react-project-unitest/</guid>
+      <description>遇到问题： 1 2 jest node[20471] (FSEvents.framework) FSEventStreamStart: register_with_server: ERROR: f2d_register_rpc() =&amp;gt; (null) (-22) 相关问题：[https://github.com/facebook/jest/issues/1767] 解决</description>
+    </item>
+    
+  </channel>
+</rss>
