@@ -6,11 +6,7 @@
     <description>Recent content in algorithm on Nodecafe</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Thu, 21 Jun 2018 23:11:58 +0800</lastBuildDate>
-    
-	<atom:link href="https://nodecafe.me/tags/algorithm/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Thu, 21 Jun 2018 23:11:58 +0800</lastBuildDate><atom:link href="https://nodecafe.me/tags/algorithm/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>算法系列（二）-双向链表</title>
       <link>https://nodecafe.me/post/algorithm-doublylinkedlist/</link>

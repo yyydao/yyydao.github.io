@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.62.1 with theme even" />
+<meta name="generator" content="Hugo 0.88.1 with theme even" />
 
 
 <link rel="canonical" href="https://nodecafe.me/post/util-test-with-jest-in-quick-app/" />
@@ -41,17 +41,14 @@
 <meta property="og:title" content="在快应用中使用单元测试" />
 <meta property="og:description" content="最近接手了一个大坑项目——快应用。 开发体验十分痛苦，忍受着写完了一期，中间踩坑填坑不少。 当然，目前来看，其实最不能忍受的坑就是：coding" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://nodecafe.me/post/util-test-with-jest-in-quick-app/" />
+<meta property="og:url" content="https://nodecafe.me/post/util-test-with-jest-in-quick-app/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2018-07-31T10:44:05+08:00" />
 <meta property="article:modified_time" content="2018-07-31T10:44:05+08:00" />
+
 <meta itemprop="name" content="在快应用中使用单元测试">
-<meta itemprop="description" content="最近接手了一个大坑项目——快应用。 开发体验十分痛苦，忍受着写完了一期，中间踩坑填坑不少。 当然，目前来看，其实最不能忍受的坑就是：coding">
-<meta itemprop="datePublished" content="2018-07-31T10:44:05&#43;08:00" />
-<meta itemprop="dateModified" content="2018-07-31T10:44:05&#43;08:00" />
+<meta itemprop="description" content="最近接手了一个大坑项目——快应用。 开发体验十分痛苦，忍受着写完了一期，中间踩坑填坑不少。 当然，目前来看，其实最不能忍受的坑就是：coding"><meta itemprop="datePublished" content="2018-07-31T10:44:05+08:00" />
+<meta itemprop="dateModified" content="2018-07-31T10:44:05+08:00" />
 <meta itemprop="wordCount" content="2792">
-
-
-
 <meta itemprop="keywords" content="javascript," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="在快应用中使用单元测试"/>
 <meta name="twitter:description" content="最近接手了一个大坑项目——快应用。 开发体验十分痛苦，忍受着写完了一期，中间踩坑填坑不少。 当然，目前来看，其实最不能忍受的坑就是：coding"/>
@@ -135,10 +132,10 @@
   <div class="post-toc-content always-active">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#--">抽离 & 复用</a></li>
-    <li><a href="#heading">单元测试</a></li>
-    <li><a href="#jest">配置JEST</a></li>
-    <li><a href="#heading-1">编写测试代码</a></li>
+    <li><a href="#抽离--复用">抽离 &amp; 复用</a></li>
+    <li><a href="#单元测试">单元测试</a></li>
+    <li><a href="#配置jest">配置JEST</a></li>
+    <li><a href="#编写测试代码">编写测试代码</a></li>
   </ul>
 </nav>
   </div>
@@ -150,7 +147,7 @@
 <p>有时为了验证一些效果，尤其是需要调出来的那类效果，花费的时间成本都在等待编译上。所以，快应用？真的快吗？呵呵😄。</p>
 <p>牢骚发完，下面说说后面发现的一些等稍微缓解这类问题的方案。
 虐我千遍，待如初恋。控制好自己能做的事情就行了。</p>
-<h2 id="--">抽离 &amp; 复用</h2>
+<h2 id="抽离--复用">抽离 &amp; 复用</h2>
 <p>项目中一定存在一些较复杂的JS，比如处理各种字符串、各种转换、时间parse。
 这部分代码是可以抽离到一个公共的地方，然后再其他需要进行相应的字符处理的地方，引入这些方法就行了。</p>
 <p>对于快应用这类体量的项目，其实本身也不会太复杂庞大。做好抽离 &amp; 复用，其实是有不少好处的。</p>
@@ -160,7 +157,7 @@
 <p>项目结构如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -170,7 +167,7 @@
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">
 ├── src 
 │   ├── Page                 页面目录
 │   |   └── index.ux         页面文件，可自定义页面名称
@@ -180,13 +177,13 @@
 └── package.json              定义项目需要的各种模块及配置信息
 </code></pre></td></tr></table>
 </div>
-</div><h2 id="heading">单元测试</h2>
+</div><h2 id="单元测试">单元测试</h2>
 <p>抽出来的方法，就很容易来做单元测试了。
 但是在快应用的场景我们还需要进行一些额外处理。</p>
 <p>快应用demo的util中引入的自身的模块，是无法mock的。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -195,7 +192,7 @@
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-js" data-lang="js"><span class="kr">import</span> <span class="nx">prompt</span> <span class="nx">from</span> <span class="s1">&#39;@system.prompt&#39;</span>
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="kr">import</span> <span class="nx">prompt</span> <span class="nx">from</span> <span class="s1">&#39;@system.prompt&#39;</span>
 <span class="kr">import</span> <span class="nx">router</span> <span class="nx">from</span> <span class="s1">&#39;@system.router&#39;</span>
 <span class="kr">import</span> <span class="nx">app</span> <span class="nx">from</span> <span class="s1">&#39;@system.app&#39;</span>
 <span class="kr">import</span> <span class="nx">shortcut</span> <span class="nx">from</span> <span class="s1">&#39;@system.shortcut&#39;</span>
@@ -209,7 +206,7 @@
 <p>我们修改了代码，把相应部分都移到<code>helper.js</code>中</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -226,7 +223,7 @@
 </span><span class="lnt">15
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">//helper.js
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="c1">//helper.js
 </span><span class="c1"></span><span class="kr">import</span> <span class="p">{</span>
   <span class="nx">toThousands</span><span class="p">,</span>
   <span class="nx">trim</span><span class="p">,</span>
@@ -244,14 +241,14 @@
 </code></pre></td></tr></table>
 </div>
 </div><p>这样的代码就是容易进行测试的代码。</p>
-<h2 id="jest">配置JEST</h2>
+<h2 id="配置jest">配置JEST</h2>
 <p>我们选用jest进行测试。
 首先需要安装相应j模块。
 <code>npm install jest@22.4.4</code>。</p>
 <p>在<code>package.json</code>的script部分加入如下配置：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -266,16 +263,16 @@
 </span><span class="lnt">13
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
-<span class="err">.</span><span class="err">.</span><span class="err">.</span>
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+<span class="err">...</span>
 <span class="nt">&#34;scripts&#34;</span><span class="p">:</span> <span class="p">{</span>
-	<span class="err">.</span><span class="err">.</span><span class="err">.</span><span class="err">.</span>
+	<span class="err">....</span>
 	<span class="nt">&#34;test&#34;</span><span class="p">:</span><span class="s2">&#34;jest&#34;</span>
-  <span class="p">}</span><span class="p">,</span>
+  <span class="p">},</span>
 <span class="nt">&#34;dependencies&#34;</span><span class="p">:</span> <span class="p">{</span>
-	<span class="err">.</span><span class="err">.</span><span class="err">.</span>
-  <span class="p">}</span><span class="p">,</span>
-<span class="err">.</span><span class="err">.</span><span class="err">.</span>
+	<span class="err">...</span>
+  <span class="p">},</span>
+<span class="err">...</span>
 
 <span class="p">}</span>
 
@@ -285,7 +282,7 @@
 加入以下内容：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -293,11 +290,11 @@
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
   <span class="nx">verbose</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span> <span class="c1">// 不启用verbose
 </span><span class="c1"></span>  <span class="nx">collectCoverage</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span> <span class="c1">// 收集覆盖率
 </span><span class="c1"></span>  <span class="nx">coverageDirectory</span><span class="o">:</span> <span class="s1">&#39;./coverage/&#39;</span><span class="p">,</span> <span class="c1">// 覆盖率报告输出路径
-</span><span class="c1"></span><span class="p">}</span><span class="p">;</span>
+</span><span class="c1"></span><span class="p">};</span>
 
 </code></pre></td></tr></table>
 </div>
@@ -305,7 +302,7 @@
 <p>最终，项目结构会变成这样：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -319,7 +316,7 @@
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">
 ├── src 
 |—— |—— __test__           jest测试目录
 │   ├── Page               页面目录
@@ -333,12 +330,12 @@
 
 </code></pre></td></tr></table>
 </div>
-</div><h2 id="heading-1">编写测试代码</h2>
+</div><h2 id="编写测试代码">编写测试代码</h2>
 <p>在<code>__test__</code> 文件夹创建<code>helper.test.js</code> 文件。</p>
 <p>比如<code>helper.js</code> 中有一个方法用来缩略字符串的，在超过的长度替换显示成 <code>...</code>：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -352,7 +349,7 @@
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">//helper.js
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="c1">//helper.js
 </span><span class="c1"></span>
 <span class="cm">/**
 </span><span class="cm"> * 将字符串省略并加入
@@ -369,7 +366,7 @@
 </div><p>我们可以这样对其做测试。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -382,16 +379,16 @@
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-js" data-lang="js"><span class="kr">import</span> <span class="p">{</span> <span class="nx">truncate</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;../helper&#39;</span>
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="kr">import</span> <span class="p">{</span> <span class="nx">truncate</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;../helper&#39;</span>
 
-<span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;helper&#39;</span><span class="p">,</span> <span class="p">(</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-	<span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should truncate string with length&#39;</span><span class="p">,</span> <span class="p">(</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-		<span class="kr">const</span> <span class="nx">truncateString</span> <span class="o">=</span> <span class="nx">truncate</span><span class="p">(</span><span class="sb">`</span><span class="sb">Don&#39;t panic</span><span class="sb">`</span><span class="p">,</span><span class="mi">6</span><span class="p">)</span>
-		<span class="nx">expect</span><span class="p">(</span><span class="nx">truncateString</span><span class="p">)</span><span class="p">.</span><span class="nx">toBe</span><span class="p">(</span><span class="sb">`</span><span class="sb">Don&#39;t...</span><span class="sb">`</span><span class="p">)</span>
-		<span class="kr">const</span> <span class="nx">truncateString2</span> <span class="o">=</span> <span class="nx">truncate</span><span class="p">(</span><span class="sb">`</span><span class="sb">Don&#39;t panic</span><span class="sb">`</span><span class="p">,</span><span class="mi">22</span><span class="p">)</span>
-		<span class="nx">expect</span><span class="p">(</span><span class="nx">truncateString2</span><span class="p">)</span><span class="p">.</span><span class="nx">toBe</span><span class="p">(</span><span class="sb">`</span><span class="sb">Don&#39;t panic</span><span class="sb">`</span><span class="p">)</span>
-	  <span class="p">}</span><span class="p">)</span>
-<span class="p">}</span><span class="p">)</span>
+<span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;helper&#39;</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+	<span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should truncate string with length&#39;</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+		<span class="kr">const</span> <span class="nx">truncateString</span> <span class="o">=</span> <span class="nx">truncate</span><span class="p">(</span><span class="sb">`Don&#39;t panic`</span><span class="p">,</span><span class="mi">6</span><span class="p">)</span>
+		<span class="nx">expect</span><span class="p">(</span><span class="nx">truncateString</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="sb">`Don&#39;t...`</span><span class="p">)</span>
+		<span class="kr">const</span> <span class="nx">truncateString2</span> <span class="o">=</span> <span class="nx">truncate</span><span class="p">(</span><span class="sb">`Don&#39;t panic`</span><span class="p">,</span><span class="mi">22</span><span class="p">)</span>
+		<span class="nx">expect</span><span class="p">(</span><span class="nx">truncateString2</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="sb">`Don&#39;t panic`</span><span class="p">)</span>
+	  <span class="p">})</span>
+<span class="p">})</span>
 
 </code></pre></td></tr></table>
 </div>
@@ -413,7 +410,7 @@
 <p><code>phoneFormat</code>的实现代码：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -444,7 +441,7 @@
 </span><span class="lnt">29
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">//helper.js
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="c1">//helper.js
 </span><span class="c1"></span><span class="cm">/**
 </span><span class="cm"> * 格式化手机
 </span><span class="cm"> * @param value
@@ -457,7 +454,7 @@
 	<span class="k">if</span> <span class="p">(</span><span class="nx">phoneNumber</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">11</span><span class="p">)</span> <span class="p">{</span>
 	  <span class="k">return</span> <span class="nx">phoneNumber</span>
 	<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-	  <span class="kd">let</span> <span class="nx">number</span> <span class="o">=</span> <span class="nx">phoneNumber</span><span class="p">.</span><span class="nx">substring</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">11</span><span class="p">)</span><span class="p">;</span>
+	  <span class="kd">let</span> <span class="nx">number</span> <span class="o">=</span> <span class="nx">phoneNumber</span><span class="p">.</span><span class="nx">substring</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">11</span><span class="p">);</span>
 	  <span class="kd">let</span> <span class="nx">numberLen</span> <span class="o">=</span> <span class="nx">number</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
 
 	  <span class="k">if</span> <span class="p">(</span><span class="nx">numberLen</span> <span class="o">&gt;</span> <span class="mi">3</span> <span class="o">&amp;&amp;</span> <span class="nx">numberLen</span> <span class="o">&lt;</span> <span class="mi">8</span><span class="p">)</span> <span class="p">{</span>
@@ -478,7 +475,7 @@
 </div><p>在<code>helper.test.js</code> 中，接在之前<code>truncate</code>方法后面加入 <code>phoneFormat</code> 的测试代码：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -495,20 +492,20 @@
 </span><span class="lnt">15
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">//helper.test.js
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="c1">//helper.test.js
 </span><span class="c1"></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">truncate</span><span class="p">,</span><span class="nx">phoneFormat</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;../helper&#39;</span>
 
-<span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;helper&#39;</span><span class="p">,</span> <span class="p">(</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-	<span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should truncate string with length&#39;</span><span class="p">,</span> <span class="p">(</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+<span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;helper&#39;</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+	<span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should truncate string with length&#39;</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
 		<span class="p">...</span>
-	  <span class="p">}</span><span class="p">)</span>
+	  <span class="p">})</span>
 
-	<span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should return parse phone format like xxx xxxx xxxx&#39;</span><span class="p">,</span> <span class="p">(</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-	<span class="kr">const</span> <span class="nx">phone</span> <span class="o">=</span> <span class="nx">phoneFormat</span><span class="p">(</span><span class="sb">`</span><span class="sb">13000000000</span><span class="sb">`</span><span class="p">)</span>
-	<span class="nx">expect</span><span class="p">(</span><span class="nx">phone</span><span class="p">)</span><span class="p">.</span><span class="nx">toBe</span><span class="p">(</span><span class="sb">`</span><span class="sb">130 0000 0000</span><span class="sb">`</span><span class="p">)</span>
+	<span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should return parse phone format like xxx xxxx xxxx&#39;</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+	<span class="kr">const</span> <span class="nx">phone</span> <span class="o">=</span> <span class="nx">phoneFormat</span><span class="p">(</span><span class="sb">`13000000000`</span><span class="p">)</span>
+	<span class="nx">expect</span><span class="p">(</span><span class="nx">phone</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="sb">`130 0000 0000`</span><span class="p">)</span>
 
-  <span class="p">}</span><span class="p">)</span>
-<span class="p">}</span><span class="p">)</span>
+  <span class="p">})</span>
+<span class="p">})</span>
 
 </code></pre></td></tr></table>
 </div>
@@ -522,12 +519,12 @@
 同理，99行的图标 I 当然就是 if path not taken。表明 :</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-js" data-lang="js"><span class="k">if</span> <span class="p">(</span><span class="nx">phoneNumber</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">11</span><span class="p">)</span> <span class="p">{</span>
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="k">if</span> <span class="p">(</span><span class="nx">phoneNumber</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">11</span><span class="p">)</span> <span class="p">{</span>
 	  <span class="k">return</span> <span class="nx">phoneNumber</span>
 	<span class="p">}</span>
 </code></pre></td></tr></table>
@@ -536,7 +533,7 @@
 <p>我们接着在后面添加测试代码：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -554,22 +551,22 @@
 </span><span class="lnt">16
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">//helper.test.js
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="c1">//helper.test.js
 </span><span class="c1"></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">truncate</span><span class="p">,</span><span class="nx">phoneFormat</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;../helper&#39;</span>
 
-<span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;helper&#39;</span><span class="p">,</span> <span class="p">(</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-	<span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should truncate string with length&#39;</span><span class="p">,</span> <span class="p">(</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+<span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;helper&#39;</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+	<span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should truncate string with length&#39;</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
 		<span class="p">...</span>
-	  <span class="p">}</span><span class="p">)</span>
+	  <span class="p">})</span>
 
-	<span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should return parse phone format like xxx xxxx xxxx&#39;</span><span class="p">,</span> <span class="p">(</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-	<span class="kr">const</span> <span class="nx">phone</span> <span class="o">=</span> <span class="nx">phoneFormat</span><span class="p">(</span><span class="sb">`</span><span class="sb">13000000000</span><span class="sb">`</span><span class="p">)</span>
-	<span class="nx">expect</span><span class="p">(</span><span class="nx">phone</span><span class="p">)</span><span class="p">.</span><span class="nx">toBe</span><span class="p">(</span><span class="sb">`</span><span class="sb">130 0000 0000</span><span class="sb">`</span><span class="p">)</span>
+	<span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should return parse phone format like xxx xxxx xxxx&#39;</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+	<span class="kr">const</span> <span class="nx">phone</span> <span class="o">=</span> <span class="nx">phoneFormat</span><span class="p">(</span><span class="sb">`13000000000`</span><span class="p">)</span>
+	<span class="nx">expect</span><span class="p">(</span><span class="nx">phone</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="sb">`130 0000 0000`</span><span class="p">)</span>
 	
-	<span class="kr">const</span> <span class="nx">inputEmpty</span> <span class="o">=</span> <span class="nx">phoneFormat</span><span class="p">(</span><span class="sb">`</span><span class="sb">`</span><span class="p">)</span>
-	<span class="nx">expect</span><span class="p">(</span><span class="nx">inputEmpty</span><span class="p">)</span><span class="p">.</span><span class="nx">toBe</span><span class="p">(</span><span class="sb">`</span><span class="sb">`</span><span class="p">)</span>
-  <span class="p">}</span><span class="p">)</span>
-<span class="p">}</span><span class="p">)</span>
+	<span class="kr">const</span> <span class="nx">inputEmpty</span> <span class="o">=</span> <span class="nx">phoneFormat</span><span class="p">(</span><span class="sb">``</span><span class="p">)</span>
+	<span class="nx">expect</span><span class="p">(</span><span class="nx">inputEmpty</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="sb">``</span><span class="p">)</span>
+  <span class="p">})</span>
+<span class="p">})</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>由于测试了else部分，所以我们的覆盖率中，语句和分支这部分都比之前提升了。打开覆盖率报告，发现 黑底黄字的E图标也没了，113行else部分的代码也不是红色背景了。
@@ -577,7 +574,7 @@
 <p>现在我们继续完善测试代码，比如模拟用户输入手机号到第4位和第7位时，是否正确加入了空格。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -611,37 +608,37 @@
 </span><span class="lnt">32
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">//helper.test.js
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="c1">//helper.test.js
 </span><span class="c1"></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">truncate</span><span class="p">,</span><span class="nx">phoneFormat</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;../helper&#39;</span>
 
-<span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;helper&#39;</span><span class="p">,</span> <span class="p">(</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-	<span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should truncate string with length&#39;</span><span class="p">,</span> <span class="p">(</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+<span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;helper&#39;</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+	<span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should truncate string with length&#39;</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
 		<span class="p">...</span>
-	<span class="p">}</span><span class="p">)</span>
+	<span class="p">})</span>
 
-	<span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should return parse phone format like xxx xxxx xxxx&#39;</span><span class="p">,</span> <span class="p">(</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-	  <span class="kr">const</span> <span class="nx">phone</span> <span class="o">=</span> <span class="nx">phoneFormat</span><span class="p">(</span><span class="sb">`</span><span class="sb">13000000000</span><span class="sb">`</span><span class="p">)</span>
-	  <span class="nx">expect</span><span class="p">(</span><span class="nx">phone</span><span class="p">)</span><span class="p">.</span><span class="nx">toBe</span><span class="p">(</span><span class="sb">`</span><span class="sb">130 0000 0000</span><span class="sb">`</span><span class="p">)</span>
+	<span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should return parse phone format like xxx xxxx xxxx&#39;</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+	  <span class="kr">const</span> <span class="nx">phone</span> <span class="o">=</span> <span class="nx">phoneFormat</span><span class="p">(</span><span class="sb">`13000000000`</span><span class="p">)</span>
+	  <span class="nx">expect</span><span class="p">(</span><span class="nx">phone</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="sb">`130 0000 0000`</span><span class="p">)</span>
 	
-	  <span class="kr">const</span> <span class="nx">longphone</span> <span class="o">=</span> <span class="nx">phoneFormat</span><span class="p">(</span><span class="sb">`</span><span class="sb">131234567890</span><span class="sb">`</span><span class="p">)</span>
-  	  <span class="nx">expect</span><span class="p">(</span><span class="nx">longphone</span><span class="p">)</span><span class="p">.</span><span class="nx">toBe</span><span class="p">(</span><span class="sb">`</span><span class="sb">131234567890</span><span class="sb">`</span><span class="p">)</span>
+	  <span class="kr">const</span> <span class="nx">longphone</span> <span class="o">=</span> <span class="nx">phoneFormat</span><span class="p">(</span><span class="sb">`131234567890`</span><span class="p">)</span>
+  	  <span class="nx">expect</span><span class="p">(</span><span class="nx">longphone</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="sb">`131234567890`</span><span class="p">)</span>
 
-	  <span class="kr">const</span> <span class="nx">input4number</span> <span class="o">=</span> <span class="nx">phoneFormat</span><span class="p">(</span><span class="sb">`</span><span class="sb">1300</span><span class="sb">`</span><span class="p">)</span>
-	  <span class="nx">expect</span><span class="p">(</span><span class="nx">input4number</span><span class="p">)</span><span class="p">.</span><span class="nx">toBe</span><span class="p">(</span><span class="sb">`</span><span class="sb">130 0</span><span class="sb">`</span><span class="p">)</span>
+	  <span class="kr">const</span> <span class="nx">input4number</span> <span class="o">=</span> <span class="nx">phoneFormat</span><span class="p">(</span><span class="sb">`1300`</span><span class="p">)</span>
+	  <span class="nx">expect</span><span class="p">(</span><span class="nx">input4number</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="sb">`130 0`</span><span class="p">)</span>
 
-	  <span class="kr">const</span> <span class="nx">input7number</span> <span class="o">=</span> <span class="nx">phoneFormat</span><span class="p">(</span><span class="sb">`</span><span class="sb">130 0000</span><span class="sb">`</span><span class="p">)</span>
-	  <span class="nx">expect</span><span class="p">(</span><span class="nx">input7number</span><span class="p">)</span><span class="p">.</span><span class="nx">toBe</span><span class="p">(</span><span class="sb">`</span><span class="sb">130 0000</span><span class="sb">`</span><span class="p">)</span>
+	  <span class="kr">const</span> <span class="nx">input7number</span> <span class="o">=</span> <span class="nx">phoneFormat</span><span class="p">(</span><span class="sb">`130 0000`</span><span class="p">)</span>
+	  <span class="nx">expect</span><span class="p">(</span><span class="nx">input7number</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="sb">`130 0000`</span><span class="p">)</span>
 
-	  <span class="kr">const</span> <span class="nx">input8number</span> <span class="o">=</span> <span class="nx">phoneFormat</span><span class="p">(</span><span class="sb">`</span><span class="sb">130 0000 0</span><span class="sb">`</span><span class="p">)</span>
-	  <span class="nx">expect</span><span class="p">(</span><span class="nx">input8number</span><span class="p">)</span><span class="p">.</span><span class="nx">toBe</span><span class="p">(</span><span class="sb">`</span><span class="sb">130 0000 0</span><span class="sb">`</span><span class="p">)</span>
+	  <span class="kr">const</span> <span class="nx">input8number</span> <span class="o">=</span> <span class="nx">phoneFormat</span><span class="p">(</span><span class="sb">`130 0000 0`</span><span class="p">)</span>
+	  <span class="nx">expect</span><span class="p">(</span><span class="nx">input8number</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="sb">`130 0000 0`</span><span class="p">)</span>
 
-	  <span class="kr">const</span> <span class="nx">inputmorethan8number</span> <span class="o">=</span> <span class="nx">phoneFormat</span><span class="p">(</span><span class="sb">`</span><span class="sb">130 0000 000</span><span class="sb">`</span><span class="p">)</span>
-	  <span class="nx">expect</span><span class="p">(</span><span class="nx">inputmorethan8number</span><span class="p">)</span><span class="p">.</span><span class="nx">toBe</span><span class="p">(</span><span class="sb">`</span><span class="sb">130 0000 000</span><span class="sb">`</span><span class="p">)</span>
+	  <span class="kr">const</span> <span class="nx">inputmorethan8number</span> <span class="o">=</span> <span class="nx">phoneFormat</span><span class="p">(</span><span class="sb">`130 0000 000`</span><span class="p">)</span>
+	  <span class="nx">expect</span><span class="p">(</span><span class="nx">inputmorethan8number</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="sb">`130 0000 000`</span><span class="p">)</span>
 
-	  <span class="kr">const</span> <span class="nx">inputEmpty</span> <span class="o">=</span> <span class="nx">phoneFormat</span><span class="p">(</span><span class="sb">`</span><span class="sb">`</span><span class="p">)</span>
-	  <span class="nx">expect</span><span class="p">(</span><span class="nx">inputEmpty</span><span class="p">)</span><span class="p">.</span><span class="nx">toBe</span><span class="p">(</span><span class="sb">`</span><span class="sb">`</span><span class="p">)</span>
-    <span class="p">}</span><span class="p">)</span>
-<span class="p">}</span><span class="p">)</span>
+	  <span class="kr">const</span> <span class="nx">inputEmpty</span> <span class="o">=</span> <span class="nx">phoneFormat</span><span class="p">(</span><span class="sb">``</span><span class="p">)</span>
+	  <span class="nx">expect</span><span class="p">(</span><span class="nx">inputEmpty</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="sb">``</span><span class="p">)</span>
+    <span class="p">})</span>
+<span class="p">})</span>
 
 </code></pre></td></tr></table>
 </div>
@@ -722,7 +719,7 @@
   <span class="copyright-year">
     &copy; 
     2018 - 
-    2020
+    2021
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>

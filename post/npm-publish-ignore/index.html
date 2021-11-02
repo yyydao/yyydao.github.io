@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Vue项目package.json分析 - Nodecafe</title>
+  <title>npm publish的坑 - Nodecafe</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -16,7 +16,10 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="YYY" /><meta name="description" content="Package.json 分析一下Vue使用的依赖以及一些配置。也可以学到不少东西，比如对于打包。 无副作用模块 关于此部分，可参见作者自己的回答。 太长不看版本：告诉打" /><meta name="keywords" content="Hugo, theme, Nodecafe" />
+<meta name="author" content="YYY" /><meta name="description" content="目前工作是在做基础数据的SDK。SDK做为全公司学习数据的基础功能，抽离成公共依赖，发布到公司的npm的私库。
+最近更新版本，发现业务加载不到依赖。
+破案流程回顾：
+" /><meta name="keywords" content="Hugo, theme, Nodecafe" />
 
 
 
@@ -26,7 +29,7 @@
 <meta name="generator" content="Hugo 0.88.1 with theme even" />
 
 
-<link rel="canonical" href="https://nodecafe.me/post/vue-package-json-analyse/" />
+<link rel="canonical" href="https://nodecafe.me/post/npm-publish-ignore/" />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -38,20 +41,26 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
-<meta property="og:title" content="Vue项目package.json分析" />
-<meta property="og:description" content="Package.json 分析一下Vue使用的依赖以及一些配置。也可以学到不少东西，比如对于打包。 无副作用模块 关于此部分，可参见作者自己的回答。 太长不看版本：告诉打" />
+<meta property="og:title" content="npm publish的坑" />
+<meta property="og:description" content="目前工作是在做基础数据的SDK。SDK做为全公司学习数据的基础功能，抽离成公共依赖，发布到公司的npm的私库。
+最近更新版本，发现业务加载不到依赖。
+破案流程回顾：" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://nodecafe.me/post/vue-package-json-analyse/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2018-05-10T10:44:05+08:00" />
-<meta property="article:modified_time" content="2018-05-10T10:44:05+08:00" />
+<meta property="og:url" content="https://nodecafe.me/post/npm-publish-ignore/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2021-11-01T16:14:05+08:00" />
+<meta property="article:modified_time" content="2021-11-01T16:14:05+08:00" />
 
-<meta itemprop="name" content="Vue项目package.json分析">
-<meta itemprop="description" content="Package.json 分析一下Vue使用的依赖以及一些配置。也可以学到不少东西，比如对于打包。 无副作用模块 关于此部分，可参见作者自己的回答。 太长不看版本：告诉打"><meta itemprop="datePublished" content="2018-05-10T10:44:05+08:00" />
-<meta itemprop="dateModified" content="2018-05-10T10:44:05+08:00" />
-<meta itemprop="wordCount" content="537">
-<meta itemprop="keywords" content="javascript," /><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Vue项目package.json分析"/>
-<meta name="twitter:description" content="Package.json 分析一下Vue使用的依赖以及一些配置。也可以学到不少东西，比如对于打包。 无副作用模块 关于此部分，可参见作者自己的回答。 太长不看版本：告诉打"/>
+<meta itemprop="name" content="npm publish的坑">
+<meta itemprop="description" content="目前工作是在做基础数据的SDK。SDK做为全公司学习数据的基础功能，抽离成公共依赖，发布到公司的npm的私库。
+最近更新版本，发现业务加载不到依赖。
+破案流程回顾："><meta itemprop="datePublished" content="2021-11-01T16:14:05+08:00" />
+<meta itemprop="dateModified" content="2021-11-01T16:14:05+08:00" />
+<meta itemprop="wordCount" content="682">
+<meta itemprop="keywords" content="“Npm&#34;," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="npm publish的坑"/>
+<meta name="twitter:description" content="目前工作是在做基础数据的SDK。SDK做为全公司学习数据的基础功能，抽离成公共依赖，发布到公司的npm的私库。
+最近更新版本，发现业务加载不到依赖。
+破案流程回顾："/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -118,10 +127,10 @@
           <article class="post">
     
     <header class="post-header">
-      <h1 class="post-title">Vue项目package.json分析</h1>
+      <h1 class="post-title">npm publish的坑</h1>
 
       <div class="post-meta">
-        <span class="post-time"> 2018-05-10 </span>
+        <span class="post-time"> 2021-11-01 </span>
         
         
       </div>
@@ -132,72 +141,89 @@
   <div class="post-toc-content always-active">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#无副作用模块">无副作用模块</a></li>
-    <li><a href="#提交时的githook和规范">提交时的githook和规范</a></li>
-    <li><a href="#依赖package">依赖package：</a></li>
+    <li>
+      <ul>
+        <li><a href="#入口">入口</a></li>
+        <li><a href="#业务依赖是否存在">业务依赖是否存在</a></li>
+        <li><a href="#打包问题吗">打包问题吗？</a></li>
+        <li><a href="#关键点">关键点</a></li>
+        <li><a href="#解决与本质">解决与本质：</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
   </div>
 </div>
     <div class="post-content">
-      <h1 id="packagejson">Package.json</h1>
-<p>分析一下Vue使用的依赖以及一些配置。也可以学到不少东西，比如对于打包。</p>
-<h2 id="无副作用模块">无副作用模块</h2>
-<p>关于此部分，可参见<a href="https://www.zhihu.com/question/41922432/answer/93346223">作者自己的回答</a>。
-太长不看版本：告诉打包工具我写的代码无副作用，也就是说多余的东西放心移除就好。这样可以缩小体积。</p>
+      <p>目前工作是在做基础数据的SDK。SDK做为全公司学习数据的基础功能，抽离成公共依赖，发布到公司的npm的私库。</p>
+<p>最近更新版本，发现业务加载不到依赖。</p>
+<p>破案流程回顾：</p>
+<p>先来，tl&rsquo;dr;</p>
+<p>npm publish的时候会读 <code>.npmignore</code>，如果不存在就去读 <code>.gitignore</code>。最后创建了一个空的<code>.npmignore</code>，问题解决。（坑！）</p>
+<h3 id="入口">入口</h3>
+<p>查 package.json 指定的入口</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="s2">&#34;sideEffects&#34;</span><span class="err">:</span> <span class="kc">false</span><span class="err">,</span>
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="p">{</span>
+  <span class="p">...</span>
+  <span class="s2">&#34;main&#34;</span><span class="o">:</span> <span class="s2">&#34;./dist/index.js&#34;</span><span class="p">,</span>
+  <span class="p">...</span>
+<span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
-</div><h2 id="提交时的githook和规范">提交时的githook和规范</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="s2">&#34;gitHooks&#34;</span><span class="err">:</span> <span class="p">{</span>  
-  <span class="nt">&#34;pre-commit&#34;</span><span class="p">:</span> <span class="s2">&#34;lint-staged&#34;</span><span class="p">,</span>  
-  <span class="nt">&#34;commit-msg&#34;</span><span class="p">:</span> <span class="s2">&#34;node scripts/verify-commit-msg.js&#34;</span>  
-<span class="p">}</span><span class="err">,</span>  
-<span class="s2">&#34;lint-staged&#34;</span><span class="err">:</span> <span class="p">{</span>  
-  <span class="nt">&#34;*.js&#34;</span><span class="p">:</span> <span class="p">[</span>  
-  <span class="s2">&#34;eslint --fix&#34;</span><span class="p">,</span>  
-  <span class="s2">&#34;git add&#34;</span>  
-  <span class="p">]</span>  
-<span class="p">}</span><span class="err">,</span>
-</code></pre></td></tr></table>
-</div>
-</div><h2 id="依赖package">依赖package：</h2>
-<p>对于<code>rollup</code>、<code>jasmine</code>、<code>karma</code>、<code>eslint</code>、<code>Flow</code>、<code>phantomjs</code>、<code>nightwatch</code>这些相关的就不一一分析了。</p>
-<p><code>acorn</code>  小而精的 JavaScript parser, 完全用JavaScript编写.</p>
-<p><code>buble</code> &amp; <code>rollup-plugin-buble</code> ES2015 编译器, Bublé is an ES2015+ compiler. 可以让ES2015/16 JavaScript 代码 转化到目前的主流环境，包括老版本Node.js 和 Internet Explorer.</p>
-<p><code>chalk</code> 命令行着色渲染</p>
-<p><code>codecov</code> CI 相关</p>
-<p><code>cz-conventional-changelog</code>&amp; <code>commitizen</code> &amp; <code>conventional-changelog</code> 利用commit信息生成changelog</p>
-<p><code>cross-spawn</code>  跨平台的node&rsquo;s spawn 和 spawnSync解决方案.</p>
-<p><code>de-indentation</code>  处理ES6模版字符，转换成统一的换行缩进</p>
-<p><code>escodegen</code> 基于 <a href="https://developer.mozilla.org/en/SpiderMonkey/Parser_API" title="Mozilla's Parser API">Mozilla&rsquo;s Parser API </a>AST生成ES代码</p>
-<p><code>hash-sum</code>  散列值生成</p>
-<p><code>he</code> 处理HTML字符实体的编码解码</p>
-<p><code>lru-cache</code>  利用LRU算法，在内存中管理缓存</p>
-<p><code>serialize-javascript</code>  将JS序列化成包含正则、日期、函数的JSON超集，也可过滤XSS</p>
-<p><code>shelljs</code>  可移植Unix命令集成</p>
-<p><code>yorkie</code>  尤雨溪对 <a href="https://github.com/typicode/husky">husky</a> 这个处理<code>git hook</code>的库的一份用于Vue项目的fork</p>
-<p>-EOF-</p>
+</div><p>发现业务依赖加载是需要拿到 dist内的index做为入口。</p>
+<h3 id="业务依赖是否存在">业务依赖是否存在</h3>
+<p>发现了，确实不存在<code>dist</code>文件夹.
+<figure><img src="/posts/npm-publish-ignore/npm.png"/><figcaption>
+            <h4>npm</h4>
+        </figcaption>
+</figure>
+</p>
+<h3 id="打包问题吗">打包问题吗？</h3>
+<p>在本地和CI的打包是存在 <code>dist</code> 的。那是为什么呢？</p>
+<figure><img src="/posts/npm-publish-ignore/local-dist.png"/><figcaption>
+            <h4>本地</h4>
+        </figcaption>
+</figure>
 
+<figure><img src="/posts/npm-publish-ignore/npm-ci.png"/><figcaption>
+            <h4>ci</h4>
+        </figcaption>
+</figure>
+
+<h3 id="关键点">关键点</h3>
+<p>发现ci上的log有些异常，
+执行publish后，并没有推dist到npm私库上。
+<figure><img src="/posts/npm-publish-ignore/key.jpg"/><figcaption>
+            <h4>破案</h4>
+        </figcaption>
+</figure>
+</p>
+<h3 id="解决与本质">解决与本质：</h3>
+<p>在stackoverflow上找到来对应的答案，<a href="https://stackoverflow.com/questions/31642477/how-to-publish-an-npm-package-with-distribution-files">这里</a>
+以及npm官方的  <a href="https://docs.npmjs.com/cli/v7/configuring-npm/package-json#files">这里</a></p>
+<p>在发布npm包的时候，publish的内容大概会经过这几个步骤：</p>
+<ol>
+<li>
+<p>查找<code>package.json</code>里的 <code>files</code> 字段，比如 <code> &quot;files&quot;: [&quot;dist/*.js&quot;, &quot;dist/**/&amp;.js]</code>   ，就会发布dist的js文件。</p>
+</li>
+<li>
+<p>如果没有<code>package.json</code>的<code>files</code> 字段，就根据 <code>.npmignore</code>，排除掉不需要publish的文件，如果这个文件内容是空的，就是不排除特定文件。</p>
+</li>
+<li>
+<p>如果没有  <code>.npmignore</code>，但是有<code>.gitignore</code>，就会根据 <code>.gitignore</code>排除掉不需要publish的文件。</p>
+</li>
+</ol>
+<p>刚好我这里就踩坑了，当初<code>.gitignore</code>加上dist，这样可以避免dist被提交到git，但是即没有在<code>package.json</code>指定文件也没有加上<code>.npmignore</code>。</p>
+<p>最后创建了一个空的<code>.npmignore</code>，问题解决。</p>
+<p>-EOF-</p>
     </div>
 
     <div class="post-copyright">
@@ -208,7 +234,7 @@
   <p class="copyright-item">
     <span class="item-title">LastMod</span>
     <span class="item-content">
-        2018-05-10
+        2021-11-01
         
     </span>
   </p>
@@ -220,16 +246,12 @@
 </div>
 <footer class="post-footer">
       <div class="post-tags">
-          <a href="/tags/javascript/">javascript</a>
+          <a href="/tags/npm/">“Npm&#34;</a>
           </div>
       <nav class="post-nav">
-        <a class="prev" href="/post/algorithm-linkedlist/">
-            <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">算法系列（一）-链表</span>
-            <span class="prev-text nav-mobile">Prev</span>
-          </a>
-        <a class="next" href="/post/debounce-throttle-and-more/">
-            <span class="next-text nav-default">Debounce Throttle and More</span>
+        
+        <a class="next" href="/post/%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E5%9B%BE%E7%89%87%E5%8A%A0%E6%B0%B4%E5%8D%B0/">
+            <span class="next-text nav-default">如何实现图片加水印</span>
             <span class="next-text nav-mobile">Next</span>
             <i class="iconfont icon-right"></i>
           </a>

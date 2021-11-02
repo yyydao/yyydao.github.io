@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>“Npm&#34; on Nodecafe</title>
+    <link>https://nodecafe.me/tags/npm/</link>
+    <description>Recent content in “Npm&#34; on Nodecafe</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Mon, 01 Nov 2021 16:14:05 +0800</lastBuildDate><atom:link href="https://nodecafe.me/tags/npm/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>npm publish的坑</title>
+      <link>https://nodecafe.me/post/npm-publish-ignore/</link>
+      <pubDate>Mon, 01 Nov 2021 16:14:05 +0800</pubDate>
+      
+      <guid>https://nodecafe.me/post/npm-publish-ignore/</guid>
+      <description>&lt;p&gt;目前工作是在做基础数据的SDK。SDK做为全公司学习数据的基础功能，抽离成公共依赖，发布到公司的npm的私库。&lt;/p&gt;
+&lt;p&gt;最近更新版本，发现业务加载不到依赖。&lt;/p&gt;
+&lt;p&gt;破案流程回顾：&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

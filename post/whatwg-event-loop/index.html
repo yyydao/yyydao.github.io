@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.62.1 with theme even" />
+<meta name="generator" content="Hugo 0.88.1 with theme even" />
 
 
 <link rel="canonical" href="https://nodecafe.me/post/whatwg-event-loop/" />
@@ -41,17 +41,14 @@
 <meta property="og:title" content="Whatwg Event Loop 翻译" />
 <meta property="og:description" content="8.1.4 Event loops 8.1.4.1 Definitions 为了协调事件，用户交互，脚本，渲染，网络等，用户代理必须使用本文所述的事件循环。有两种事件循环：用于浏览上下文(browsing c" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://nodecafe.me/post/whatwg-event-loop/" />
+<meta property="og:url" content="https://nodecafe.me/post/whatwg-event-loop/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2019-04-14T10:44:05+08:00" />
 <meta property="article:modified_time" content="2019-04-14T10:44:05+08:00" />
+
 <meta itemprop="name" content="Whatwg Event Loop 翻译">
-<meta itemprop="description" content="8.1.4 Event loops 8.1.4.1 Definitions 为了协调事件，用户交互，脚本，渲染，网络等，用户代理必须使用本文所述的事件循环。有两种事件循环：用于浏览上下文(browsing c">
-<meta itemprop="datePublished" content="2019-04-14T10:44:05&#43;08:00" />
-<meta itemprop="dateModified" content="2019-04-14T10:44:05&#43;08:00" />
-<meta itemprop="wordCount" content="4759">
-
-
-
+<meta itemprop="description" content="8.1.4 Event loops 8.1.4.1 Definitions 为了协调事件，用户交互，脚本，渲染，网络等，用户代理必须使用本文所述的事件循环。有两种事件循环：用于浏览上下文(browsing c"><meta itemprop="datePublished" content="2019-04-14T10:44:05+08:00" />
+<meta itemprop="dateModified" content="2019-04-14T10:44:05+08:00" />
+<meta itemprop="wordCount" content="4765">
 <meta itemprop="keywords" content="javascript," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Whatwg Event Loop 翻译"/>
 <meta name="twitter:description" content="8.1.4 Event loops 8.1.4.1 Definitions 为了协调事件，用户交互，脚本，渲染，网络等，用户代理必须使用本文所述的事件循环。有两种事件循环：用于浏览上下文(browsing c"/>
@@ -135,12 +132,12 @@
   <div class="post-toc-content always-active">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#814-event-loops1"> 8.1.4 Event loops </a>
+    <li><a href="#814-event-loops1"><a href="https://html.spec.whatwg.org/multipage/webappapis.html#event-loops"> 8.1.4 Event loops </a></a>
       <ul>
         <li><a href="#8141-definitions">8.1.4.1 Definitions</a></li>
       </ul>
     </li>
-    <li><a href="#heading">处理模型</a></li>
+    <li><a href="#处理模型">处理模型</a></li>
   </ul>
 </nav>
   </div>
@@ -188,7 +185,7 @@
 <li>对DOM操作作出反应</li>
 </ul>
 <p>某些元素具有响应DOM操作而触发的任务，例如，当该元素插入到文档中时。</p>
-<p>浏览上下文类型的事件循环中的每一个任务都与一个Document对象关联；如果任务的队列在一个元素的上下文中，那么它是元素的节点文档；如果任务队列在浏览上下文中，那么它是任务排队时的浏览上下文活动文档；如果任务是因为script脚本产生的队列，那么该文档对象是由该（script's settings object）产生的（A responsible document）</p>
+<p>浏览上下文类型的事件循环中的每一个任务都与一个Document对象关联；如果任务的队列在一个元素的上下文中，那么它是元素的节点文档；如果任务队列在浏览上下文中，那么它是任务排队时的浏览上下文活动文档；如果任务是因为script脚本产生的队列，那么该文档对象是由该（script&rsquo;s settings object）产生的（A responsible document）</p>
 <blockquote>
 <p>A responsible document: For example, the URL of the responsible document is used to set the URL of the Document after it has been reset using document.open().</p>
 </blockquote>
@@ -198,7 +195,7 @@
 <p>例如，用户代理可以有一个用于鼠标和键盘事件的任务队列（用户交互任务源），另一个用于其他任务。 然后，用户代理可以在四分之三的时间内将键盘和鼠标事件优先于其他任务，从而保持界面响应，但不会让其他任务队列挨饿，同时又无法处理来其他任务源的事件。</p>
 </blockquote>
 <p>每个事件循环都有一个当前运行的任务。 最初，这是空的。 同时需要处理处理重入（Reentrancy，是指该函数在自己调用自己的时候，不必担心数据被破坏）。 每个事件循环还有一个<code>执行微任务检查点 (performing a microtask checkpoint)</code>标志位，该标志位最初必须为false。 它用于防止performing a microtask checkpoint算法发生重入调用。</p>
-<h2 id="heading">处理模型</h2>
+<h2 id="处理模型">处理模型</h2>
 <p>只要事件循环存在，那么它就必须持续地执行一下步骤：</p>
 <ol>
 <li>
@@ -418,7 +415,11 @@
           <a href="/tags/javascript/">javascript</a>
           </div>
       <nav class="post-nav">
-        
+        <a class="prev" href="/post/%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E5%9B%BE%E7%89%87%E5%8A%A0%E6%B0%B4%E5%8D%B0/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">如何实现图片加水印</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
         <a class="next" href="/post/react-project-unitest/">
             <span class="next-text nav-default">react-project-unitest</span>
             <span class="next-text nav-mobile">Next</span>
@@ -459,7 +460,7 @@
   <span class="copyright-year">
     &copy; 
     2018 - 
-    2020
+    2021
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>

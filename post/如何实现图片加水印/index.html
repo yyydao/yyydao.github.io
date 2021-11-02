@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Categories - Nodecafe</title>
+  <title>如何实现图片加水印 - Nodecafe</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -16,7 +16,9 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="YYY" /><meta name="description" content="yet another coder." /><meta name="keywords" content="Hugo, theme, Nodecafe" />
+<meta name="author" content="YYY" /><meta name="description" content="在上传证件照的时候，经常需要给图片加入水印，常见的思路就是利用 canvas 画图，虽然思路是比较简单，但是在引入其他外部UI库的场景下，思路从到实现还是有许多细节坑需要慢慢填。
+最近做的项目中就有利用 element-ui 的uploader 来实现图片水印效果。
+" /><meta name="keywords" content="Hugo, theme, Nodecafe" />
 
 
 
@@ -26,9 +28,7 @@
 <meta name="generator" content="Hugo 0.88.1 with theme even" />
 
 
-<link rel="canonical" href="https://nodecafe.me/categories/" />
-  <link href="https://nodecafe.me/categories/index.xml" rel="alternate" type="application/rss+xml" title="Nodecafe" />
-  <link href="https://nodecafe.me/categories/index.xml" rel="feed" type="application/rss+xml" title="Nodecafe" />
+<link rel="canonical" href="https://nodecafe.me/post/%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E5%9B%BE%E7%89%87%E5%8A%A0%E6%B0%B4%E5%8D%B0/" />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -40,15 +40,23 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
-<meta property="og:title" content="Categories" />
-<meta property="og:description" content="yet another coder." />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://nodecafe.me/categories/" />
+<meta property="og:title" content="如何实现图片加水印" />
+<meta property="og:description" content="在上传证件照的时候，经常需要给图片加入水印，常见的思路就是利用  canvas  画图，虽然思路是比较简单，但是在引入其他外部UI库的场景下，思路从到实现还是有许多细节坑需要慢慢填。
+最近做的项目中就有利用  element-ui 的uploader 来实现图片水印效果。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nodecafe.me/post/%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E5%9B%BE%E7%89%87%E5%8A%A0%E6%B0%B4%E5%8D%B0/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2020-08-23T20:44:05+08:00" />
+<meta property="article:modified_time" content="2020-08-23T20:44:05+08:00" />
 
-<meta itemprop="name" content="Categories">
-<meta itemprop="description" content="yet another coder."><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Categories"/>
-<meta name="twitter:description" content="yet another coder."/>
+<meta itemprop="name" content="如何实现图片加水印">
+<meta itemprop="description" content="在上传证件照的时候，经常需要给图片加入水印，常见的思路就是利用  canvas  画图，虽然思路是比较简单，但是在引入其他外部UI库的场景下，思路从到实现还是有许多细节坑需要慢慢填。
+最近做的项目中就有利用  element-ui 的uploader 来实现图片水印效果。"><meta itemprop="datePublished" content="2020-08-23T20:44:05+08:00" />
+<meta itemprop="dateModified" content="2020-08-23T20:44:05+08:00" />
+<meta itemprop="wordCount" content="145">
+<meta itemprop="keywords" content="javascript,canvas,element-ui," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="如何实现图片加水印"/>
+<meta name="twitter:description" content="在上传证件照的时候，经常需要给图片加入水印，常见的思路就是利用  canvas  画图，虽然思路是比较简单，但是在引入其他外部UI库的场景下，思路从到实现还是有许多细节坑需要慢慢填。
+最近做的项目中就有利用  element-ui 的uploader 来实现图片水印效果。"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -112,15 +120,76 @@
     <main id="main" class="main">
       <div class="content-wrapper">
         <div id="content" class="content">
-          <div class="terms">
-      <div class="terms-title">
-        No categories
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">如何实现图片加水印</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-08-23 </span>
+        
+        
       </div>
-      <div class="terms-tags">
-        </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents"></nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>在上传证件照的时候，经常需要给图片加入水印，常见的思路就是利用  <code>canvas</code>  画图，虽然思路是比较简单，但是在引入其他外部UI库的场景下，思路从到实现还是有许多细节坑需要慢慢填。</p>
+<p>最近做的项目中就有利用  <code>element-ui</code> 的uploader 来实现图片水印效果。</p>
+<h1 id="实现图片水印相关方法">实现图片水印相关方法</h1>
+<h1 id="实现blob对象转换成图片">实现blob对象转换成图片</h1>
+<h1 id="图片转化成file">图片转化成File</h1>
     </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">YYY</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2020-08-23
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/javascript/">javascript</a>
+          <a href="/tags/canvas/">canvas</a>
+          <a href="/tags/element-ui/">element-ui</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/npm-publish-ignore/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">npm publish的坑</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/whatwg-event-loop/">
+            <span class="next-text nav-default">Whatwg Event Loop 翻译</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
         </div>
         
+
+  
+
+  
 
       </div>
     </main>

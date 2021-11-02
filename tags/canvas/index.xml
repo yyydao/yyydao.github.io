@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>canvas on Nodecafe</title>
+    <link>https://nodecafe.me/tags/canvas/</link>
+    <description>Recent content in canvas on Nodecafe</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sun, 23 Aug 2020 20:44:05 +0800</lastBuildDate><atom:link href="https://nodecafe.me/tags/canvas/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>如何实现图片加水印</title>
+      <link>https://nodecafe.me/post/%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E5%9B%BE%E7%89%87%E5%8A%A0%E6%B0%B4%E5%8D%B0/</link>
+      <pubDate>Sun, 23 Aug 2020 20:44:05 +0800</pubDate>
+      
+      <guid>https://nodecafe.me/post/%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E5%9B%BE%E7%89%87%E5%8A%A0%E6%B0%B4%E5%8D%B0/</guid>
+      <description>&lt;p&gt;在上传证件照的时候，经常需要给图片加入水印，常见的思路就是利用  &lt;code&gt;canvas&lt;/code&gt;  画图，虽然思路是比较简单，但是在引入其他外部UI库的场景下，思路从到实现还是有许多细节坑需要慢慢填。&lt;/p&gt;
+&lt;p&gt;最近做的项目中就有利用  &lt;code&gt;element-ui&lt;/code&gt; 的uploader 来实现图片水印效果。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

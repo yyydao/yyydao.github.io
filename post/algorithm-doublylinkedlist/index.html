@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.62.1 with theme even" />
+<meta name="generator" content="Hugo 0.88.1 with theme even" />
 
 
 <link rel="canonical" href="https://nodecafe.me/post/algorithm-doublylinkedlist/" />
@@ -41,17 +41,14 @@
 <meta property="og:title" content="算法系列（二）-双向链表" />
 <meta property="og:description" content="其实之前版本的链表实现是比较中规中矩的，nodejs中有一个链表实现方式，用简单的几十行就实现了一个双向链表。 可以访问这里看看这个链表是怎么" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://nodecafe.me/post/algorithm-doublylinkedlist/" />
+<meta property="og:url" content="https://nodecafe.me/post/algorithm-doublylinkedlist/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2018-06-21T23:11:58+08:00" />
 <meta property="article:modified_time" content="2018-06-21T23:11:58+08:00" />
+
 <meta itemprop="name" content="算法系列（二）-双向链表">
-<meta itemprop="description" content="其实之前版本的链表实现是比较中规中矩的，nodejs中有一个链表实现方式，用简单的几十行就实现了一个双向链表。 可以访问这里看看这个链表是怎么">
-<meta itemprop="datePublished" content="2018-06-21T23:11:58&#43;08:00" />
-<meta itemprop="dateModified" content="2018-06-21T23:11:58&#43;08:00" />
+<meta itemprop="description" content="其实之前版本的链表实现是比较中规中矩的，nodejs中有一个链表实现方式，用简单的几十行就实现了一个双向链表。 可以访问这里看看这个链表是怎么"><meta itemprop="datePublished" content="2018-06-21T23:11:58+08:00" />
+<meta itemprop="dateModified" content="2018-06-21T23:11:58+08:00" />
 <meta itemprop="wordCount" content="676">
-
-
-
 <meta itemprop="keywords" content="algorithm," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="算法系列（二）-双向链表"/>
 <meta name="twitter:description" content="其实之前版本的链表实现是比较中规中矩的，nodejs中有一个链表实现方式，用简单的几十行就实现了一个双向链表。 可以访问这里看看这个链表是怎么"/>
@@ -148,7 +145,7 @@
 <p>下面我打算分析一下nodejs的源码中这个精简优雅的链表实现。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -199,54 +196,54 @@
 </span><span class="lnt">49
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-js" data-lang="js"><span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
 
 <span class="c1">//初始化一个链表，利用对象的属性当成节点，把Object当成链表
 </span><span class="c1"></span><span class="kd">function</span> <span class="nx">init</span><span class="p">(</span><span class="nx">list</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">list</span><span class="p">.</span><span class="nx">_idleNext</span> <span class="o">=</span> <span class="nx">list</span><span class="p">;</span>
-  <span class="nx">list</span><span class="p">.</span><span class="nx">_idlePrev</span> <span class="o">=</span> <span class="nx">list</span><span class="p">;</span>
+  <span class="nx">list</span><span class="p">.</span><span class="mi">_</span><span class="nx">idleNext</span> <span class="o">=</span> <span class="nx">list</span><span class="p">;</span>
+  <span class="nx">list</span><span class="p">.</span><span class="mi">_</span><span class="nx">idlePrev</span> <span class="o">=</span> <span class="nx">list</span><span class="p">;</span>
 <span class="p">}</span>
 
 <span class="c1">// Show the most idle item. 取到前一个节点
 </span><span class="c1"></span><span class="kd">function</span> <span class="nx">peek</span><span class="p">(</span><span class="nx">list</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">if</span> <span class="p">(</span><span class="nx">list</span><span class="p">.</span><span class="nx">_idlePrev</span> <span class="o">===</span> <span class="nx">list</span><span class="p">)</span> <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
-  <span class="k">return</span> <span class="nx">list</span><span class="p">.</span><span class="nx">_idlePrev</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">list</span><span class="p">.</span><span class="mi">_</span><span class="nx">idlePrev</span> <span class="o">===</span> <span class="nx">list</span><span class="p">)</span> <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
+  <span class="k">return</span> <span class="nx">list</span><span class="p">.</span><span class="mi">_</span><span class="nx">idlePrev</span><span class="p">;</span>
 <span class="p">}</span>
 
 <span class="c1">// Remove an item from its list. 移除一个节点
 </span><span class="c1"></span><span class="kd">function</span> <span class="nx">remove</span><span class="p">(</span><span class="nx">item</span><span class="p">)</span> <span class="p">{</span>
 	<span class="c1">//如果item存在后继节点，则把item的后续节点的prev指针指向item的前继节点
-</span><span class="c1"></span>  <span class="k">if</span> <span class="p">(</span><span class="nx">item</span><span class="p">.</span><span class="nx">_idleNext</span><span class="p">)</span> <span class="p">{</span>
-	<span class="nx">item</span><span class="p">.</span><span class="nx">_idleNext</span><span class="p">.</span><span class="nx">_idlePrev</span> <span class="o">=</span> <span class="nx">item</span><span class="p">.</span><span class="nx">_idlePrev</span><span class="p">;</span>
+</span><span class="c1"></span>  <span class="k">if</span> <span class="p">(</span><span class="nx">item</span><span class="p">.</span><span class="mi">_</span><span class="nx">idleNext</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">item</span><span class="p">.</span><span class="mi">_</span><span class="nx">idleNext</span><span class="p">.</span><span class="mi">_</span><span class="nx">idlePrev</span> <span class="o">=</span> <span class="nx">item</span><span class="p">.</span><span class="mi">_</span><span class="nx">idlePrev</span><span class="p">;</span>
   <span class="p">}</span>
 <span class="c1">// 如果item存在前继节点，这需要把item的前继节点的next指针指向item的后续节点
-</span><span class="c1"></span>  <span class="k">if</span> <span class="p">(</span><span class="nx">item</span><span class="p">.</span><span class="nx">_idlePrev</span><span class="p">)</span> <span class="p">{</span>
-	<span class="nx">item</span><span class="p">.</span><span class="nx">_idlePrev</span><span class="p">.</span><span class="nx">_idleNext</span> <span class="o">=</span> <span class="nx">item</span><span class="p">.</span><span class="nx">_idleNext</span><span class="p">;</span>
+</span><span class="c1"></span>  <span class="k">if</span> <span class="p">(</span><span class="nx">item</span><span class="p">.</span><span class="mi">_</span><span class="nx">idlePrev</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">item</span><span class="p">.</span><span class="mi">_</span><span class="nx">idlePrev</span><span class="p">.</span><span class="mi">_</span><span class="nx">idleNext</span> <span class="o">=</span> <span class="nx">item</span><span class="p">.</span><span class="mi">_</span><span class="nx">idleNext</span><span class="p">;</span>
   <span class="p">}</span>
 <span class="c1">// 断开item的所有指针
-</span><span class="c1"></span>  <span class="nx">item</span><span class="p">.</span><span class="nx">_idleNext</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
-  <span class="nx">item</span><span class="p">.</span><span class="nx">_idlePrev</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+</span><span class="c1"></span>  <span class="nx">item</span><span class="p">.</span><span class="mi">_</span><span class="nx">idleNext</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+  <span class="nx">item</span><span class="p">.</span><span class="mi">_</span><span class="nx">idlePrev</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
 <span class="p">}</span>
 
 <span class="c1">// Remove an item from its list and place at the end.挂载
 </span><span class="c1"></span><span class="kd">function</span> <span class="nx">append</span><span class="p">(</span><span class="nx">list</span><span class="p">,</span> <span class="nx">item</span><span class="p">)</span> <span class="p">{</span>
 <span class="c1">// 如果item节点在列表中，先移除出来
-</span><span class="c1"></span>  <span class="k">if</span> <span class="p">(</span><span class="nx">item</span><span class="p">.</span><span class="nx">_idleNext</span> <span class="o">||</span> <span class="nx">item</span><span class="p">.</span><span class="nx">_idlePrev</span><span class="p">)</span> <span class="p">{</span>
-	<span class="nx">remove</span><span class="p">(</span><span class="nx">item</span><span class="p">)</span><span class="p">;</span>
+</span><span class="c1"></span>  <span class="k">if</span> <span class="p">(</span><span class="nx">item</span><span class="p">.</span><span class="mi">_</span><span class="nx">idleNext</span> <span class="o">||</span> <span class="nx">item</span><span class="p">.</span><span class="mi">_</span><span class="nx">idlePrev</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">remove</span><span class="p">(</span><span class="nx">item</span><span class="p">);</span>
   <span class="p">}</span>
 
   <span class="c1">// Items are linked  with _idleNext -&gt; (older) and _idlePrev -&gt; (newer).
 </span><span class="c1"></span>  <span class="c1">// Note: This linkage (next being older) may seem counter-intuitive at first.很符合直觉的append，把原有的list的指向数据给了item，为接下来item挂载到list做准备
-</span><span class="c1"></span>  <span class="nx">item</span><span class="p">.</span><span class="nx">_idleNext</span> <span class="o">=</span> <span class="nx">list</span><span class="p">.</span><span class="nx">_idleNext</span><span class="p">;</span>
-  <span class="nx">item</span><span class="p">.</span><span class="nx">_idlePrev</span> <span class="o">=</span> <span class="nx">list</span><span class="p">;</span>
+</span><span class="c1"></span>  <span class="nx">item</span><span class="p">.</span><span class="mi">_</span><span class="nx">idleNext</span> <span class="o">=</span> <span class="nx">list</span><span class="p">.</span><span class="mi">_</span><span class="nx">idleNext</span><span class="p">;</span>
+  <span class="nx">item</span><span class="p">.</span><span class="mi">_</span><span class="nx">idlePrev</span> <span class="o">=</span> <span class="nx">list</span><span class="p">;</span>
 
   <span class="c1">// The list _idleNext points to tail (newest) and _idlePrev to head (oldest). list 的_idleNext 指向tail，_idlePrev指向head，list的_idleNext指向item，成功挂载
-</span><span class="c1"></span>  <span class="nx">list</span><span class="p">.</span><span class="nx">_idleNext</span><span class="p">.</span><span class="nx">_idlePrev</span> <span class="o">=</span> <span class="nx">item</span><span class="p">;</span>
-  <span class="nx">list</span><span class="p">.</span><span class="nx">_idleNext</span> <span class="o">=</span> <span class="nx">item</span><span class="p">;</span>
+</span><span class="c1"></span>  <span class="nx">list</span><span class="p">.</span><span class="mi">_</span><span class="nx">idleNext</span><span class="p">.</span><span class="mi">_</span><span class="nx">idlePrev</span> <span class="o">=</span> <span class="nx">item</span><span class="p">;</span>
+  <span class="nx">list</span><span class="p">.</span><span class="mi">_</span><span class="nx">idleNext</span> <span class="o">=</span> <span class="nx">item</span><span class="p">;</span>
 <span class="p">}</span>
 
 <span class="kd">function</span> <span class="nx">isEmpty</span><span class="p">(</span><span class="nx">list</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="nx">list</span><span class="p">.</span><span class="nx">_idleNext</span> <span class="o">===</span> <span class="nx">list</span><span class="p">;</span>
+  <span class="k">return</span> <span class="nx">list</span><span class="p">.</span><span class="mi">_</span><span class="nx">idleNext</span> <span class="o">===</span> <span class="nx">list</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
@@ -321,7 +318,7 @@
   <span class="copyright-year">
     &copy; 
     2018 - 
-    2020
+    2021
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>

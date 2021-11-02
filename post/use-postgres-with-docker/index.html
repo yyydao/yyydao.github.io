@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.62.1 with theme even" />
+<meta name="generator" content="Hugo 0.88.1 with theme even" />
 
 
 <link rel="canonical" href="https://nodecafe.me/post/use-postgres-with-docker/" />
@@ -41,17 +41,14 @@
 <meta property="og:title" content="利用Docker快速使用Postgres数据库" />
 <meta property="og:description" content="感谢技术的发展让我们比以前使用某些工具的时候，更方便了。 所以，现在都8102年了，Docker某种意义上已经成为了一种标准，无论你是前端、后" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://nodecafe.me/post/use-postgres-with-docker/" />
+<meta property="og:url" content="https://nodecafe.me/post/use-postgres-with-docker/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2018-08-08T16:14:05+08:00" />
 <meta property="article:modified_time" content="2018-08-08T16:14:05+08:00" />
+
 <meta itemprop="name" content="利用Docker快速使用Postgres数据库">
-<meta itemprop="description" content="感谢技术的发展让我们比以前使用某些工具的时候，更方便了。 所以，现在都8102年了，Docker某种意义上已经成为了一种标准，无论你是前端、后">
-<meta itemprop="datePublished" content="2018-08-08T16:14:05&#43;08:00" />
-<meta itemprop="dateModified" content="2018-08-08T16:14:05&#43;08:00" />
-<meta itemprop="wordCount" content="781">
-
-
-
+<meta itemprop="description" content="感谢技术的发展让我们比以前使用某些工具的时候，更方便了。 所以，现在都8102年了，Docker某种意义上已经成为了一种标准，无论你是前端、后"><meta itemprop="datePublished" content="2018-08-08T16:14:05+08:00" />
+<meta itemprop="dateModified" content="2018-08-08T16:14:05+08:00" />
+<meta itemprop="wordCount" content="783">
 <meta itemprop="keywords" content="“Docker&#34;," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="利用Docker快速使用Postgres数据库"/>
 <meta name="twitter:description" content="感谢技术的发展让我们比以前使用某些工具的时候，更方便了。 所以，现在都8102年了，Docker某种意义上已经成为了一种标准，无论你是前端、后"/>
@@ -144,7 +141,7 @@
 <p>因为这次是为了学习eggjs数据库部分，需要安装一个<code>Postgres</code>数据库来跑demo。我们可以通过配置文件看看我们需要一个怎样的数据库：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -156,7 +153,7 @@
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// config.default.js
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="c1">// config.default.js
 </span><span class="c1"></span>
  <span class="nx">config</span><span class="p">.</span><span class="nx">sequelize</span> <span class="o">=</span> <span class="p">{</span>
 	<span class="nx">dialect</span><span class="o">:</span> <span class="s1">&#39;postgres&#39;</span><span class="p">,</span> <span class="c1">// support: mysql, mariadb, postgres, mssql
@@ -165,14 +162,14 @@
 	<span class="nx">port</span><span class="o">:</span> <span class="s1">&#39;5432&#39;</span><span class="p">,</span>
 	<span class="nx">username</span><span class="o">:</span> <span class="s1">&#39;admin&#39;</span><span class="p">,</span>
 	<span class="nx">password</span><span class="o">:</span> <span class="s1">&#39;12345&#39;</span><span class="p">,</span>
-  <span class="p">}</span><span class="p">;</span>
+  <span class="p">};</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>可以得知，我们需要创建一个postgres数据库，建立一个叫 <code>example-dev</code> 的DB，链接主机是本机<code>localhost</code>，端口为<code>5432</code>,用户名<code>admin</code>，密码<code>12345</code>。</p>
 <p>下面是这次的<code>docker-compose.yml</code>配置：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -193,25 +190,25 @@
 </span><span class="lnt">19
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-yaml" data-lang="yaml">version<span class="p">:</span><span class="w"> </span><span class="s1">&#39;3.1&#39;</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;3.1&#39;</span><span class="w">
 </span><span class="w">
-</span><span class="w"></span>services<span class="p">:</span><span class="w">
+</span><span class="w"></span><span class="nt">services</span><span class="p">:</span><span class="w">
 </span><span class="w">
-</span><span class="w">  </span>db<span class="p">:</span><span class="w">
-</span><span class="w">	</span>image<span class="p">:</span><span class="w"> </span>postgres<span class="w">
-</span><span class="w">	</span>restart<span class="p">:</span><span class="w"> </span>always<span class="w">
-</span><span class="w">	</span>environment<span class="p">:</span><span class="w">
-</span><span class="w">	  </span>POSTGRES_DB<span class="p">:</span><span class="w"> </span>example-dev<span class="w">
-</span><span class="w">	  </span>POSTGRES_PASSWORD<span class="p">:</span><span class="w"> </span><span class="m">12345</span><span class="w">
-</span><span class="w">	  </span>POSTGRES_USER<span class="p">:</span><span class="w"> </span>admin<span class="w">
-</span><span class="w">	</span>ports<span class="p">:</span><span class="w">
-</span><span class="w">	  </span>-<span class="w"> </span><span class="m">5432</span><span class="p">:</span><span class="m">5432</span><span class="w">
+</span><span class="w">  </span><span class="nt">db</span><span class="p">:</span><span class="w">
+</span><span class="w">	</span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">postgres</span><span class="w">
+</span><span class="w">	</span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l">always</span><span class="w">
+</span><span class="w">	</span><span class="nt">environment</span><span class="p">:</span><span class="w">
+</span><span class="w">	  </span><span class="nt">POSTGRES_DB</span><span class="p">:</span><span class="w"> </span><span class="l">example-dev</span><span class="w">
+</span><span class="w">	  </span><span class="nt">POSTGRES_PASSWORD</span><span class="p">:</span><span class="w"> </span><span class="m">12345</span><span class="w">
+</span><span class="w">	  </span><span class="nt">POSTGRES_USER</span><span class="p">:</span><span class="w"> </span><span class="l">admin</span><span class="w">
+</span><span class="w">	</span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span><span class="w">	  </span>- <span class="m">5432</span><span class="p">:</span><span class="m">5432</span><span class="w">
 </span><span class="w">
-</span><span class="w">  </span>adminer<span class="p">:</span><span class="w">
-</span><span class="w">	</span>image<span class="p">:</span><span class="w"> </span>adminer<span class="w">
-</span><span class="w">	</span>restart<span class="p">:</span><span class="w"> </span>always<span class="w">
-</span><span class="w">	</span>ports<span class="p">:</span><span class="w">
-</span><span class="w">	</span>-<span class="w"> </span><span class="m">8080</span><span class="p">:</span><span class="m">8080</span><span class="w">
+</span><span class="w">  </span><span class="nt">adminer</span><span class="p">:</span><span class="w">
+</span><span class="w">	</span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">adminer</span><span class="w">
+</span><span class="w">	</span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l">always</span><span class="w">
+</span><span class="w">	</span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span><span class="w">	</span>- <span class="m">8080</span><span class="p">:</span><span class="m">8080</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><p>配置中，通过<code>environment</code>参数，配置了DB、User、Password这几项。并且将容器的5432端口映射到了本机的5432端口。另外配置中还加了一个简易的web ui能较方便地查看管理数据库。</p>
@@ -288,7 +285,7 @@
   <span class="copyright-year">
     &copy; 
     2018 - 
-    2020
+    2021
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>

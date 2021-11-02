@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.62.1 with theme even" />
+<meta name="generator" content="Hugo 0.88.1 with theme even" />
 
 
 <link rel="canonical" href="https://nodecafe.me/post/react-project-unitest/" />
@@ -41,17 +41,14 @@
 <meta property="og:title" content="react-project-unitest" />
 <meta property="og:description" content="遇到问题： 1 2 jest node[20471] (FSEvents.framework) FSEventStreamStart: register_with_server: ERROR: f2d_register_rpc() =&gt; (null) (-22) 相关问题：[https://github.com/facebook/jest/issues/1767] 解决" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://nodecafe.me/post/react-project-unitest/" />
+<meta property="og:url" content="https://nodecafe.me/post/react-project-unitest/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2019-03-23T10:44:05+08:00" />
 <meta property="article:modified_time" content="2019-03-23T10:44:05+08:00" />
+
 <meta itemprop="name" content="react-project-unitest">
-<meta itemprop="description" content="遇到问题： 1 2 jest node[20471] (FSEvents.framework) FSEventStreamStart: register_with_server: ERROR: f2d_register_rpc() =&gt; (null) (-22) 相关问题：[https://github.com/facebook/jest/issues/1767] 解决">
-<meta itemprop="datePublished" content="2019-03-23T10:44:05&#43;08:00" />
-<meta itemprop="dateModified" content="2019-03-23T10:44:05&#43;08:00" />
+<meta itemprop="description" content="遇到问题： 1 2 jest node[20471] (FSEvents.framework) FSEventStreamStart: register_with_server: ERROR: f2d_register_rpc() =&gt; (null) (-22) 相关问题：[https://github.com/facebook/jest/issues/1767] 解决"><meta itemprop="datePublished" content="2019-03-23T10:44:05+08:00" />
+<meta itemprop="dateModified" content="2019-03-23T10:44:05+08:00" />
 <meta itemprop="wordCount" content="309">
-
-
-
 <meta itemprop="keywords" content="React," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="react-project-unitest"/>
 <meta name="twitter:description" content="遇到问题： 1 2 jest node[20471] (FSEvents.framework) FSEventStreamStart: register_with_server: ERROR: f2d_register_rpc() =&gt; (null) (-22) 相关问题：[https://github.com/facebook/jest/issues/1767] 解决"/>
@@ -142,11 +139,11 @@
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">jest</span> <span class="nx">node</span><span class="p">[</span><span class="mi">20471</span><span class="p">]</span> <span class="p">(</span><span class="nx">FSEvents</span><span class="p">.</span><span class="nx">framework</span><span class="p">)</span> <span class="nx">FSEventStreamStart</span><span class="o">:</span> <span class="nx">register_with_server</span><span class="o">:</span> <span class="nx">ERROR</span><span class="o">:</span> <span class="nx">f2d_register_rpc</span><span class="p">(</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">(</span><span class="kc">null</span><span class="p">)</span> <span class="p">(</span><span class="o">-</span><span class="mi">22</span><span class="p">)</span>
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="nx">jest</span> <span class="nx">node</span><span class="p">[</span><span class="mi">20471</span><span class="p">]</span> <span class="p">(</span><span class="nx">FSEvents</span><span class="p">.</span><span class="nx">framework</span><span class="p">)</span> <span class="nx">FSEventStreamStart</span><span class="o">:</span> <span class="nx">register_with_server</span><span class="o">:</span> <span class="nx">ERROR</span><span class="o">:</span> <span class="nx">f2d_register_rpc</span><span class="p">()</span> <span class="p">=&gt;</span> <span class="p">(</span><span class="kc">null</span><span class="p">)</span> <span class="p">(</span><span class="o">-</span><span class="mi">22</span><span class="p">)</span>
 
 </code></pre></td></tr></table>
 </div>
@@ -163,7 +160,7 @@
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -179,20 +176,20 @@
 </span><span class="lnt">14
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-js" data-lang="js"><span class="err">●</span> <span class="nx">Test</span> <span class="nx">suite</span> <span class="nx">failed</span> <span class="nx">to</span> <span class="nx">run</span>
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="err">●</span> <span class="nx">Test</span> <span class="nx">suite</span> <span class="nx">failed</span> <span class="nx">to</span> <span class="nx">run</span>
 
     <span class="nx">ReferenceError</span><span class="o">:</span> <span class="nb">document</span> <span class="nx">is</span> <span class="nx">not</span> <span class="nx">defined</span>
       
       <span class="nx">at</span> <span class="nb">Object</span><span class="p">.</span><span class="o">&lt;</span><span class="nx">anonymous</span><span class="o">&gt;</span> <span class="p">(</span><span class="nx">node_modules</span><span class="o">/</span><span class="nx">bizcharts</span><span class="o">/</span><span class="nx">umd</span><span class="o">/</span><span class="nx">BizCharts</span><span class="p">.</span><span class="nx">js</span><span class="o">:</span><span class="mi">21580</span><span class="o">:</span><span class="mi">13</span><span class="p">)</span>
-      <span class="nx">at</span> <span class="nx">__webpack_require__</span> <span class="p">(</span><span class="nx">node_modules</span><span class="o">/</span><span class="nx">bizcharts</span><span class="o">/</span><span class="nx">umd</span><span class="o">/</span><span class="nx">BizCharts</span><span class="p">.</span><span class="nx">js</span><span class="o">:</span><span class="mi">30</span><span class="o">:</span><span class="mi">30</span><span class="p">)</span>
+      <span class="nx">at</span> <span class="mi">__</span><span class="nx">webpack_require__</span> <span class="p">(</span><span class="nx">node_modules</span><span class="o">/</span><span class="nx">bizcharts</span><span class="o">/</span><span class="nx">umd</span><span class="o">/</span><span class="nx">BizCharts</span><span class="p">.</span><span class="nx">js</span><span class="o">:</span><span class="mi">30</span><span class="o">:</span><span class="mi">30</span><span class="p">)</span>
       <span class="nx">at</span> <span class="nb">Object</span><span class="p">.</span><span class="o">&lt;</span><span class="nx">anonymous</span><span class="o">&gt;</span> <span class="p">(</span><span class="nx">node_modules</span><span class="o">/</span><span class="nx">bizcharts</span><span class="o">/</span><span class="nx">umd</span><span class="o">/</span><span class="nx">BizCharts</span><span class="p">.</span><span class="nx">js</span><span class="o">:</span><span class="mi">20927</span><span class="o">:</span><span class="mi">14</span><span class="p">)</span>
-      <span class="nx">at</span> <span class="nx">__webpack_require__</span> <span class="p">(</span><span class="nx">node_modules</span><span class="o">/</span><span class="nx">bizcharts</span><span class="o">/</span><span class="nx">umd</span><span class="o">/</span><span class="nx">BizCharts</span><span class="p">.</span><span class="nx">js</span><span class="o">:</span><span class="mi">30</span><span class="o">:</span><span class="mi">30</span><span class="p">)</span>
+      <span class="nx">at</span> <span class="mi">__</span><span class="nx">webpack_require__</span> <span class="p">(</span><span class="nx">node_modules</span><span class="o">/</span><span class="nx">bizcharts</span><span class="o">/</span><span class="nx">umd</span><span class="o">/</span><span class="nx">BizCharts</span><span class="p">.</span><span class="nx">js</span><span class="o">:</span><span class="mi">30</span><span class="o">:</span><span class="mi">30</span><span class="p">)</span>
       <span class="nx">at</span> <span class="nb">Object</span><span class="p">.</span><span class="o">&lt;</span><span class="nx">anonymous</span><span class="o">&gt;</span> <span class="p">(</span><span class="nx">node_modules</span><span class="o">/</span><span class="nx">bizcharts</span><span class="o">/</span><span class="nx">umd</span><span class="o">/</span><span class="nx">BizCharts</span><span class="p">.</span><span class="nx">js</span><span class="o">:</span><span class="mi">145</span><span class="o">:</span><span class="mi">18</span><span class="p">)</span>
-      <span class="nx">at</span> <span class="nx">__webpack_require__</span> <span class="p">(</span><span class="nx">node_modules</span><span class="o">/</span><span class="nx">bizcharts</span><span class="o">/</span><span class="nx">umd</span><span class="o">/</span><span class="nx">BizCharts</span><span class="p">.</span><span class="nx">js</span><span class="o">:</span><span class="mi">30</span><span class="o">:</span><span class="mi">30</span><span class="p">)</span>
+      <span class="nx">at</span> <span class="mi">__</span><span class="nx">webpack_require__</span> <span class="p">(</span><span class="nx">node_modules</span><span class="o">/</span><span class="nx">bizcharts</span><span class="o">/</span><span class="nx">umd</span><span class="o">/</span><span class="nx">BizCharts</span><span class="p">.</span><span class="nx">js</span><span class="o">:</span><span class="mi">30</span><span class="o">:</span><span class="mi">30</span><span class="p">)</span>
       <span class="nx">at</span> <span class="nb">Object</span><span class="p">.</span><span class="o">&lt;</span><span class="nx">anonymous</span><span class="o">&gt;</span> <span class="p">(</span><span class="nx">node_modules</span><span class="o">/</span><span class="nx">bizcharts</span><span class="o">/</span><span class="nx">umd</span><span class="o">/</span><span class="nx">BizCharts</span><span class="p">.</span><span class="nx">js</span><span class="o">:</span><span class="mi">41728</span><span class="o">:</span><span class="mi">12</span><span class="p">)</span>
-      <span class="nx">at</span> <span class="nx">__webpack_require__</span> <span class="p">(</span><span class="nx">node_modules</span><span class="o">/</span><span class="nx">bizcharts</span><span class="o">/</span><span class="nx">umd</span><span class="o">/</span><span class="nx">BizCharts</span><span class="p">.</span><span class="nx">js</span><span class="o">:</span><span class="mi">30</span><span class="o">:</span><span class="mi">30</span><span class="p">)</span>
+      <span class="nx">at</span> <span class="mi">__</span><span class="nx">webpack_require__</span> <span class="p">(</span><span class="nx">node_modules</span><span class="o">/</span><span class="nx">bizcharts</span><span class="o">/</span><span class="nx">umd</span><span class="o">/</span><span class="nx">BizCharts</span><span class="p">.</span><span class="nx">js</span><span class="o">:</span><span class="mi">30</span><span class="o">:</span><span class="mi">30</span><span class="p">)</span>
       <span class="nx">at</span> <span class="nb">Object</span><span class="p">.</span><span class="o">&lt;</span><span class="nx">anonymous</span><span class="o">&gt;</span> <span class="p">(</span><span class="nx">node_modules</span><span class="o">/</span><span class="nx">bizcharts</span><span class="o">/</span><span class="nx">umd</span><span class="o">/</span><span class="nx">BizCharts</span><span class="p">.</span><span class="nx">js</span><span class="o">:</span><span class="mi">4442</span><span class="o">:</span><span class="mi">11</span><span class="p">)</span>
-      <span class="nx">at</span> <span class="nx">__webpack_require__</span> <span class="p">(</span><span class="nx">node_modules</span><span class="o">/</span><span class="nx">bizcharts</span><span class="o">/</span><span class="nx">umd</span><span class="o">/</span><span class="nx">BizCharts</span><span class="p">.</span><span class="nx">js</span><span class="o">:</span><span class="mi">30</span><span class="o">:</span><span class="mi">30</span><span class="p">)</span>
+      <span class="nx">at</span> <span class="mi">__</span><span class="nx">webpack_require__</span> <span class="p">(</span><span class="nx">node_modules</span><span class="o">/</span><span class="nx">bizcharts</span><span class="o">/</span><span class="nx">umd</span><span class="o">/</span><span class="nx">BizCharts</span><span class="p">.</span><span class="nx">js</span><span class="o">:</span><span class="mi">30</span><span class="o">:</span><span class="mi">30</span><span class="p">)</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>解决：webstorm的 Jest options 加入 <code>--env=jsdom</code></p>
@@ -202,7 +199,7 @@
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -228,14 +225,14 @@
 </span><span class="lnt">24
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-js" data-lang="js">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js">
 <span class="kr">class</span> <span class="nx">LocalStorageMock</span> <span class="p">{</span>
-    <span class="nx">constructor</span><span class="p">(</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">store</span> <span class="o">=</span> <span class="p">{</span><span class="p">}</span><span class="p">;</span>
+    <span class="nx">constructor</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">store</span> <span class="o">=</span> <span class="p">{};</span>
     <span class="p">}</span>
 
-    <span class="nx">clear</span><span class="p">(</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">store</span> <span class="o">=</span> <span class="p">{</span><span class="p">}</span><span class="p">;</span>
+    <span class="nx">clear</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">store</span> <span class="o">=</span> <span class="p">{};</span>
     <span class="p">}</span>
 
     <span class="nx">getItem</span><span class="p">(</span><span class="nx">key</span><span class="p">)</span> <span class="p">{</span>
@@ -243,13 +240,13 @@
     <span class="p">}</span>
 
     <span class="nx">setItem</span><span class="p">(</span><span class="nx">key</span><span class="p">,</span> <span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">store</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">=</span> <span class="nx">value</span><span class="p">.</span><span class="nx">toString</span><span class="p">(</span><span class="p">)</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">store</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">=</span> <span class="nx">value</span><span class="p">.</span><span class="nx">toString</span><span class="p">();</span>
     <span class="p">}</span>
 
     <span class="nx">removeItem</span><span class="p">(</span><span class="nx">key</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">delete</span> <span class="k">this</span><span class="p">.</span><span class="nx">store</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span><span class="p">;</span>
+        <span class="k">delete</span> <span class="k">this</span><span class="p">.</span><span class="nx">store</span><span class="p">[</span><span class="nx">key</span><span class="p">];</span>
     <span class="p">}</span>
-<span class="p">}</span><span class="p">;</span>
+<span class="p">};</span>
 
 <span class="nx">global</span><span class="p">.</span><span class="nx">localStorage</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">LocalStorageMock</span><span class="p">;</span>
 </code></pre></td></tr></table>
@@ -325,7 +322,7 @@
   <span class="copyright-year">
     &copy; 
     2018 - 
-    2020
+    2021
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
