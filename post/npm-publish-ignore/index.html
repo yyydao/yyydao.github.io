@@ -181,19 +181,19 @@
 </div><p>发现业务依赖加载是需要拿到 dist内的index做为入口。</p>
 <h3 id="业务依赖是否存在">业务依赖是否存在</h3>
 <p>发现了，确实不存在<code>dist</code>文件夹.
-<figure><img src="/posts/images/npm-publish-ignore/npm.png"/><figcaption>
+<figure><img src="/post/images/npm-publish-ignore/npm.png"/><figcaption>
             <h4>npm</h4>
         </figcaption>
 </figure>
 </p>
 <h3 id="打包问题吗">打包问题吗？</h3>
 <p>在本地和CI的打包是存在 <code>dist</code> 的。那是为什么呢？</p>
-<figure><img src="/posts/images/npm-publish-ignore/local-dist.png"/><figcaption>
+<figure><img src="/post/images/npm-publish-ignore/local-dist.png"/><figcaption>
             <h4>本地</h4>
         </figcaption>
 </figure>
 
-<figure><img src="/posts/images/npm-publish-ignore/npm-ci.png"/><figcaption>
+<figure><img src="/post/images/npm-publish-ignore/npm-ci.png"/><figcaption>
             <h4>ci</h4>
         </figcaption>
 </figure>
@@ -201,7 +201,7 @@
 <h3 id="关键点">关键点</h3>
 <p>发现ci上的log有些异常，
 执行publish后，并没有推dist到npm私库上。
-<figure><img src="/posts/images/npm-publish-ignore/key.png"/><figcaption>
+<figure><img src="/post/images/npm-publish-ignore/key.png"/><figcaption>
             <h4>破案</h4>
         </figcaption>
 </figure>
