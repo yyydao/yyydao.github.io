@@ -115,6 +115,62 @@
           <section id="posts" class="posts">
     <article class="post">
   <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/reduce-your-git-repo/">缩小你的 git 仓库体积</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2022-09-25 </span>
+      
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      <p>最近做系统拆分，原来有一个业务在其他业务部门的代码仓库内，需要把这个业务从他们代码仓库拆出来。</p>
+<p>于是fork过来后，发现这个git仓库体积太大了，足足 1.5G ，明明代码部分其实就到顶也就 9M，只保留我们自己业务部分的代码，其实大小也就只有1.2M。但是历史的提交，都在<code>.git</code>文件夹内，于是就有了这个奇观。</p>
+<p>因为当初做 <code>CICD</code> 的时候，用的是一种很奇怪的方式实现的。之前在CD部署的过程，是把<code>npm run build</code> 出来的静态资源文件，再一次提交到了当前仓库内,于是随着公司业务的不断发展，终于变成了今天这个体积。还好，现在有了新的CICD流程，这种不合理的构建流程算是废弃了。但是还有如下这些问题要解决。</p>
+<ul>
+<li>给仓库减肥瘦身</li>
+<li>同时保留仓库的历史提交记录</li>
+</ul>
+<p>先看看瘦身成果：
+<figure><img src="/post/images/reduce-your-git-repo/result.png"/><figcaption>
+            <h4>result</h4>
+        </figcaption>
+</figure>
+</p>
+<p>对比瘦身前：
+<figure><img src="/post/images/reduce-your-git-repo/old.png"/><figcaption>
+            <h4>old</h4>
+        </figcaption>
+</figure>
+</p>
+    </div>
+    <div class="read-more">
+      <a href="/post/reduce-your-git-repo/" class="read-more-link">Read more...</a>
+    </div>
+  </div>
+</article>
+
+    <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/mini-vue3/">起手式</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2022-06-10 </span>
+      
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      1 2 3 4 mkdir my-mini-vue cd my-mini-vue npm init -y 本地 代码未动，ut先行。 1 npm i -D jest@27.5.1 TSC转译 安装ts 1 npm i -D typescript@4.6.3 安装ts同时也要安装tsc，用其初始化TS配置。 1 npx tsc --init
+    </div>
+    <div class="read-more">
+      <a href="/post/mini-vue3/" class="read-more-link">Read more...</a>
+    </div>
+  </div>
+</article>
+
+    <article class="post">
+  <header class="post-header">
     <h1 class="post-title"><a class="post-link" href="/post/npm-publish-ignore/">npm publish的坑</a></h1>
     <div class="post-meta">
       <span class="post-time"> 2021-11-01 </span>
@@ -173,44 +229,6 @@
   </div>
 </article>
 
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/react-project-unitest/">react-project-unitest</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2019-03-23 </span>
-      
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      遇到问题： 1 2 jest node[20471] (FSEvents.framework) FSEventStreamStart: register_with_server: ERROR: f2d_register_rpc() =&gt; (null) (-22) 相关问题：[https://github.com/facebook/jest/issues/1767] 解决
-    </div>
-    <div class="read-more">
-      <a href="/post/react-project-unitest/" class="read-more-link">Read more...</a>
-    </div>
-  </div>
-</article>
-
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/use-postgres-with-docker/">利用Docker快速使用Postgres数据库</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2018-08-08 </span>
-      
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      感谢技术的发展让我们比以前使用某些工具的时候，更方便了。 所以，现在都8102年了，Docker某种意义上已经成为了一种标准，无论你是前端、后
-    </div>
-    <div class="read-more">
-      <a href="/post/use-postgres-with-docker/" class="read-more-link">Read more...</a>
-    </div>
-  </div>
-</article>
-
     </section>
   
   <nav class="pagination">
@@ -248,7 +266,7 @@
   <span class="copyright-year">
     &copy; 
     2018 - 
-    2021
+    2022
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>

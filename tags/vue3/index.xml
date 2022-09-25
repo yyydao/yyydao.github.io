@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>vue3 on Nodecafe</title>
+    <link>https://nodecafe.me/tags/vue3/</link>
+    <description>Recent content in vue3 on Nodecafe</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Fri, 10 Jun 2022 18:09:09 +0800</lastBuildDate><atom:link href="https://nodecafe.me/tags/vue3/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>起手式</title>
+      <link>https://nodecafe.me/post/mini-vue3/</link>
+      <pubDate>Fri, 10 Jun 2022 18:09:09 +0800</pubDate>
+      
+      <guid>https://nodecafe.me/post/mini-vue3/</guid>
+      <description>1 2 3 4 mkdir my-mini-vue cd my-mini-vue npm init -y 本地 代码未动，ut先行。 1 npm i -D jest@27.5.1 TSC转译 安装ts 1 npm i -D typescript@4.6.3 安装ts同时也要安装tsc，用其初始化TS配置。 1 npx tsc --init</description>
+    </item>
+    
+  </channel>
+</rss>

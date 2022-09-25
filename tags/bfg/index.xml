@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>bfg on Nodecafe</title>
+    <link>https://nodecafe.me/tags/bfg/</link>
+    <description>Recent content in bfg on Nodecafe</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sun, 25 Sep 2022 15:30:35 +0800</lastBuildDate><atom:link href="https://nodecafe.me/tags/bfg/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>缩小你的 git 仓库体积</title>
+      <link>https://nodecafe.me/post/reduce-your-git-repo/</link>
+      <pubDate>Sun, 25 Sep 2022 15:30:35 +0800</pubDate>
+      
+      <guid>https://nodecafe.me/post/reduce-your-git-repo/</guid>
+      <description>&lt;p&gt;最近做系统拆分，原来有一个业务在其他业务部门的代码仓库内，需要把这个业务从他们代码仓库拆出来。&lt;/p&gt;
+&lt;p&gt;于是fork过来后，发现这个git仓库体积太大了，足足 1.5G ，明明代码部分其实就到顶也就 9M，只保留我们自己业务部分的代码，其实大小也就只有1.2M。但是历史的提交，都在&lt;code&gt;.git&lt;/code&gt;文件夹内，于是就有了这个奇观。&lt;/p&gt;
+&lt;p&gt;因为当初做 &lt;code&gt;CICD&lt;/code&gt; 的时候，用的是一种很奇怪的方式实现的。之前在CD部署的过程，是把&lt;code&gt;npm run build&lt;/code&gt; 出来的静态资源文件，再一次提交到了当前仓库内,于是随着公司业务的不断发展，终于变成了今天这个体积。还好，现在有了新的CICD流程，这种不合理的构建流程算是废弃了。但是还有如下这些问题要解决。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;给仓库减肥瘦身&lt;/li&gt;
+&lt;li&gt;同时保留仓库的历史提交记录&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;先看看瘦身成果：
+&lt;figure&gt;&lt;img src=&#34;https://nodecafe.me/post/images/reduce-your-git-repo/result.png&#34;/&gt;&lt;figcaption&gt;
+            &lt;h4&gt;result&lt;/h4&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;对比瘦身前：
+&lt;figure&gt;&lt;img src=&#34;https://nodecafe.me/post/images/reduce-your-git-repo/old.png&#34;/&gt;&lt;figcaption&gt;
+            &lt;h4&gt;old&lt;/h4&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

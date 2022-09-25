@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>缩小你的 git 仓库体积 - Nodecafe</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="YYY" /><meta name="description" content="最近做系统拆分，原来有一个业务在其他业务部门的代码仓库内，需要把这个业务从他们代码仓库拆出来。
+于是fork过来后，发现这个git仓库体积太大了，足足 1.5G ，明明代码部分其实就到顶也就 9M，只保留我们自己业务部分的代码，其实大小也就只有1.2M。但是历史的提交，都在.git文件夹内，于是就有了这个奇观。
+因为当初做 CICD 的时候，用的是一种很奇怪的方式实现的。之前在CD部署的过程，是把npm run build 出来的静态资源文件，再一次提交到了当前仓库内,于是随着公司业务的不断发展，终于变成了今天这个体积。还好，现在有了新的CICD流程，这种不合理的构建流程算是废弃了。但是还有如下这些问题要解决。
+ 给仓库减肥瘦身 同时保留仓库的历史提交记录  先看看瘦身成果：  result   对比瘦身前：  old   " /><meta name="keywords" content="git, bfg" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.88.1 with theme even" />
+
+
+<link rel="canonical" href="https://nodecafe.me/post/reduce-your-git-repo/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.b66c6488.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="缩小你的 git 仓库体积" />
+<meta property="og:description" content="最近做系统拆分，原来有一个业务在其他业务部门的代码仓库内，需要把这个业务从他们代码仓库拆出来。
+于是fork过来后，发现这个git仓库体积太大了，足足 1.5G ，明明代码部分其实就到顶也就 9M，只保留我们自己业务部分的代码，其实大小也就只有1.2M。但是历史的提交，都在.git文件夹内，于是就有了这个奇观。
+因为当初做 CICD 的时候，用的是一种很奇怪的方式实现的。之前在CD部署的过程，是把npm run build 出来的静态资源文件，再一次提交到了当前仓库内,于是随着公司业务的不断发展，终于变成了今天这个体积。还好，现在有了新的CICD流程，这种不合理的构建流程算是废弃了。但是还有如下这些问题要解决。
+
+给仓库减肥瘦身
+同时保留仓库的历史提交记录
+
+先看看瘦身成果：
+
+            result
+        
+
+
+对比瘦身前：
+
+            old
+        
+
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nodecafe.me/post/reduce-your-git-repo/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-09-25T15:30:35+08:00" />
+<meta property="article:modified_time" content="2022-09-25T15:30:35+08:00" />
+
+<meta itemprop="name" content="缩小你的 git 仓库体积">
+<meta itemprop="description" content="最近做系统拆分，原来有一个业务在其他业务部门的代码仓库内，需要把这个业务从他们代码仓库拆出来。
+于是fork过来后，发现这个git仓库体积太大了，足足 1.5G ，明明代码部分其实就到顶也就 9M，只保留我们自己业务部分的代码，其实大小也就只有1.2M。但是历史的提交，都在.git文件夹内，于是就有了这个奇观。
+因为当初做 CICD 的时候，用的是一种很奇怪的方式实现的。之前在CD部署的过程，是把npm run build 出来的静态资源文件，再一次提交到了当前仓库内,于是随着公司业务的不断发展，终于变成了今天这个体积。还好，现在有了新的CICD流程，这种不合理的构建流程算是废弃了。但是还有如下这些问题要解决。
+
+给仓库减肥瘦身
+同时保留仓库的历史提交记录
+
+先看看瘦身成果：
+
+            result
+        
+
+
+对比瘦身前：
+
+            old
+        
+
+"><meta itemprop="datePublished" content="2022-09-25T15:30:35+08:00" />
+<meta itemprop="dateModified" content="2022-09-25T15:30:35+08:00" />
+<meta itemprop="wordCount" content="1010">
+<meta itemprop="keywords" content="git,bfg," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="缩小你的 git 仓库体积"/>
+<meta name="twitter:description" content="最近做系统拆分，原来有一个业务在其他业务部门的代码仓库内，需要把这个业务从他们代码仓库拆出来。
+于是fork过来后，发现这个git仓库体积太大了，足足 1.5G ，明明代码部分其实就到顶也就 9M，只保留我们自己业务部分的代码，其实大小也就只有1.2M。但是历史的提交，都在.git文件夹内，于是就有了这个奇观。
+因为当初做 CICD 的时候，用的是一种很奇怪的方式实现的。之前在CD部署的过程，是把npm run build 出来的静态资源文件，再一次提交到了当前仓库内,于是随着公司业务的不断发展，终于变成了今天这个体积。还好，现在有了新的CICD流程，这种不合理的构建流程算是废弃了。但是还有如下这些问题要解决。
+
+给仓库减肥瘦身
+同时保留仓库的历史提交记录
+
+先看看瘦身成果：
+
+            result
+        
+
+
+对比瘦身前：
+
+            old
+        
+
+"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Nodecafe</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">about</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Nodecafe</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">about</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">缩小你的 git 仓库体积</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2022-09-25 </span>
+        
+        
+      </div>
+    </header>
+
+    
+    <div class="post-content">
+      <p>最近做系统拆分，原来有一个业务在其他业务部门的代码仓库内，需要把这个业务从他们代码仓库拆出来。</p>
+<p>于是fork过来后，发现这个git仓库体积太大了，足足 1.5G ，明明代码部分其实就到顶也就 9M，只保留我们自己业务部分的代码，其实大小也就只有1.2M。但是历史的提交，都在<code>.git</code>文件夹内，于是就有了这个奇观。</p>
+<p>因为当初做 <code>CICD</code> 的时候，用的是一种很奇怪的方式实现的。之前在CD部署的过程，是把<code>npm run build</code> 出来的静态资源文件，再一次提交到了当前仓库内,于是随着公司业务的不断发展，终于变成了今天这个体积。还好，现在有了新的CICD流程，这种不合理的构建流程算是废弃了。但是还有如下这些问题要解决。</p>
+<ul>
+<li>给仓库减肥瘦身</li>
+<li>同时保留仓库的历史提交记录</li>
+</ul>
+<p>先看看瘦身成果：
+<figure><img src="/post/images/reduce-your-git-repo/result.png"/><figcaption>
+            <h4>result</h4>
+        </figcaption>
+</figure>
+</p>
+<p>对比瘦身前：
+<figure><img src="/post/images/reduce-your-git-repo/old.png"/><figcaption>
+            <h4>old</h4>
+        </figcaption>
+</figure>
+</p>
+<h2 id="bfg">BFG</h2>
+<p>工欲善其事必先利其器。调研一波，选了工具  <a href="https://rtyley.github.io/bfg-repo-cleaner/">BFG</a>
+<figure><img src="/post/images/reduce-your-git-repo/bfg.png"/><figcaption>
+            <h4>bfg</h4>
+        </figcaption>
+</figure>
+</p>
+<p>Mac下直接homebrew安装 <code>brew install bfg</code></p>
+<h2 id="准备工作">准备工作</h2>
+<ol>
+<li>
+<p>克隆镜像仓库（分身）</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"> git clone --mirror your-repo.git
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>克隆仓库本体</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"> git clone  your-repo.git
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>安装 ggrep，因为我们会用到支持 perl的命令 <code>-P</code>，但是Mac上的grep版本未集成，于是装一个 gnu-grep。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">    brew install grep
+</code></pre></td></tr></table>
+</div>
+</div></li>
+</ol>
+<p>装好后，再加到 <code>.zshrc</code> 里面。
+<code>export PATH =&quot;/usr/local/opt/grep/libexec/gnubin:$PATH&quot; </code></p>
+<p>我们有了本体也有了分身，就好办事了。</p>
+<h2 id="瘦身">瘦身</h2>
+<p>首先，我们需要知道该删掉什么东西。</p>
+<p>1.找出该删什么文件。</p>
+<p>之前编译后的静态资源都在这里：
+<figure><img src="/post/images/reduce-your-git-repo/static.png"/><figcaption>
+            <h4>bfg</h4>
+        </figcaption>
+</figure>
+</p>
+<p>那么我们只要找出来这些内容就好。也有一种删除文件夹都操作，但是我一直失败不成功，于是找了github上的这个 <a href="https://github.com/rtyley/bfg-repo-cleaner/issues/12#issuecomment-233701287">issue</a>提供的方法。
+先<code>CD</code>到本体仓库</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"> git rev-list --all --objects -- public/b_static <span class="p">|</span> git cat-file --batch-check<span class="o">=</span><span class="s1">&#39;%(objectname) %(objecttype) %(rest)&#39;</span> <span class="p">|</span> ggrep -Pe <span class="s1">&#39;^\w+ blob&#39;</span> <span class="p">|</span> cut -d<span class="s1">&#39; &#39;</span> -f1 &gt; ./to-delete.txt
+</code></pre></td></tr></table>
+</div>
+</div><p>这里就是遍历出了文件夹下的所有需要删除的 object id，并输出到当前目录下。
+<figure><img src="/post/images/reduce-your-git-repo/delete-id.png"/><figcaption>
+            <h4>id</h4>
+        </figcaption>
+</figure>
+</p>
+<p>2.瘦身
+<code>cd</code> 到刚刚的分身仓库。上一步拿到了肃清名单，现在就要根据名单开始排队枪毙了（bushi</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">          bfg --no-blob-protection --strip-blobs-with-ids ../本体/to-delete.txt ./分身
+</code></pre></td></tr></table>
+</div>
+</div><p>3.推回原仓库（失败了）
+<figure><img src="/post/images/reduce-your-git-repo/push-fail.png"/><figcaption>
+            <h4>id</h4>
+        </figcaption>
+</figure>
+</p>
+<p>&ndash;force 也不行（不知道这个命令后果到话不推荐尝试哈）</p>
+<p>4.曲线救国
+查了一些<a href="https://stackoverflow.com/questions/28318599/git-push-error-pre-receive-hook-declined">stackoverflow</a>、<a href="https://github.com/rtyley/bfg-repo-cleaner/issues/350">issue</a>、<a href="https://github.com/rtyley/bfg-repo-cleaner/issues/41">issue</a>、<a href="https://forum.gitlab.com/t/git-push-mirror-doesnt-work/10538/17">gitlab</a>，看来是有一些保护措施，拒绝了我的重写。
+于是我打算，另建一个项目仓库，然后把这些推到新仓库内。
+在分身的目录下执行</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">git remote rename origin backup <span class="p">|</span> git remote add origin 新仓库.git <span class="p">|</span> git push --set-upstream origin master <span class="p">|</span> git push --all origin  <span class="p">|</span> git push --tags origin
+</code></pre></td></tr></table>
+</div>
+</div><p>这里就包含了切换origin、push 所有分支和tag。</p>
+<h2 id="后记">后记</h2>
+<p>最终，副本干掉了原来本体，本质上本体和副本有着相同的记忆，相同的能力，总让我想起十多年前看的科幻小说<a href="https://book.douban.com/subject/5395151/">「副本」</a>，挺有意思的，推进给大家。
+<figure><img src="/post/images/reduce-your-git-repo/book.png"/><figcaption>
+            <h4>「副本」</h4>
+        </figcaption>
+</figure>
+</p>
+<p>-EOF-</p>
+    </div>
+
+    
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/git/">git</a>
+          <a href="/tags/bfg/">bfg</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/mini-vue3/">
+            <span class="next-text nav-default">起手式</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:yyydao11@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/yyydao" class="iconfont icon-github" title="github"></a>
+  <a href="https://nodecafe.me/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2018 - 
+    2022
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">YYY</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-40600328-2', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>
